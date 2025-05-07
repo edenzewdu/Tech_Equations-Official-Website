@@ -386,7 +386,9 @@
                         <h:message for="email" styleClass="error-message" />
 
                         <h:outputLabel for="role" value="Role:" styleClass="form-label"/>
-                        <h:inputText id="role" value="ADMIN" disabled="true"/>
+                        <h:inputText id="role" value="#{userSessionBean.newUser.role}" readonly="true" styleClass="form-input"/>
+
+
 
                         <h:outputLabel for="password" value="Password" />
                         <h:inputSecret id="password" value="#{userSessionBean.newUser.password}" required="true" requiredMessage="Password is required" styleClass="form-input" />
