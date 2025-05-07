@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<head>
+    <title>TechEquations - Products and Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        section {
+            padding: 50px 10%;
+        }
+
+        #product-service-title {
+            background: #0A3D7E;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        #product-service-title h1 {
+            font-size: 4rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        #product-service-title p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            animation: fadeInUp 1s ease-out 0.5s;
+        }
+
+        #features {
+            background-color: white;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            animation: fadeInUp 1s ease-out 1s;
+        }
+
+        #features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<h:body>
+    <ui:include src="/common/header.xhtml" />
+
+    <section id="product-service-title">
+        <h1>TechEquations Products &amp; Services</h1>
+        <p>Explore our innovative solutions designed to enhance your business efficiency</p>
+    </section>
+
+    <section id="features">
+        <h2>Key Features</h2>
+        <ui:repeat value="#{productBean.featureList}" var="feature">
+            <div class="feature-item">
+                <h3><h:outputText value="#{feature.title}" /></h3>
+                <p><h:outputText value="#{feature.description}" /></p>
+            </div>
+        </ui:repeat>
+    </section>
+
+    <ui:include src="/common/footer.xhtml" />
+</h:body>
+</html>

@@ -1,0 +1,134 @@
+/* Header Styling */
+.header-wrapper {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.header-container {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    margin: 10px 0 0 0;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 100%;
+    height: 60px;
+    object-fit: cover;
+}
+
+.tech-equations {
+    top: 15px;
+    left: 80px;
+    position: relative;
+}
+
+.text-wrapper-1 {
+    font-weight: 600;
+    font-size: 50px;
+    letter-spacing: 0;
+    line-height: 30px;
+    white-space: nowrap;
+    font-family: "Inter", Helvetica, Arial, sans-serif;
+    display: flex;
+    gap: 5px;
+    color: #0e4270;
+}
+
+.text-wrapper-2 {
+    font-weight: 600;
+    font-size: 50px;
+    letter-spacing: 0;
+    line-height: 30px;
+    white-space: nowrap;
+    font-family: "Inter", Helvetica, Arial, sans-serif;
+    display: flex;
+    gap: 5px;
+    color: #73d2f3;
+}
+
+/* Navigation Links */
+.menu-section {
+    align-items: flex-end;
+    width: 70%;
+    height: 22px;
+    justify-content: space-around;
+}
+
+.menu-link {
+    font-weight: 500;
+    color: #000;
+    font-size: 18px;
+    font-family: "Inter", Helvetica, Arial, sans-serif;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+
+.menu-link:hover {
+    background-color: #e0f0ff;
+    color: #0e4270;
+}
+
+.login {
+    font-family: "Inter", Helvetica, Arial, sans-serif;
+    color: #a6a6a6;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Hamburger menu (hidden by default) */
+.hamburger-menu {
+    display: none;
+}
+
+/* Mobile menu (initially hidden) */
+.mobile-menu {
+    display: none;
+    background-color: #fff;
+    width: 100%;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu .menu-link {
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo-section {
+        margin-bottom: 10px;
+    }
+
+    .menu-section {
+        display: none;  /* Hide menu on small screens */
+    }
+
+    /* Show hamburger menu */
+    .hamburger-menu {
+        display: block;
+        cursor: pointer;
+    }
+
+    .menu-link {
+        font-size: 14px;
+    }
+
+    /* Show mobile menu */
+    .mobile-menu.show {
+        display: block;
+    }
+}

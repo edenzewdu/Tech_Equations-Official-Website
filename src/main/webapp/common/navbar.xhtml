@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<h:head>
+    <title>Tech Equations - Navigation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: transparent;
+            color: #0e4270;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: flex-end; /* Align to the right */
+            align-items: center;
+            flex-wrap: wrap;
+            font-family: Helvetica;
+            margin-right: 25%;
+        }
+
+        .menu-section {
+            display: flex;
+            gap: 1rem;
+            list-style-type: none;
+            justify-content: flex-end; /* Align menu items to the right */
+        }
+
+        .menu-section li a {
+            color: #73d2f3;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-section li a:hover,
+        .menu-section li a:focus {
+            background-color: #0e4270;
+            color: #73d2f3;
+        }
+
+        /* Active link style */
+        .menu-section li a.active {
+            color: black;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            list-style-type: none;
+            background-color: #444;
+            width: 100%;
+        }
+
+        .mobile-menu li a {
+            padding: 1rem;
+            display: block;
+            color: white;
+            text-decoration: none;
+            border-top: 1px solid #555;
+        }
+
+        .mobile-menu li a.active {
+            color: black;
+            background-color: white; /* optional: adds contrast for better visibility */
+        }
+
+        @media (max-width: 800px) {
+            .menu-section {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+                margin: 10px;
+                font-size: 3rem;
+            }
+
+            .mobile-menu.show {
+                display: flex;
+            }
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('show');
+        }
+
+        // Reset mobile menu on resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 800) {
+                document.getElementById('mobileMenu').classList.remove('show');
+            }
+        });
+
+        // Optional: Set the active link dynamically
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.menu-section li a, .mobile-menu li a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    links.forEach(link => link.classList.remove('active')); // Remove active class from all
+                    link.classList.add('active'); // Add active class to the clicked link
+                });
+            });
+        });
+    </script>
+</h:head>
+<h:body>
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" tabindex="0">☰</div>
+        <ul class="menu-section" role="navigation">
+            <li><a href="#" role="link" aria-label="Go to Home" class="active">Home</a></li>
+            <li><a href="#" role="link" aria-label="Go to About">About</a></li>
+            <li><a href="#" role="link" aria-label="Go to Services">Services</a></li>
+            <li><a href="#" role="link" aria-label="Go to Contact">Contact</a></li>
+        </ul>
+
+        <ul class="mobile-menu" id="mobileMenu" aria-label="Mobile menu" role="menu">
+            <li><a href="#" role="menuitem" aria-label="Go to Home" class="active">Home</a></li>
+            <li><a href="#" role="menuitem" aria-label="Go to About">About</a></li>
+            <li><a href="#" role="menuitem" aria-label="Go to Services">Services</a></li>
+            <li><a href="#" role="menuitem" aria-label="Go to Contact">Contact</a></li>
+        </ul>
+    </nav>
+</h:body>
+</html>

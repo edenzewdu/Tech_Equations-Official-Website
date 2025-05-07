@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>FAQ Management</title>
+</h:head>
+<h:body>
+
+    <h1>Frequently Asked Questions</h1>
+
+    <!-- Add New FAQ Form -->
+    <h:form>
+        <h3>Add New FAQ</h3>
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel for="question" value="Question:" />
+            <h:inputTextarea id="question" value="#{faqBean.newFaq.question}" required="true" cols="60" rows="3"/>
+
+            <h:outputLabel for="answer" value="Answer:" />
+            <h:inputTextarea id="answer" value="#{faqBean.newFaq.answer}" required="true" cols="60" rows="5"/>
+
+            <h:outputLabel for="category" value="Category:" />
+            <h:inputText id="category" value="#{faqBean.newFaq.category}" />
+
+            <h:outputLabel for="displayOrder" value="Display Order:" />
+            <h:inputText id="displayOrder" value="#{faqBean.newFaq.displayOrder}" />
+
+            <h:outputText />
+            <h:commandButton value="Add FAQ" action="#{faqBean.saveFaq}" />
+        </h:panelGrid>
+    </h:form>
+
+    <hr/>
+
+    <!-- Edit FAQ Form (only visible when an FAQ is selected) -->
+    <h:form rendered="#{not empty faqBean.selectedFaq}">
+        <h3>Edit FAQ</h3>
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel for="editQuestion" value="Question:" />
+            <h:inputTextarea id="editQuestion" value="#{faqBean.selectedFaq.question}" required="true" cols="60" rows="3"/>
+
+            <h:outputLabel for="editAnswer" value="Answer:" />
+            <h:inputTextarea id="editAnswer" value="#{faqBean.selectedFaq.answer}" required="true" cols="60" rows="5"/>
+
+            <h:outputLabel for="editCategory" value="Category:" />
+            <h:inputText id="editCategory" value="#{faqBean.selectedFaq.category}" />
+
+            <h:outputLabel for="editDisplayOrder" value="Display Order:" />
+            <h:inputText id="editDisplayOrder" value="#{faqBean.selectedFaq.displayOrder}" />
+
+            <h:outputText />
+            <h:commandButton value="Update FAQ" action="#{faqBean.updateFaq}" />
+        </h:panelGrid>
+    </h:form>
+
+    <hr/>
+
+    <!-- FAQ List -->
+    <h:form>
+        <h3>All FAQs</h3>
+        <h:dataTable value="#{faqBean.allFaqs}" var="faq" border="1" cellpadding="5">
+            <h:column>
+                <f:facet name="header">Question</f:facet>
+                #{faq.question}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Answer</f:facet>
+                <h:outputText value="#{faq.answer}" escape="false" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Category</f:facet>
+                #{faq.category}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Order</f:facet>
+                #{faq.displayOrder}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Actions</f:facet>
+                <h:commandButton value="Edit" action="#{faqBean.setSelectedFaq(faq)}" />
+                <h:commandButton value="Delete" action="#{faqBean.deleteFaq(faq.id)}"
+                                 onclick="return confirm('Are you sure?')" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
+</h:body>
+</html>

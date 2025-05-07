@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Partners</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h2>Our Partners</h2>
+
+        <p:dataTable value="#{partnerBean.partners}" var="p">
+            <p:column headerText="Logo">
+                <h:graphicImage value="#{p.logoUrl}" width="100" height="100" />
+            </p:column>
+            <p:column headerText="Name">
+                <h:outputText value="#{p.name}" />
+            </p:column>
+            <p:column headerText="Website">
+                <p:commandLink value="Visit" action="#{partnerBean.visitWebsite(p.websiteUrl)}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
+

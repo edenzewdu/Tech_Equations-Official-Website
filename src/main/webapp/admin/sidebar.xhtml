@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:outputLabel value="Hello, world"/>
+</f:view>
+<h:head>
+   <style type="text/css">
+
+       /* Header Styling */
+       .header {
+           background-color: white;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+           position: fixed;
+           width: 100%;
+           top: 0;
+           left: 0;
+           z-index: 10;
+           transition: all 0.3s ease-in-out;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+       }
+      .menu-toggle {
+         font-size: 50px;
+         cursor: pointer;
+         padding: 20px;
+      }
+
+      /* Sidebar Styling */
+      .sidebar {
+         position: fixed;
+         left: -250px; /* Initially hidden off-screen */
+         width: 250px;
+         height: 100%;
+         background-color: #2d3e50;
+         padding: 40px 20px 0px 40px;
+         color: white;
+         transition: left 0.3s ease;
+         box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar.open {
+         left: 0; /* Show sidebar when toggled */
+      }
+
+      .sidebar h2 {
+         font-size: 24px;
+         margin-bottom: 30px;
+         text-align: center;
+         letter-spacing: 1px;
+      }
+
+      .sidebar ul {
+         list-style: none;
+         margin-top: 20px;
+      }
+
+      .sidebar ul li {
+         margin: 15px 0;
+      }
+
+      .sidebar ul li a {
+         color: white;
+         text-decoration: none;
+         font-size: 18px;
+         display: block;
+         padding: 8px 15px;
+         border-radius: 5px;
+         transition: background-color 0.3s ease;
+      }
+
+      .sidebar ul li a:hover {
+         background-color: #4c5b6f;
+      }
+
+      /* Main Content Styling */
+      .main-content {
+         margin-left: 0;
+         padding: 30px;
+         margin-top: 100px;
+         transition: all 0.3s ease;
+      }
+
+      .main-content.shifted {
+         margin-left: 270px;
+      }
+
+      .main-content h1 {
+         font-size: 36px;
+         color: #2c3e50;
+         margin-bottom: 30px;
+      }
+       @media (max-width: 768px) {
+
+           .sidebar {
+               width: 200px;
+               top: 70px; /* Adjust for header */
+           }
+       }
+   </style>
+    <script type="text/javascript">
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+
+            sidebar.classList.toggle('open');
+            mainContent.classList.toggle('shifted');
+        }
+    </script>
+</h:head>
+<h:body>
+    <div class="header">
+    <span class="menu-toggle" onclick="toggleSidebar()">&#9776;</span> <!-- Hamburger icon -->
+        <ui:include src="/common/header.xhtml" />
+    </div>
+
+    <!-- Sidebar remains fixed on the left -->
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><h:link value="Users" outcome="/admin/users" /></li>
+            <li><h:link value="Testimonials" outcome="/admin/testimonials" /></li>
+            <li><h:link value="Contact Submissions" outcome="/admin/contact" /></li>
+        </ul>
+    </div>
+</h:body>
+</html>
+

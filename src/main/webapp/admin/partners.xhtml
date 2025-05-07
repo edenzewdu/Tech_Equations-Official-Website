@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Partners Management</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h2>Manage Partners</h2>
+
+        <p:dataTable value="#{partnerBean.partners}" var="p">
+            <p:column headerText="Name">
+                <h:outputText value="#{p.name}" />
+            </p:column>
+            <p:column headerText="Logo">
+                <h:graphicImage value="#{p.logoUrl}" width="50" height="50" />
+            </p:column>
+            <p:column headerText="Website">
+                <h:outputText value="#{p.websiteUrl}" />
+            </p:column>
+            <p:column>
+                <p:commandButton value="Edit" action="#{partnerBean.updatePartner}" />
+                <p:commandButton value="Delete" action="#{partnerBean.deletePartner(p)}" />
+            </p:column>
+        </p:dataTable>
+
+        <h:panelGrid columns="2">
+            <h:outputLabel for="name" value="Name:" />
+            <h:inputText id="name" value="#{partnerBean.partner.name}" />
+
+            <h:outputLabel for="logoUrl" value="Logo URL:" />
+            <h:inputText id="logoUrl" value="#{partnerBean.partner.logoUrl}" />
+
+            <h:outputLabel for="websiteUrl" value="Website URL:" />
+            <h:inputText id="websiteUrl" value="#{partnerBean.partner.websiteUrl}" />
+
+            <h:outputLabel for="displayOrder" value="Display Order:" />
+            <h:inputText id="displayOrder" value="#{partnerBean.partner.displayOrder}" />
+
+            <p:commandButton value="Create Partner" action="#{partnerBean.createPartner}" />
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>

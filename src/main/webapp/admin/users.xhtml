@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>User Management</title>
+    <script type="text/javascript">
+        function toggleCreateForm() {
+            var formDiv = document.getElementById("createUserForm");
+            formDiv.style.display = formDiv.style.display === "none" ? "block" : "none";
+        }
+    </script>
+    <style type="text/css">
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body setup */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fc;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .add-button h:commandButton {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        h:panelGrid {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        h:outputLabel {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        h:inputText, h:selectOneMenu {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        h:commandButton {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        h:commandButton:hover {
+            background-color: #2980b9;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .search-bar p\:inputText {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        p\:column[headerText] {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Main container styling */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 220px; /* Adjust for sidebar */
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 20px;
+
+        }
+
+        /* Panel and form styling */
+        h:form {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h:panelGrid {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        h:outputLabel {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        h:inputText, h:selectOneMenu {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        h:commandButton {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        h:commandButton:hover {
+            background-color: #2980b9;
+        }
+
+        /* User table styling */
+        p:dataTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        p:column {
+            text-align: center;
+            padding: 12px;
+            font-size: 1rem;
+            color: #34495e;
+            border: 1px solid #ddd;
+        }
+
+        p:column headerText {
+            font-weight: bold;
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+        }
+
+        p:column:last-child {
+            text-align: center;
+        }
+
+        /* Action buttons for edit and delete */
+        h:commandLink {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 8px;
+        }
+
+        h:commandLink:hover {
+            color: #2980b9;
+        }
+
+        p:dataTable tr {
+            transition: background-color 0.3s ease;
+        }
+
+        p:dataTable tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        p\:column[headerText] {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        /* Style for the button */
+        .clickable-btn {
+            padding: 20px 30px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 20%;
+        }
+
+        /* Animation effect on click */
+        .clickable-btn:active {
+            transform: scale(0.95); /* Slightly shrink the button */
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+        }
+
+        /* Hover effect for more visual feedback */
+        .clickable-btn:hover {
+            background-color: #2c3e50; /* Darker shade when hovered */
+        }
+        /* Modal form overlay */
+        .modal-form {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modal form content box */
+        .modal-content {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            max-width: 90%;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        /* Slide in animation */
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Form grid styling */
+        .form-grid {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+            padding-right: 10px;
+        }
+        .form-input {
+            padding-bottom: 10px;
+        }
+
+        /* Form buttons */
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-submit {
+            background-color: #28a745;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+
+        .btn-cancel {
+            background-color: #dc3545;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-cancel:hover {
+            background-color: #c82333;
+        }
+
+
+
+
+        /* Search bar */
+        .search-bar { margin-bottom: 10px; }
+        .search-bar input { width: 300px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;}
+
+        /* DataTable styling */
+        .ui-datatable th { background: #2c3e50; color: #fff; font-weight: bold; padding: 10px; }
+        .ui-datatable td { padding: 12px; border-bottom: 1px solid #eee; }
+        .ui-datatable tr:hover { background: #f1f1f1; }
+
+        /* RowEditor icons */
+        .ui-row-editor .ui-button-icon-only { margin: 0 5px; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content.shifted {
+                margin-left: 0;
+            }
+            .search-bar input {
+                width: 100%;
+            }
+
+            p:dataTable {
+                font-size: 0.9rem;
+            }
+
+            .form-container {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</h:head>
+<h:body>
+    <ui:include src="sidebar.xhtml" />
+
+    <div class="main-content">
+        <h1>User Management</h1>
+
+        <!-- Add User button -->
+        <h:form style="display: flex; justify-content: flex-end; padding: 10px;">
+            <h:commandButton value="Add User" type="button" onclick="toggleCreateForm()" styleClass="clickable-btn" />
+        </h:form>
+
+        <!-- Search bar -->
+        <div class="search-bar">
+            <h:form >
+                <p:inputText value="#{userSessionBean.searchTerm}" placeholder="Search by name..." />
+                <p:commandButton value="Search" icon="pi pi-search" action="#{userSessionBean.getSearchUser(searchTerm)}" update="userForm:userTable" />
+            </h:form>
+        </div>
+
+        <!-- User creation form -->
+        <div id="createUserForm" class="modal-form">
+            <div class="modal-content">
+                <h2>Create New User</h2>
+                <h:form>
+                    <h:panelGrid columns="2" columnClasses="form-label,form-input" styleClass="form-grid">
+
+                        <h:messages globalOnly="true" layout="list" styleClass="error-message" />
+                        <h:outputLabel for="name" value="Full Name" styleClass="form-label" />
+                        <h:inputText id="name" value="#{userSessionBean.newUser.name}" required="true" requiredMessage="Name is required" styleClass="form-input"/>
+                        <h:message for="name" styleClass="error-message" />
+
+                        <h:outputLabel for="email" value="Email" styleClass="form-label" />
+                        <h:inputText id="email" value="#{userSessionBean.newUser.email}" required="true" requiredMessage="Email is required" styleClass="form-input"/>
+                        <h:message for="email" styleClass="error-message" />
+
+                        <h:outputLabel for="role" value="Role:" styleClass="form-label"/>
+                        <h:inputText id="role" value="ADMIN" disabled="true"/>
+
+                        <h:outputLabel for="password" value="Password" />
+                        <h:inputSecret id="password" value="#{userSessionBean.newUser.password}" required="true" requiredMessage="Password is required" styleClass="form-input" />
+                        <h:message for="password" styleClass="error-message" />
+
+
+                    </h:panelGrid>
+
+                    <div class="form-buttons">
+                        <h:commandButton value="Create User" action="#{userSessionBean.createUser}" styleClass="btn-submit" />
+                        <h:commandButton value="Cancel" type="button" onclick="toggleCreateForm()" styleClass="btn-cancel" />
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+
+
+        <!-- User table -->
+        <h:form id="userForm">
+            <p:dataTable id="userTable" value="#{userSessionBean.getUsers()}" var="user" editable="true" styleClass="ui-datatable">
+
+                <p:column headerText="Name">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{user.name}" /></f:facet>
+                        <f:facet name="input"><h:inputText value="#{user.name}" /></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Email">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{user.email}" /></f:facet>
+                        <f:facet name="input"><h:inputText value="#{user.email}" /></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Role">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{user.role}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{user.role}">
+                                <f:selectItem itemValue="USER" itemLabel="User" />
+                                <f:selectItem itemValue="ADMIN" itemLabel="Admin" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Actions">
+                    <p:rowEditor />
+                    <h:commandLink value="Edit" action="#{userBean.editUser(user)}"
+                                   onclick="return confirm('Are you sure you want to edit this user?');"/>
+                    <h:commandLink value="Delete" action="#{userSessionBean.deleteUser(user)}" onclick="return confirm('Are you sure?');" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+    </div>
+</h:body>
+</html>
