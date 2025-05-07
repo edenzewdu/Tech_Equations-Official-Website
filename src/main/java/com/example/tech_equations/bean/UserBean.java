@@ -22,6 +22,8 @@ public class UserBean implements Serializable {
     private User loggedInUser;
     private Date lastAccessTime;
 
+    private User newUser = new User();
+
     @Inject
     private UserController userController;
 
@@ -29,12 +31,11 @@ public class UserBean implements Serializable {
     private List<User> searchUser;
 
     private String searchTerm;
-    private User newUser;
 
 
     public UserBean() {
-        // Set last access time when the bean is created
-        this.lastAccessTime = new Date();
+        newUser.setRole("ADMIN"); // ✅ Set role during initialization
+        this.lastAccessTime = new Date();// Set last access time when the bean is created
     }
 
     public User getLoggedInUser() {
@@ -119,6 +120,7 @@ public class UserBean implements Serializable {
     public void createUser() {
         userController.createUser(newUser);
         newUser = new User(); // this resets the form
+        newUser.setRole("ADMIN");    // Reset default role again
     }
     public void updateUser(User user) {
         userController.updateUser(user);
