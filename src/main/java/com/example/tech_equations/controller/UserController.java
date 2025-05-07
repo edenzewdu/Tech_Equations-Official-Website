@@ -19,10 +19,14 @@ public class UserController implements Serializable {
     @Inject
     private UserRepository userRepository;
 
+    private User user = new User();
+    private String searchTerm;
+    private List<User> filteredUsers;
+
     public UserController() {
         this.userRepository = new UserRepository();
+        loadUsers(); // Load initial list
     }
-
     public List<User> getUsers() {
         return userRepository.getAllUsers();
     }
@@ -36,7 +40,6 @@ public class UserController implements Serializable {
     }
 
     public void createUser(User user) {
-        user.role = "ADMIN";
         userRepository.saveUser(user);
     }
 
@@ -47,4 +50,65 @@ public class UserController implements Serializable {
     public void deleteUser(String id) {
         userRepository.deleteUserById(id);
     }
+
+        public void loadUsers() {
+            this.filteredUsers = userRepository.getAllUsers();
+        }
+
+        public void performSearch() {
+            if (searchTerm == null || searchTerm.isEmpty()) {
+                loadUsers();
+            } else {
+                this.filteredUsers = userRepository.searchUsers(searchTerm);
+            }
+        }
+
+        public void save() {
+            if (user.getId() == null) {
+                userRepository.saveUser(user);
+            } else {
+                userRepository.updateUser(user);
+            }
+            clearForm();
+            loadUsers();
+        }
+
+        public void delete(String id) {
+            userRepository.deleteUserById(id);
+            loadUsers();
+        }
+
+        public void edit(User selectedUser) {
+            this.user = selectedUser;
+        }
+
+        public void clearForm() {
+            this.user = new User(); // reset form
+        }
+
+        // Getters and setters
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        public String getSearchTerm() {
+            return searchTerm;
+        }
+
+        public void setSearchTerm(String searchTerm) {
+            this.searchTerm = searchTerm;
+        }
+
+        public List<User> getFilteredUsers() {
+            return filteredUsers;
+        }
+
+        public void setFilteredUsers(List<User> filteredUsers) {
+            this.filteredUsers = filteredUsers;
+        }
+
 }
