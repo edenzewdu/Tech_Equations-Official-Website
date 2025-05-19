@@ -6,10 +6,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-<!--    <f:metadata>-->
-<!--        <f:viewAction action="#{testimonialBean.init}" />-->
-<!--        <f:viewAction action="#{serviceBean.init}" />-->
-<!--    </f:metadata>-->
     <h:head>
         <title>Tech Equations - Home</title>
         <style>
@@ -41,7 +37,6 @@
                 height: 634px;
                 border-radius: 50%;
                 filter: blur(500px);
-                z-index: 0;
             }
 
             .ellipse {
@@ -60,7 +55,6 @@
                 display: flex;
                 flex-direction: column-reverse;
                 align-items: center;
-                z-index: 2;
                 position: relative;
             }
 
@@ -106,6 +100,8 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 20px;
+                justify-content: center;
+                margin-top: 30px;
             }
 
             .ui-button.button-primary {
@@ -128,22 +124,14 @@
                 align-items: center;
                 width: 30%;
                 height: 50px;
+                display: inline-flex;
+                justify-content: center;
+                gap: 10px;
             }
             body .ui-button.ui-button-text-icon-left .ui-icon {
                 position: absolute;
                 padding: 1px 10px 0 9px;
                 align-items: center;
-            }
-            .frame-6 {
-                width: 100%;
-                padding: 40px 20px;
-                background-color: #ffffff;
-            }
-
-            .group-63 {
-                max-width: 1200px;
-                margin: 0 auto;
-                text-align: center;
             }
 
             .our-top-services {
@@ -215,84 +203,260 @@
                 transition: transform 0.4s ease;
             }
 
+            .services-section {
+                background-color: #f9f9f9;
+                padding: 60px 20px;
+                text-align: center;
+            }
+
+            .services-section h2 {
+                font-size: 2.5em;
+                margin-bottom: 10px;
+                color: #333;
+            }
+
+            .services-section p {
+                color: #666;
+                font-size: 1em;
+                margin-bottom: 40px;
+            }
+
+            .services-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .service-card {
+                background-color: #fff;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                padding: 5% 5%;
+                max-width: calc(42% - 9rem);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .service-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .service-card h3 {
+                font-size: 1.4em;
+                margin-bottom: 10px;
+                color: #222;
+            }
+
+            .service-card p {
+                font-size: 0.95em;
+                color: #555;
+            }
+
             /* Responsive adjustments */
             @media screen and (max-width: 768px) {
-                .carousel-card {
-                    padding: 0.5rem;
-                }
-
-                .carousel-img {
-                    height: 120px;
-                }
-
-                .carousel-title {
-                    font-size: 1rem;
-                }
-
-                .carousel-desc {
-                    font-size: 0.85rem;
+                .service-card {
+                    flex: 1 1 100%;
+                    max-width: 70%;
                 }
             }
 
 
-            /*testimonials*/
+            /* Container for the testimonials section */
+            .frame-6 {
+                background-color: #f9f9f9;
+                padding: 40px 20px;
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+                text-align: center;
+            }
+
+            /* Header styles */
+            .our-top-services {
+                font-size: 28px;
+                font-weight: bold;
+                margin-bottom: 30px;
+            }
+
+            .text-wrapper-65 {
+                color: #333;
+            }
+
+            .text-wrapper-66 {
+                color: #007bff;
+            }
+            /* Fallback letter avatar */
+            .avatar-fallback {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                background-color: #007bff;
+                color: #fff;
+                font-size: 2rem;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 1rem auto;
+                border: 3px solid #007bff;
+            }
+
+            /* Base styling */
+            .testimonials-section {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 1.5rem;
+                padding-bottom: 1rem;
+                scroll-behavior: smooth;
+                transition: transform 3s ease-in-out; /* Smooth slide transition */
+                justify-content: center;
+            }
+
+            .testimonials-section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+                color: #2c3e50;
+            }
+
+            /* Grid layout */
+            /*.testimonials-container {*/
+            /*    display: flex;*/
+            /*    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));*/
+            /*    gap: 2rem;*/
+            /*    max-width: 1000px;*/
+            /*    margin: 0 auto;*/
+            /*}*/
+
+            .testimonials-container {
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 2rem;
+            }
+            /* Add a wrapper to control the hover effect on the whole section */
+            .testimonials-container:hover .testimonials-section {
+                transform: translateX(-10%); /* Adjust slide distance */
+                transition: transform 3s ease-in-out;
+            }
+            /* Card Style */
             .testimonial-card {
-                position: relative;
-                width: 343px;
-                height: 404px;
-                background-size: 100% 100%;
-                background-repeat: no-repeat;
-                margin: auto;
+                background: rgba(255, 255, 255, 0.08);
+                transform: skewY(-3deg);
+                padding: 2rem;
+                background: linear-gradient(to bottom right, #ffffff90, #f0f0f090);
+                border-radius: 2rem;
+                backdrop-filter: blur(20px);
+                border: 2px solid rgba(255, 255, 255, 0.2);
+                box-shadow: 0 0 15px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.2);
+                animation: fadeSlideUp 1s ease-out forwards;
+                opacity: 0;
+                scroll-snap-align: start;
+                flex: 0 0 calc(100% / 2 - 2rem); /* Two per row */
+                max-width: 450px;
+                transition: transform 0.6s ease, box-shadow 0.6s ease, border-radius 0.6s ease;
             }
 
-            /* Name */
-            .text-wrapper-80 {
-                top: 102px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-weight: 700;
-                color: #000;
-                font-size: 18px;
-                text-align: center;
-                position: absolute;
-                font-family: "Inter", Helvetica, sans-serif;
+            .testimonial-card:hover {
+                box-shadow: 0 0 25px #00f6ff, 0 0 50px #00f6ff;
+                transform: skewY(0deg) scale(1.1) rotate(1deg);
+                border-radius: 3rem; /* Change shape on hover */
+            }
+            .testimonial-card:nth-child(2n) {
+                border-radius: 50px 10px 50px 10px;
+                background: linear-gradient(to bottom left, #fff0f0, #f9f9ff);
             }
 
-            /* Title */
-            .text-wrapper-81 {
-                top: 128px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-family: "Inter", Helvetica, sans-serif;
-                font-weight: 400;
-                color: #000;
-                font-size: 12px;
-                text-align: center;
-                position: absolute;
+            .testimonial-card:nth-child(3n) {
+                clip-path: polygon(0 0, 100% 5%, 95% 100%, 5% 95%);
+                background: #f6f8ff;
+            }
+
+            /* Tablet: 1 card per row */
+            @media (max-width: 768px) {
+                .testimonial-card {
+                    flex: 0 0 90%;
+                }
+            }
+
+            /* Hide scrollbar */
+            .testimonials-section::-webkit-scrollbar {
+                display: none;
+            }
+
+            /* Animation */
+            @keyframes fadeSlideUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Avatar */
+            .avatar {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                object-fit: cover;
+                font-size: 2rem;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 1rem auto;
+                border: 3px solid #007bff;
             }
 
             /* Quote */
-            .text-wrapper-82 {
-                top: 172px;
-                width: 230px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-family: "Inter", Helvetica, sans-serif;
-                font-weight: 400;
-                color: #000;
-                font-size: 12px;
-                text-align: center;
-                position: absolute;
+            .testimonial-card blockquote {
+                font-style: italic;
+                color: #333;
+                position: relative;
+                padding: 1rem;
             }
 
-            /* Decorative quote icon */
-            .quote-icon {
+            .testimonial-card blockquote::before,
+            .testimonial-card blockquote::after {
+                content: '“';
+                font-size: 2rem;
+                color: #6c63ff;
                 position: absolute;
-                top: 155px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 20px;
+                font-family: Georgia, serif;
             }
+
+            .testimonial-card blockquote::before {
+                content: '“';
+                left: 0;
+                top: 6px;
+            }
+
+            .testimonial-card blockquote::after {
+                content: '”';
+                right: 0;
+                bottom: 0;
+            }
+
+            /* Author */
+            .author {
+                margin-top: 1rem;
+                font-weight: bold;
+                color: #444;
+            }
+
+            .author span {
+                display: block;
+                font-weight: normal;
+                font-size: 0.9rem;
+                color: #888;
+            }
+
+            /* Optional hover effect */
+            .testimonial-card:hover {
+                transform: scale(1.03);
+                transition: 0.3s ease-in-out;
+            }
+
 
             /* Reset box-sizing for consistency */
             * {
@@ -304,14 +468,6 @@
                 width: 100%;
                 background-color: #f9f9f9; /* Optional background */
                 padding: 2rem 0;
-            }
-
-            /* Grid layout now spans full width */
-            .plans-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 2rem;
-                width: 100%;
-                padding: 0 2rem;
             }
 
             /* Plan card styles */
@@ -365,7 +521,6 @@
             .button-primary,
             .button-secondary {
                 display: inline-block;
-                padding: 0.75rem 1.5rem;
                 font-size: 1rem;
                 border: none;
                 border-radius: 8px;
@@ -379,7 +534,7 @@
             }
 
             .button-primary:hover {
-                background-color: #005fa3;
+                background-color: #124271;
             }
 
             .button-secondary {
@@ -389,6 +544,118 @@
 
             .button-secondary:hover {
                 background-color: #e0e0e0;
+            }
+
+            .grid-parent {
+                margin-top: 60px;
+                display: grid;
+                grid-template-columns: repeat(3, 23%);
+                justify-content: center;
+                gap: 2rem;
+            }
+
+            .card {
+                border-radius: 8px;
+                padding: 2rem;
+                box-shadow: 0px 0px 25px -8px hsl(240, 9%, 76%);
+                position: relative;
+            }
+
+            .basic-card, .master-card {
+                background-color: white;
+                color: rgb(83, 83, 83);
+            }
+
+            .professional-card {
+                background-image: linear-gradient(to bottom right, #007ad9, #005fa3);
+                color: white;
+                transform: scale(1.05);
+                z-index: 1;
+                border: 3px solid #005fa3;
+            }
+
+            .professional-card::before {
+                content: "RECOMMENDED";
+                position: absolute;
+                top: -15px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #ffcc00;
+                color: #124271;
+                padding: 0.3em 1em;
+                font-size: 0.9em;
+                border-radius: 20px;
+                font-weight: bold;
+            }
+
+            .card-title {
+                margin: 25px 0 15px 0;
+                color: hsl(233, 13%, 49%);
+            }
+
+            .professional-card .card-title {
+                color: white;
+            }
+
+            .price {
+                font-size: 3.5em;
+                color: #124271;
+                margin: 0 0 20px 0;
+            }
+
+            .professional-card .price {
+                color: white;
+            }
+
+            .button {
+                background-image: linear-gradient(to right, #007ad9, #124271);
+                width: 100%;
+                height: 35px;
+                border: none;
+                border-radius: 5px;
+                color: black;
+                margin-top: 20px;
+                font-weight: 700;
+                letter-spacing: 1.3px;
+                cursor: pointer;
+            }
+
+            .professional-card .button {
+                background-color: #ffffff;
+                color: #000000;
+            }
+
+            .professional-card .button:hover {
+                background-image: linear-gradient(to right, #124271, #007ad9);
+                color: white;
+            }
+
+            .button:hover {
+                background-image: linear-gradient(to right, hsl(0, 0%, 100%), hsl(0, 0%, 100%));
+                color: #007ad9;
+                border: 1px solid #124271;
+            }
+
+            h5 {
+                margin: 10px 0;
+                font-weight: 500;
+            }
+
+            hr {
+                border: 0;
+                height: 1px;
+                background-color: #d2d2d2;
+            }
+
+            @media screen and (max-width: 800px) {
+                .grid-parent {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+
+                body {
+                    font-size: 3vw;
+                }
             }
 
             /* Responsive tweaks */
@@ -456,9 +723,14 @@
                 .headline {
                     font-size: 36px;
                 }
+                .ellipse-1 {
+                    width: 434px;
+                    height: 434px;
+                }
 
                 .ellipse, .ellipse-2 {
-                    display: none;
+                    width: 434px;
+                    height: 434px;
                 }
             }
         </style>
@@ -466,7 +738,6 @@
 
     <h:body>
         <!-- Include the reusable header -->
-        <ui:include src="/common/header.xhtml" />
         <ui:include src="/common/navbar.xhtml" />
 
         <!-- Main Content of the Home Page -->
@@ -493,7 +764,7 @@
                     </h:panelGroup>
 
                     <p:outputPanel styleClass="image-panel">
-                        <p:graphicImage value="#{resource['images/v108_21.png']}" library="default" alt="Happy Woman" styleClass="hero-image" />
+                        <p:graphicImage value="#{resource['images/happy.png']}" library="default" alt="Happy Woman" styleClass="hero-image" />
                     </p:outputPanel>
                 </h:panelGroup>
             </p:outputPanel>
@@ -509,13 +780,19 @@
                     </div>
                 </div>
 
-                <p:carousel value="#{serviceBean.services}" var="service" numVisible="3" circular="true" autoplayInterval="4000">
-                    <p:outputPanel styleClass="carousel-card">
-                        <p:graphicImage value="#{resource[service.imageUrl]}" alt="Image" styleClass="carousel-img" />
-                        <h3 class="carousel-title">#{service.title}</h3>
-                        <p class="carousel-desc">#{service.description}</p>
-                    </p:outputPanel>
-                </p:carousel>
+                <!-- IF 3 OR LESS -->
+                <h:panelGroup class="services-container">
+                    <ui:repeat value="#{serviceController.services}" var="service">
+                        <div class="service-card">
+                            <h3>#{service.name}</h3>
+                            <p>#{service.description}</p>
+                        </div>
+                    </ui:repeat>
+                </h:panelGroup>
+
+
+
+
             </p:outputPanel>
 
             <!-- Testimonials Section -->
@@ -526,16 +803,36 @@
                     </div>
                 </div>
 
-                <p:dataView value="#{testimonialBean.testimonials}" var="testimonial" layout="grid" rows="3" paginator="false">
-                    <p:outputPanel styleClass="testimonial-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="303" height="343" viewBox="0 0 303 343" fill="none">
-                            <path d="M0.686759 62.3789C3.72559 140.216 5.74523 182.621 12.3207 246.624C17.883 271.099 23.7669 281.226 42.8597 288.134C118.897 309.838 172.237 327.216 234.092 342.024C259.277 341.42 268.255 334.859 276.265 320.177C289.953 268.391 292.512 211.689 302.442 139.573C303.773 111.761 298.267 100.465 276.265 88.5957C195.658 54.7465 78.4886 8.48892 78.4886 8.48892C78.4886 8.48892 56.0918 -2.28758 42.8597 0.478247C27.3842 5.33123 20.6517 10.7047 12.3207 21.5973C2.70946 34.4498 0.192144 43.3867 0.686759 62.3789Z" fill="white"/>
-                        </svg>
-                        <h4>#{testimonial.name}</h4>
-                        <p>#{testimonial.message}</p>
-                    </p:outputPanel>
-                </p:dataView>
+            <h:form id="testimonialForm">
+                <div class="testimonials-section">
+                    <div class="testimonials-container">
+                        <ui:repeat value="#{testimonialController.publishedTestimonials}" var="t">
+                            <div class="testimonial-card">
+
+                                <!-- Avatar with image or fallback -->
+                                <ui:fragment rendered="#{not empty t.avatarUrl}">
+                                    <img src="#{t.avatarUrl}" alt="#{t.authorName}" class="avatar" />
+                                </ui:fragment>
+
+                                <ui:fragment rendered="#{empty t.avatarUrl}">
+                                    <div class="avatar-fallback">
+                                        #{fn:toUpperCase(fn:substring(t.authorName, 0, 1))}
+                                    </div>
+                                </ui:fragment>
+
+                                <blockquote>#{t.quoteText}</blockquote>
+
+                                <p class="author">
+                                    #{t.authorName}
+                                    <span>#{t.authorTitle}</span>
+                                </p>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </h:form>
             </p:outputPanel>
+
 
             <!-- Plans Section -->
             <p:outputPanel styleClass="frame-6">
@@ -549,18 +846,29 @@
                 </div>
 
                 <h:panelGrid columns="3" styleClass="plans-grid">
-                        <ui:repeat value="#{pricingPlanBean.pricingPlans}" var="plan">
-                            <p:outputPanel styleClass="plan-card #{plan.highlighted ? 'highlighted' : ''}">
-                                <h3>#{plan.name}</h3>
-                                <p class="plan-price">$#{plan.price}/#{plan.billingFrequency}</p>
-                                <ul>
-                                    <ui:repeat value="#{fn:split(plan.features, ',')}" var="feature">
-                                        <li>#{feature}</li>
-                                    </ui:repeat>
-                                </ul>
-                                <p:commandButton value="Select" styleClass="#{plan.highlighted ? 'button-secondary' : 'button-primary'}" action="#" />
-                            </p:outputPanel>
+                    <h:panelGrid columns="2" style="align-items: center;">
+                        <h:outputText value="Billing Frequency: #{pricingPlanController.currentFrequency}" styleClass="freq-label" />
+                        <h:commandButton value="▶" action="#{pricingPlanController.nextFrequency}" styleClass="next-button" />
+                    </h:panelGrid>
+                    <div class="grid-parent">
+                        <ui:repeat value="#{pricingPlanController.publishedPricingPlansByFrequency}" var="plan">
+                            <div class="card #{plan.highlighted ? 'professional-card' : 'basic-card'}">
+                                <h4 class="card-title">#{plan.name}</h4>
+
+                                <h1 class="price special-price">
+                                    <span>birr</span>#{plan.price}
+                                </h1>
+
+                                <hr />
+                                <ui:repeat value="#{fn:split(plan.features, ',')}" var="feature">
+                                    <h5 class="text">#{feature}</h5>
+                                    <hr />
+                                </ui:repeat>
+
+                                <button class="button" type="button">LEARN MORE</button>
+                            </div>
                         </ui:repeat>
+                    </div>
                 </h:panelGrid>
             </p:outputPanel>
         </h:form>

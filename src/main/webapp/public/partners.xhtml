@@ -1,26 +1,87 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
 <h:head>
-    <title>Partners</title>
+    <title>Tech Equations - Partner</title>
+    <style>
+        /* style.css */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 1.5em 0;
+        }
+
+        footer {
+            background-color: #eee;
+            text-align: center;
+            padding: 1em 0;
+            font-size: 0.9em;
+            margin-top: 3em;
+        }
+
+        .partners, .faq {
+            display: grid;
+            gap: 1.5em;
+            padding: 2em;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .partner-card, .faq-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .partner-card:hover, .faq-item:hover {
+            transform: scale(1.02);
+        }
+
+        .partner-card img {
+            max-width: 100px;
+            display: block;
+            margin-bottom: 1em;
+        }
+
+    </style>
 </h:head>
 <h:body>
-    <h:form>
-        <h2>Our Partners</h2>
+    <!-- Include the reusable header -->
+    <ui:include src="/common/navbar.xhtml" />
 
-        <p:dataTable value="#{partnerBean.partners}" var="p">
-            <p:column headerText="Logo">
-                <h:graphicImage value="#{p.logoUrl}" width="100" height="100" />
-            </p:column>
-            <p:column headerText="Name">
-                <h:outputText value="#{p.name}" />
-            </p:column>
-            <p:column headerText="Website">
-                <p:commandLink value="Visit" action="#{partnerBean.visitWebsite(p.websiteUrl)}" />
-            </p:column>
-        </p:dataTable>
-    </h:form>
+    <header>
+    <h1>Our Trusted Partners</h1>
+</header>
+
+<section class="partners">
+    <div class="partner-card">
+        <img src="partner1-logo.png" alt="Partner 1"/>
+        <h3>Partner One</h3>
+        <p>Providing financial tools to support our mission.</p>
+    </div>
+    <div class="partner-card">
+        <img src="partner2-logo.png" alt="Partner 2"/>
+        <h3>Partner Two</h3>
+        <p>Empowering our infrastructure through technology support.</p>
+    </div>
+    <!-- Add more partners as needed -->
+</section>
+
+<ui:include src="/common/footer.xhtml"></ui:include>
 </h:body>
 </html>
-

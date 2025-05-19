@@ -15,6 +15,15 @@ CREATE TABLE users (
                        updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Services table
+CREATE TABLE services (
+                          id CHAR(36) PRIMARY KEY,
+                          name VARCHAR(100) NOT NULL,
+                          description TEXT NOT NULL,
+                          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                          updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Testimonials table
 CREATE TABLE testimonials (
                               id CHAR(36) PRIMARY KEY,
@@ -25,7 +34,7 @@ CREATE TABLE testimonials (
                               display_order INTEGER DEFAULT 0,
                               created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                               updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                              avatar_url VARCHAR(255)
+                              avatar_url VARCHAR(2048)
 );
 
 -- Pricing Plans table
@@ -91,3 +100,4 @@ CREATE INDEX idx_testimonials_created_at ON testimonials (created_at);
 CREATE INDEX idx_pricing_plans_created_at ON pricing_plans (created_at);
 CREATE INDEX idx_partners_created_at ON partners (created_at);
 CREATE INDEX idx_faq_created_at ON faq (created_at);
+CREATE INDEX idx_services_name ON services (name);

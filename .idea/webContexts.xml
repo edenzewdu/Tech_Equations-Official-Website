@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/pricing.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/testimonials.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/users.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/common/header.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/common" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/public/faq.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/public" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/public/index.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/public" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/public/login.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/public" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/public/pricing.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/public" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/public/signup.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/public" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/public/testimonials.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/public" />
+      </map>
+    </option>
+  </component>
+</project>

@@ -10,7 +10,7 @@ public class FAQ {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
 
     @Column(nullable = false)
     private String question;
@@ -30,6 +30,16 @@ public class FAQ {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
     // Getters and Setters
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getQuestion() { return question; }
     public void setQuestion(String question) { this.question = question; }
 

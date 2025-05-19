@@ -1,40 +1,45 @@
-//package com.example.tech_equations.bean;
-//
-//import com.example.tech_equations.model.Contact;
-//import com.example.tech_equations.repository.ContactRepository;
-//
-//import jakarta.enterprise.context.RequestScoped;
-//import jakarta.inject.Inject;
-//import java.util.List;
-//
-//@RequestScoped
-//public class ContactBean {
-//
-//    @Inject
-//    private ContactRepository contactRepository; // CDI injection of the repository
-//
-//    // Save a contact
-//    public boolean saveContact(Contact contact) {
-//        return contactRepository.saveContact(contact);
-//    }
-//
-//    // Get all contacts
-//    public List<Contact> getAllContacts() {
-//        return contactRepository.getAllContacts();
-//    }
-//
-//    // Get contact by ID
-//    public Contact getContactById(int id) {
-//        return contactRepository.getContactById(id);
-//    }
-//
-//    // Update contact
-//    public boolean updateContact(Contact contact) {
-//        return contactRepository.updateContact(contact);
-//    }
-//
-//    // Delete contact
-//    public boolean deleteContact(int id) {
-//        return contactRepository.deleteContact(id);
-//    }
-//}
+package com.example.tech_equations.bean;
+
+import jakarta.annotation.ManagedBean;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
+
+import java.io.Serializable;
+
+@ManagedBean
+@Named( "contactBean")
+@SessionScoped
+public class ContactBean implements Serializable {
+    private String name;
+    private String email;
+    private String subject;
+    private String message;
+    private boolean submitted = false;
+
+    public String send() {
+        // Simulate sending email (FR-MAIL-01 could be called here)
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Message sent successfully!", null));
+        submitted = true;
+        // Reset form
+        name = email = subject = message = "";
+        return null;
+    }
+
+    // Getters and setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getSubject() { return subject; }
+    public void setSubject(String subject) { this.subject = subject; }
+
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
+
+    public boolean isSubmitted() { return submitted; }
+}

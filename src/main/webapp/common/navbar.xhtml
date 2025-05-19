@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-<h:head>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <h:head>
     <title>Tech Equations - Navigation</title>
     <style>
         * {
@@ -18,16 +18,17 @@
             font-family: Arial, sans-serif;
         }
 
-        nav {
-            background-color: transparent;
+        .ul {
+            background: linear-gradient(to left, rgb(59 94 126 / 54%), rgb(0 0 0)), #00000070;
             color: #0e4270;
-            padding: 0.5rem 1rem;
             display: flex;
             justify-content: flex-end; /* Align to the right */
             align-items: center;
             flex-wrap: wrap;
-            font-family: Helvetica;
-            margin-right: 25%;
+            font-family: Helvetica, sans-serif;
+            padding: 1% 12%;
+            position: relative;
+            z-index: 10;
         }
 
         .menu-section {
@@ -54,13 +55,16 @@
 
         /* Active link style */
         .menu-section li a.active {
-            color: black;
+            color: white;
+            font-weight: bold;
+            font-size: larger;
         }
 
-        .hamburger {
-            display: none;
-            font-size: 2rem;
+        .menu-toggle {
+            display: none; /* Hide by default */
+            font-size: 350%;
             cursor: pointer;
+            padding: 0 0 0 20px;
         }
 
         .mobile-menu {
@@ -77,29 +81,46 @@
             color: white;
             text-decoration: none;
             border-top: 1px solid #555;
+            z-index: -10;
         }
 
         .mobile-menu li a.active {
             color: black;
             background-color: white; /* optional: adds contrast for better visibility */
         }
-
         @media (max-width: 800px) {
+
             .menu-section {
-                display: none;
+                display: none; /* Hide desktop menu on small screens */
             }
 
-            .hamburger {
-                display: block;
-                position: absolute;
-                left: 0;
-                top: 0;
-                margin: 10px;
-                font-size: 3rem;
+            .menu-toggle {
+                display: block; /* Show on small screens */
+                font-size: 250%;
+                padding-left: 10px;
+                position: relative; /* Let it stay inside the flex layout */
             }
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px; /* Ensure spacing */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
 
             .mobile-menu.show {
-                display: flex;
+                display: flex; /* Show mobile menu when toggled */
+            }
+
+            .header-content {
+                flex-grow: 1;
+                text-align: center;
+
+            }
+            .ul{
+                display: none;
             }
         }
     </style>
@@ -119,31 +140,71 @@
         // Optional: Set the active link dynamically
         document.addEventListener('DOMContentLoaded', () => {
             const links = document.querySelectorAll('.menu-section li a, .mobile-menu li a');
+
+            // Function to set active class based on current page
+            function setActiveLink() {
+                const currentPage = window.location.pathname.split('/').pop(); // Get the current page name
+                links.forEach(link => {
+                    const linkHref = link.getAttribute('href').split('/').pop(); // Get the link's href page name
+                    if (linkHref === currentPage) {
+                        link.classList.add('active'); // Add active class to the link matching the current page
+                    } else {
+                        link.classList.remove('active'); // Remove active class from other links
+                    }
+                });
+            }
+
+            // Initially set the active link
+            setActiveLink();
+
+            // Update the active class when a link is clicked
             links.forEach(link => {
                 link.addEventListener('click', () => {
                     links.forEach(link => link.classList.remove('active')); // Remove active class from all
                     link.classList.add('active'); // Add active class to the clicked link
                 });
             });
+
+            // Optional: Reset mobile menu visibility on window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 800) {
+                    document.getElementById('mobileMenu').classList.remove('show');
+                }
+            });
         });
+
     </script>
 </h:head>
 <h:body>
-    <nav>
-        <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" tabindex="0">☰</div>
-        <ul class="menu-section" role="navigation">
-            <li><a href="#" role="link" aria-label="Go to Home" class="active">Home</a></li>
-            <li><a href="#" role="link" aria-label="Go to About">About</a></li>
-            <li><a href="#" role="link" aria-label="Go to Services">Services</a></li>
-            <li><a href="#" role="link" aria-label="Go to Contact">Contact</a></li>
+
+    <div class="header">
+        <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
+        <div class="header-content">
+            <ui:include src="/common/header.xhtml" />
+        </div>
+    </div>
+<div class="ul">
+        <ul class="menu-section">
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/index.xhtml" role="link" aria-label="Go to Home">Home</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/about.xhtml" role="link" aria-label="Go to About">About</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/product.xhtml" role="link" aria-label="Go to Services">Services</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/contact.xhtml" role="link" aria-label="Go to Contact">Contact</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/testimonials.xhtml" role="link" aria-label="Go to Testimonials">Testimonials</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/pricing.xhtml" role="link" aria-label="Go to Pricing">Pricing Plans</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/partners.xhtml" role="link" aria-label="Go to partners">partners</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/faq.xhtml" role="link" aria-label="Go to FAQ">FAQ</a></li>
+        </ul>
+</div>
+        <ul class="mobile-menu" id="mobileMenu" aria-label="Mobile menu" role="menu">
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/index.xhtml" role="menuitem" aria-label="Go to Home">Home</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/about.xhtml" role="menuitem" aria-label="Go to About">About</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/product.xhtml" role="menuitem" aria-label="Go to Services">Services</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/contact.xhtml" role="menuitem" aria-label="Go to Contact">Contact</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/testimonials.xhtml" role="menuitem" aria-label="Go to Testimonials">Testimonials</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/pricing.xhtml" role="menuitem" aria-label="Go to Pricing">Pricing Plans</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/partners.xhtml" role="menuitem" aria-label="Go to partners">partners</a></li>
+            <li><a href="/Tech_Equations-1.0-SNAPSHOT/public/faq.xhtml" role="menuitem" aria-label="Go to FAQ">FAQ</a></li>
         </ul>
 
-        <ul class="mobile-menu" id="mobileMenu" aria-label="Mobile menu" role="menu">
-            <li><a href="#" role="menuitem" aria-label="Go to Home" class="active">Home</a></li>
-            <li><a href="#" role="menuitem" aria-label="Go to About">About</a></li>
-            <li><a href="#" role="menuitem" aria-label="Go to Services">Services</a></li>
-            <li><a href="#" role="menuitem" aria-label="Go to Contact">Contact</a></li>
-        </ul>
-    </nav>
 </h:body>
-</html>
+</ui:composition>

@@ -14,27 +14,14 @@ import java.util.Date;
 import java.util.List;
 
 @Named("userSessionBean")
-@ManagedBean
 @SessionScoped
 public class UserBean implements Serializable {
-
-    private boolean showCreateForm = false;
     private User loggedInUser;
     private Date lastAccessTime;
 
-    private User newUser = new User();
-
-    @Inject
-    private UserController userController;
-
-    private List<User> users;
-    private List<User> searchUser;
-
-    private String searchTerm;
 
 
     public UserBean() {
-        newUser.setRole("ADMIN"); // ✅ Set role during initialization
         this.lastAccessTime = new Date();// Set last access time when the bean is created
     }
 
@@ -67,10 +54,6 @@ public class UserBean implements Serializable {
         return loggedInUser != null ? loggedInUser.getName() : "";
     }
 
-    public void updateSession() {
-        this.lastAccessTime = new Date(); // Update the access time on activity
-    }
-
     public void logout() {
         // Invalidate the session by setting loggedInUser to null
         loggedInUser = null;
@@ -84,74 +67,6 @@ public class UserBean implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    public boolean isShowCreateForm() {
-        return showCreateForm;
-    }
-
-    public void setShowCreateForm(boolean showCreateForm) {
-        this.showCreateForm = showCreateForm;
-    }
-
-    public void toggleCreateForm() {
-        this.showCreateForm = !this.showCreateForm;
-    }
-    // User CRUD Methods
-    public List<User> getUsers() {
-
-        users = userController.getUsers();
-
-        return users;
-    }
-
-    public List<User> getSearchUser(String term) {
-        searchUser = userController.searchUsers(term);
-        return searchUser;
-    }
-
-
-
-    public User getUser(String id) {
-        return userController.getUser(id);
-    }
-
-    public void createUser() {
-        userController.createUser(newUser);
-        newUser = new User(); // this resets the form
-        newUser.setRole("ADMIN");    // Reset default role again
-    }
-    public void updateUser(User user) {
-        userController.updateUser(user);
-    }
-
-    public void deleteUser(String id) {
-        userController.deleteUser(id);
-    }
-
-    public String getSearchTerm() {
-        return searchTerm;
-    }
-
-    public void setSearchTerm(String searchTerm) {
-        this.searchTerm = searchTerm;
-    }
-
-    public void searchUsers() {
-        if (searchTerm == null || searchTerm.isEmpty()) {
-            this.searchUser = userController.getUsers(); // fallback
-        } else {
-            this.searchUser = userController.searchUsers(searchTerm);
-        }
-    }
-
-    public User getNewUser() {
-        return newUser;
-    }
-
-    public void setNewUser(User newUser) {
-        this.newUser = newUser;
     }
 
 }

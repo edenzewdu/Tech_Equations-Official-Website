@@ -2,21 +2,16 @@ package com.example.tech_equations.repository;// Placeholder for UserRepository.
 
 import com.example.tech_equations.model.User;
 import com.example.tech_equations.util.DBUtil;
-import jakarta.annotation.ManagedBean;
-import jakarta.enterprise.concurrent.ManagedExecutorDefinition;
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.context.ApplicationScoped;
+
 
 import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
 
-import static com.mysql.cj.conf.PropertyKey.logger;
-
-@ManagedBean
-@SessionScoped
+@ApplicationScoped
 public class UserRepository implements Serializable {
 
     private Connection connection;

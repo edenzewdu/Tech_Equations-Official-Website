@@ -1,1 +1,1 @@
-package com.example.tech_equations2.service;// Placeholder for CMSService.java
+package com.example.tech_equations.service;// Placeholder for CMSService.java

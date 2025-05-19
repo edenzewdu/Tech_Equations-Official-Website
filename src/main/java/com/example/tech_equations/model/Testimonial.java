@@ -1,6 +1,8 @@
 package com.example.tech_equations.model;
 
 import jakarta.persistence.*;
+
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,7 +11,7 @@ public class Testimonial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
 
     @Column(name = "author_name", nullable = false)
     private String authorName;
@@ -21,7 +23,7 @@ public class Testimonial {
     private String quoteText;
 
     @Column(name = "is_published", nullable = false)
-    private boolean isPublished = false;
+    private boolean published = false;
 
     @Column(name = "display_order", nullable = false)
     private int displayOrder = 0;
@@ -41,11 +43,11 @@ public class Testimonial {
     // Getters and setters
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,15 +55,63 @@ public class Testimonial {
         return authorName;
     }
 
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
     public String getAuthorTitle() {
         return authorTitle;
+    }
+
+    public void setAuthorTitle(String authorTitle) {
+        this.authorTitle = authorTitle;
     }
 
     public String getQuoteText() {
         return quoteText;
     }
 
+    public void setQuoteText(String quoteText) {
+        this.quoteText = quoteText;
+    }
+
     public String getAvatarUrl() {
         return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public int getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(int displayOrder) {
+        this.displayOrder = displayOrder;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    public boolean getPublished() {
+        return published;
     }
 }

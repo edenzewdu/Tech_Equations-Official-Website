@@ -1,4 +1,4 @@
-package com.example.tech_equations.model;// Placeholder for PricingPlan.java
+package com.example.tech_equations.model;
 
 import java.sql.Timestamp;
 
@@ -11,7 +11,7 @@ public class PricingPlan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -43,8 +43,12 @@ public class PricingPlan {
     // Getters and Setters
 
 
-    public int getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -99,16 +103,16 @@ public class PricingPlan {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt.toLocalDateTime();
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt.toLocalDateTime();
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
 
