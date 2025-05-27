@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 8, 2021 5:00:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="human_resource_management" name="com.lucy.hibernate.Attendance" optimistic-lock="version" table="attendance">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.lucy.hibernate.Company" fetch="select" name="company">
+      <column name="company" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.Employee" fetch="select" name="employee">
+      <column name="employee" not-null="true"/>
+    </many-to-one>
+    <property name="date" type="date">
+      <column length="10" name="date"/>
+    </property>
+    <property name="morning" type="string">
+      <column length="45" name="morning"/>
+    </property>
+    <property name="afternoon" type="string">
+      <column length="45" name="afternoon"/>
+    </property>
+    <property name="evening" type="string">
+      <column length="45" name="evening"/>
+    </property>
+    <property name="lateComming" type="string">
+      <column length="3" name="late_comming"/>
+    </property>
+    <property name="earlyLeaving" type="string">
+      <column length="3" name="early_leaving"/>
+    </property>
+    <property name="halfDayDeduction" type="string">
+      <column length="3" name="half_day_deduction"/>
+    </property>
+  </class>
+</hibernate-mapping>

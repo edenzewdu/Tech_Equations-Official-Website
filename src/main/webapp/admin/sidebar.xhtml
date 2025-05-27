@@ -5,9 +5,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
 <h:head>
    <style type="text/css">
 
@@ -46,6 +43,7 @@
 
       .sidebar.open {
          left: 0; /* Show sidebar when toggled */
+          overflow-y: auto;
       }
 
       .sidebar h2 {
@@ -216,11 +214,16 @@
         <ul>
             <li><h:link value="Users" outcome="/admin/users" /></li>
             <li><h:link value="Services" outcome="/admin/services" /></li>
+            <li><h:link value="Products" outcome="/admin/product" /></li>
             <li><h:link value="Testimonials" outcome="/admin/testimonials" /></li>
             <li><h:link value="Pricing Plans" outcome="/admin/pricing" /></li>
-            <li><h:link value="Contact Submissions" outcome="/admin/contact" /></li>
+            <li><h:link value="Contact Submissions" outcome="/admin/contacts" /></li>
             <li><h:link value="Partners" outcome="/admin/partners" /></li>
             <li><h:link value="FAQ" outcome="/admin/faq" /></li>
+            <li><h:link value="Team Members" outcome="/admin/team-members" /></li>
+            <li><h:link value="Impact Statistics" outcome="/admin/ImpactStat" /></li>
+            <li><h:link value="Home Page Block" outcome="/admin/content-edit" /></li>
+            <li><h:link value="Blog" outcome="/admin/blog" /></li>
         </ul>
     </div>
 </h:body>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Tech Equations - Signup</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: bgPulse 10s infinite alternate;
+            zoom: 0.8;
+        }
+
+        @keyframes bgPulse {
+            0% {
+                background: linear-gradient(135deg, #0f416c, #73d2f3);
+            }
+            100% {
+                background: linear-gradient(135deg, #081f3c, #4cb3e5);
+            }
+        }
+
+        .form-container {
+            background-color: #ffffffee;
+            padding: 2.5rem;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeSlideIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brand-logo {
+            text-align: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .brand-logo img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px #73d2f3);
+        }
+        .brand-title{
+            text-align: center;
+        }
+
+        .brand-title-1 {
+            display: inline;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0f416c;
+        }
+
+        .brand-title-2 {
+            display: inline;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #73d2f3;
+        }
+
+        .brand-subtitle {
+            font-size: 1.1rem;
+            color: #73d2f3;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: bold;
+            margin-top: 1rem;
+            color: #0f416c;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.7rem;
+            margin-top: 0.3rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #4cb3e5;
+            box-shadow: 0 0 8px #4cb3e5;
+            outline: none;
+        }
+
+        .form-button {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: #0f416c;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-button:hover {
+            background-color: #73d2f3;
+            color: #0f416c;
+        }
+
+        .form-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #0f416c;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .form-link:hover {
+            color: #73d2f3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h:form id="signupForm" styleClass="form-container">
+
+        <!-- Brand Logo and Title -->
+        <div class="brand-logo">
+            <p:graphicImage value="#{resource['images/v107_16.png']}" />
+        </div>
+        <div class="brand-title">
+            <div class="brand-title-1">Tech</div>
+            <div class="brand-title-2">Equations</div>
+            <div class="brand-subtitle">Create your account</div>
+        </div>
+
+
+        <h:messages globalOnly="true" layout="list" styleClass="error-message" />
+
+        <!-- Full Name -->
+        <h:outputLabel for="name" value="Full Name" styleClass="form-label" />
+        <h:inputText id="name" value="#{authController.name}" required="true" requiredMessage="Name is required" styleClass="form-input" />
+        <h:message for="name" styleClass="error-message" />
+
+        <!-- Email -->
+        <h:outputLabel for="email" value="Email" styleClass="form-label" />
+        <h:inputText id="email" value="#{authController.email}" required="true" requiredMessage="Email is required" styleClass="form-input" />
+        <h:message for="email" styleClass="error-message" />
+
+        <!-- Password -->
+        <h:outputLabel for="password" value="Password" styleClass="form-label" />
+        <h:inputSecret id="password" value="#{authController.password}" required="true" requiredMessage="Password is required" styleClass="form-input" />
+        <h:message for="password" styleClass="error-message" />
+
+        <!-- Confirm Password -->
+        <h:outputLabel for="confirmPassword" value="Confirm Password:" styleClass="form-label"/>
+        <h:inputSecret id="confirmPassword" value="#{authController.confirmPassword}" requiredMessage="Confirm Your Password" styleClass="form-input" />
+        <h:message for="confirmPassword" />
+
+        <!-- Signup Button -->
+        <h:commandButton value="Sign Up" action="#{authController.signup}" styleClass="form-button" />
+
+        <!-- Link to Login -->
+        <h:link value="Already have an account? Login" outcome="login.xhtml" styleClass="form-link" />
+
+    </h:form>
+</h:body>
+</html>

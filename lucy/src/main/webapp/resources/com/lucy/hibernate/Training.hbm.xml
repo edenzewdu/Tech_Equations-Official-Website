@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 8, 2021 5:00:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="human_resource_management" name="com.lucy.hibernate.Training" optimistic-lock="version" table="training">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.lucy.hibernate.Company" fetch="select" name="company">
+      <column name="company" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.Employee" fetch="select" name="employee">
+      <column name="employee" not-null="true"/>
+    </many-to-one>
+    <property name="courseName" type="string">
+      <column length="45" name="course_name"/>
+    </property>
+    <property name="startDate" type="date">
+      <column length="10" name="start_date"/>
+    </property>
+    <property name="endDate" type="date">
+      <column length="10" name="end_date"/>
+    </property>
+    <property name="trainer" type="string">
+      <column length="45" name="trainer"/>
+    </property>
+    <property name="location" type="string">
+      <column length="45" name="location"/>
+    </property>
+    <property name="taigningAmount" type="java.lang.Double">
+      <column name="taigning_amount" precision="22" scale="0"/>
+    </property>
+    <property name="paidByCompany" type="java.lang.Byte">
+      <column name="paid_by_company"/>
+    </property>
+    <property name="paymentInfo" type="string">
+      <column length="45" name="payment_info"/>
+    </property>
+    <property name="ramark" type="string">
+      <column length="200" name="ramark"/>
+    </property>
+  </class>
+</hibernate-mapping>

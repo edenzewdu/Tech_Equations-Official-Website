@@ -18,6 +18,7 @@
             justify-content: center;
             align-items: center;
             animation: bgPulse 10s infinite alternate;
+            zoom: 0.8;
         }
 
         @keyframes bgPulse {
@@ -176,6 +177,11 @@
         <h:outputLabel for="password" value="Password" styleClass="form-label" />
         <h:inputSecret id="password" value="#{authController.password}" required="true" requiredMessage="Password is required" styleClass="form-input" />
         <h:message for="password" styleClass="error-message" />
+
+        <!-- Confirm Password -->
+        <h:outputLabel for="confirmPassword" value="Confirm Password:" styleClass="form-label"/>
+        <h:inputSecret id="confirmPassword" value="#{authController.confirmPassword}" requiredMessage="Confirm Your Password" styleClass="form-input" />
+        <h:message for="confirmPassword" />
 
         <!-- Signup Button -->
         <h:commandButton value="Sign Up" action="#{authController.signup}" styleClass="form-button" />

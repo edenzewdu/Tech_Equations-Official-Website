@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 8, 2021 5:00:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="human_resource_management" name="com.lucy.hibernate.Employee" optimistic-lock="version" table="employee">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.lucy.hibernate.Company" fetch="select" name="company">
+      <column name="company" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.Department" fetch="select" name="departmentByDepartment">
+      <column name="department" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.Department" fetch="select" name="departmentByHiredDepartment">
+      <column name="hired_department" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.Employee" fetch="select" name="employee">
+      <column name="HR_department_employeer"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.Position" fetch="select" name="position">
+      <column name="position" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.Qualification" fetch="select" name="qualification">
+      <column name="qualification" not-null="true"/>
+    </many-to-one>
+    <property name="title" type="string">
+      <column length="45" name="title"/>
+    </property>
+    <property name="firstName" type="string">
+      <column length="45" name="first_name"/>
+    </property>
+    <property name="sirName" type="string">
+      <column length="45" name="sir_name"/>
+    </property>
+    <property name="middleName" type="string">
+      <column length="45" name="middle_name"/>
+    </property>
+    <property name="lastName" type="string">
+      <column length="45" name="last_name"/>
+    </property>
+    <property name="address" type="string">
+      <column length="45" name="address"/>
+    </property>
+    <property name="mothersName" type="string">
+      <column length="45" name="mothers_name"/>
+    </property>
+    <property name="birthPlace" type="string">
+      <column length="45" name="birth_place"/>
+    </property>
+    <property name="birthDate" type="timestamp">
+      <column length="19" name="birth_date"/>
+    </property>
+    <property name="gender" type="string">
+      <column length="45" name="gender"/>
+    </property>
+    <property name="maritalStatus" type="string">
+      <column length="45" name="marital_status"/>
+    </property>
+    <property name="nationality" type="string">
+      <column length="45" name="nationality"/>
+    </property>
+    <property name="militaryStatus" type="string">
+      <column length="45" name="military_status"/>
+    </property>
+    <property name="disabilityPere" type="string">
+      <column length="45" name="disability_pere"/>
+    </property>
+    <property name="bloodGroup" type="string">
+      <column length="45" name="blood_group"/>
+    </property>
+    <property name="homeAddress" type="string">
+      <column length="45" name="home_address"/>
+    </property>
+    <property name="homePhone" type="string">
+      <column length="45" name="home_phone"/>
+    </property>
+    <property name="mobilePhone" type="string">
+      <column length="45" name="mobile_phone"/>
+    </property>
+    <property name="email" type="string">
+      <column length="45" name="email"/>
+    </property>
+    <property name="hireringDate" type="timestamp">
+      <column length="19" name="hirering_date"/>
+    </property>
+    <property name="experience" type="java.lang.Double">
+      <column name="experience" precision="22" scale="0"/>
+    </property>
+    <property name="emergencyContactPersonName" type="string">
+      <column length="45" name="emergency_contact_person_name"/>
+    </property>
+    <property name="emergencyContactPersonAddress" type="string">
+      <column length="45" name="emergency_contact_person_address"/>
+    </property>
+    <property name="emergencyContactPersonPhone" type="string">
+      <column length="45" name="emergency_contact_person_phone"/>
+    </property>
+    <property name="emergenncyContactPersonEMail" type="string">
+      <column length="45" name="emergenncy_contact_person_e_mail"/>
+    </property>
+    <property name="emergencyContactPersonRelation" type="string">
+      <column length="45" name="emergency_contact_person_relation"/>
+    </property>
+    <property name="status" type="string">
+      <column length="45" name="status"/>
+    </property>
+    <property name="salary" type="java.lang.Double">
+      <column name="salary" precision="22" scale="0"/>
+    </property>
+    <property name="type" type="string">
+      <column length="10" name="type"/>
+    </property>
+    <property name="pension" type="string">
+      <column length="5" name="pension"/>
+    </property>
+    <property name="maximumLeavePerYear" type="java.lang.Integer">
+      <column name="maximum_leave_per_year"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="employeePensions" table="employee_pension">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeePension"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="parameterFacilitieses" table="parameter_facilities">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.ParameterFacilities"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeWeeklyHolidayDetails" table="employee_weekly_holiday_detail">
+      <key>
+        <column name="employee_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeWeeklyHolidayDetail"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeAnnualLeaves" table="employee_annual_leave">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeAnnualLeave"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeePensionLines" table="employee_pension_line">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeePensionLine"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeRequestsForApprovedBy" table="employee_request">
+      <key>
+        <column name="approved_by" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeRequest"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeAllowances" table="employee_allowance">
+      <key>
+        <column name="employee_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeAllowance"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="tours" table="tour">
+      <key>
+        <column name="employee_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.Tour"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeePensionHeaders" table="employee_pension_header">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeePensionHeader"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeProfidentFunds" table="employee_profident_fund">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeProfidentFund"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employees" table="employee">
+      <key>
+        <column name="HR_department_employeer"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.Employee"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="lcElDeductions" table="lc_el_deduction">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.LcElDeduction"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeShifts" table="employee_shift">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeShift"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeOfficialDetails" table="employee_official_detail">
+      <key>
+        <column name="employee_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeOfficialDetail"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="attendances" table="attendance">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.Attendance"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="payrollLines" table="payroll_line">
+      <key>
+        <column name="employee_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.PayrollLine"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="vacancies" table="vacancy">
+      <key>
+        <column name="prepared_by" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.Vacancy"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeePayrollFrequencieses" table="employee_payroll_frequencies">
+      <key>
+        <column name="employee_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeePayrollFrequencies"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="expenseLists" table="expense_list">
+      <key>
+        <column name="employee_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.ExpenseList"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeOts" table="employee_ot">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeOt"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeLcElDeductions" table="employee_lc_el_deduction">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeLcElDeduction"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeInOuts" table="employee_in_out">
+      <key>
+        <column name="employee_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeInOut"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeRequestsForRequestedBy" table="employee_request">
+      <key>
+        <column name="requested_by" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeRequest"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeHalfDayDeductions" table="employee_half_day_deduction">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeHalfDayDeduction"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="trainings" table="training">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.Training"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeCompanyHolidays" table="employee_company_holiday">
+      <key>
+        <column name="employee_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeCompanyHoliday"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="halfDayDeductions" table="half_day_deduction">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.HalfDayDeduction"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="paymentHistories" table="payment_history">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.PaymentHistory"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="lcElDeductionLists" table="lc_el_deduction_list">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.LcElDeductionList"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeProvidentFundHeaders" table="employee_provident_fund_header">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeProvidentFundHeader"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeLeaveDetails" table="employee_leave_detail">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeLeaveDetail"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="otSettings" table="ot_setting">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.OtSetting"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="finalPayslipForBankses" table="final_payslip_for_banks">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.FinalPayslipForBanks"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeEsis" table="employee_esi">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeEsi"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeAccountses" table="employee_accounts">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeAccounts"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeeMonthlyLeaveCounters" table="employee_monthly_leave_counter">
+      <key>
+        <column name="employee" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeMonthlyLeaveCounter"/>
+    </set>
+  </class>
+</hibernate-mapping>

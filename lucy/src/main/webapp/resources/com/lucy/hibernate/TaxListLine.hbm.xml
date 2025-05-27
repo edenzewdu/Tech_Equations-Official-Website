@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 8, 2021 5:00:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="human_resource_management" name="com.lucy.hibernate.TaxListLine" optimistic-lock="version" table="tax_list_line">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.lucy.hibernate.Company" fetch="select" name="company">
+      <column name="company" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.TaxListHeader" fetch="select" name="taxListHeader">
+      <column name="tax_list_header" not-null="true"/>
+    </many-to-one>
+    <property name="type" type="string">
+      <column length="15" name="type"/>
+    </property>
+    <property name="description" type="string">
+      <column length="200" name="description"/>
+    </property>
+    <property name="status" type="string">
+      <column length="10" name="status"/>
+    </property>
+    <property name="refrenceTableId" type="java.lang.Integer">
+      <column name="refrence_table_id"/>
+    </property>
+    <property name="referenceTableName" type="string">
+      <column length="45" name="reference_table_name"/>
+    </property>
+    <property name="amount" type="java.lang.Double">
+      <column name="amount" precision="22" scale="0"/>
+    </property>
+    <property name="registeredDate" type="date">
+      <column length="10" name="registered_date"/>
+    </property>
+  </class>
+</hibernate-mapping>

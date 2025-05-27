@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 8, 2021 5:00:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="human_resource_management" name="com.lucy.hibernate.PayrollLine" optimistic-lock="version" table="payroll_line">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.lucy.hibernate.Company" fetch="select" name="company">
+      <column name="company" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.Employee" fetch="select" name="employee">
+      <column name="employee_id" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.lucy.hibernate.PayrollHeader" fetch="select" name="payrollHeader">
+      <column name="payroll_header_id" not-null="true"/>
+    </many-to-one>
+    <property name="date" type="timestamp">
+      <column length="19" name="date"/>
+    </property>
+    <property name="totalOtHour" type="java.lang.Double">
+      <column name="total_ot_hour" precision="22" scale="0"/>
+    </property>
+    <property name="totalOtPayment" type="java.lang.Double">
+      <column name="total_ot_payment" precision="22" scale="0"/>
+    </property>
+    <property name="pension" type="java.lang.Double">
+      <column name="pension" precision="22" scale="0"/>
+    </property>
+    <property name="tax" type="java.lang.Double">
+      <column name="tax" precision="22" scale="0"/>
+    </property>
+    <property name="absents" type="java.lang.Double">
+      <column name="absents" precision="22" scale="0"/>
+    </property>
+    <property name="absentDeduction" type="java.lang.Double">
+      <column name="absent_deduction" precision="22" scale="0"/>
+    </property>
+    <property name="totalLcEl" type="java.lang.Integer">
+      <column name="total_lc_el"/>
+    </property>
+    <property name="lcElDeduction" type="java.lang.Double">
+      <column name="lc_el_deduction" precision="22" scale="0"/>
+    </property>
+    <property name="esiDeduction" type="java.lang.Double">
+      <column name="esi_deduction" precision="22" scale="0"/>
+    </property>
+    <property name="totalHalfDayAbsents" type="time">
+      <column length="8" name="total_half_day_absents"/>
+    </property>
+    <property name="halfDayDeduction" type="java.lang.Double">
+      <column name="half_day_deduction" precision="22" scale="0"/>
+    </property>
+    <property name="employeeTotalNonpaidLeave" type="java.lang.Integer">
+      <column name="employee_total_nonpaid_leave"/>
+    </property>
+    <property name="nonpaidLeaveDeduction" type="java.lang.Double">
+      <column name="nonpaid_leave_deduction" precision="22" scale="0"/>
+    </property>
+    <property name="totalNonPaidTrainingDays" type="java.lang.Integer">
+      <column name="total_non_paid_training_days"/>
+    </property>
+    <property name="nonPaidTrainningDeduction" type="java.lang.Double">
+      <column name="non_paid_trainning_deduction" precision="22" scale="0"/>
+    </property>
+    <property name="totalNonPaidTourDays" type="java.lang.Integer">
+      <column name="total_non_paid_tour_days"/>
+    </property>
+    <property name="nonPaidTourDeduction" type="java.lang.Double">
+      <column name="non_paid_tour_deduction" precision="22" scale="0"/>
+    </property>
+    <property name="profidentFund" type="java.lang.Double">
+      <column name="profident_fund" precision="22" scale="0"/>
+    </property>
+    <property name="totalDeduction" type="java.lang.Double">
+      <column name="total_deduction" precision="22" scale="0"/>
+    </property>
+    <property name="netPayment" type="java.lang.Double">
+      <column name="net_payment" precision="22" scale="0"/>
+    </property>
+    <property name="allowance" type="java.lang.Double">
+      <column name="allowance" precision="22" scale="0"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="paymentHistories" table="payment_history">
+      <key>
+        <column name="payroll_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.PaymentHistory"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="finalPayslipForBankses" table="final_payslip_for_banks">
+      <key>
+        <column name="payroll_line" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.FinalPayslipForBanks"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="employeePensionLines" table="employee_pension_line">
+      <key>
+        <column name="payroll_line" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeePensionLine"/>
+    </set>
+  </class>
+</hibernate-mapping>

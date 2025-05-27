@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 8, 2021 5:00:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="human_resource_management" name="com.lucy.hibernate.PayrollFrequencies" optimistic-lock="version" table="payroll_frequencies">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.lucy.hibernate.Company" fetch="select" name="company">
+      <column name="company_id" not-null="true"/>
+    </many-to-one>
+    <property name="activate" type="java.lang.Byte">
+      <column name="activate"/>
+    </property>
+    <property name="payPeriodStartDate" type="timestamp">
+      <column length="19" name="pay_period_start_date"/>
+    </property>
+    <property name="payPeriodEndDate" type="timestamp">
+      <column length="19" name="pay_period_end_date"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="employeePayrollFrequencieses" table="employee_payroll_frequencies">
+      <key>
+        <column name="payroll_frequencies_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeePayrollFrequencies"/>
+    </set>
+  </class>
+</hibernate-mapping>

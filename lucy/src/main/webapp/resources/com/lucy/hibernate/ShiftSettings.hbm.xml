@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 8, 2021 5:00:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="human_resource_management" name="com.lucy.hibernate.ShiftSettings" optimistic-lock="version" table="shift_settings">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.lucy.hibernate.Company" fetch="select" name="company">
+      <column name="company_id" not-null="true"/>
+    </many-to-one>
+    <property name="shiftName" type="string">
+      <column length="45" name="shift_name"/>
+    </property>
+    <property name="shiftStarTime" type="time">
+      <column length="8" name="shift_star_time"/>
+    </property>
+    <property name="duration" type="time">
+      <column length="8" name="duration"/>
+    </property>
+    <property name="shiftEndTime" type="time">
+      <column length="8" name="shift_end_time"/>
+    </property>
+    <property name="shiftChargeRate" type="java.lang.Double">
+      <column name="shift_charge_rate" precision="22" scale="0"/>
+    </property>
+    <property name="shiftCharge" type="java.lang.Double">
+      <column name="shift_charge" precision="22" scale="0"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="employeeShifts" table="employee_shift">
+      <key>
+        <column name="shift_settings" not-null="true"/>
+      </key>
+      <one-to-many class="com.lucy.hibernate.EmployeeShift"/>
+    </set>
+  </class>
+</hibernate-mapping>
