@@ -135,9 +135,9 @@ Tech_Equations-Official-Website/
 ├── ├── src/
 │   |   ├── main/
 │   |   │   ├── webapp/          
-│   |   │   │   ├── website java/         
-│   |   │   │   │   ├── admin resources/     
-│   |   │   │   │   ├── public webapp/        
+│   |   │   │   ├── website          
+│   |   │   │   │   ├── admin / # Admin-facing pages    
+│   |   │   │   │   ├── public / # Public-facing pages    
 |web_library/
 ├── ├── src/
 │   |   ├── main/
