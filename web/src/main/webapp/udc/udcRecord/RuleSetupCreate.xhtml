@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/generalAccountingTemplate.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="AutoReconciliationRulesSetupCreateForm">
+                <p:panel header="Automatic Reconciliation Rules Setup - Revise Auto Reconciliation Rules">
+                    <h:panelGroup id="display">
+                        <p:card>
+                            <h:panelGrid styleClass="ui-nobourder" columns="3">
+                                <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_reconciliationRule}" for="reconciliationRule" />
+                                <p:inputText id="reconciliationRule" value="#{autoReconciliationRulesSetupController.selected.reconciliationRule}" title="#{bundle.CreateAutoReconciliationRulesSetupTitle_reconciliationRule}" required="true" requiredMessage="reconciliationRule is required" />
+                                <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_description}" for="description" />
+                            </h:panelGrid>
+                        </p:card>
+                        <p:tabView>
+                            <p:tab title="Payment Clear">
+                                <p:card>
+                                    <h:panelGrid styleClass="ui-nobourder" columns="2"
+                                                 <p:selectBooleanCheckbox value="#{generalAccounntingModule.paymentVariance}" itemLabel="Payment Variance">
+                                            <p:ajax event="itemSlect" update="@form, AutoReconciliationRulesSetupCreateForm:paymentVariance"/>  
+                                        </p:selectBooleanCheckbox>
+                                        <p:selectBooleanCheckbox value="#{generalAccounntingModule.paymentReconciliationDateException}" itemLabel="payment Reconciliation Date Exception"/>
+                                </p:card>
+                                <p:separator/>
+                                <p:card>
+                                    <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_reconciliationCode}" for="reconciliationCode" />
+                                    <p:selectOneMenu id="reconciliationCode" value="#{autoReconciliationRulesSetupController.selected.reconciliationCode}" >
+                                        <f:selectItems value="#{udcRecordController.udcList('09', 'RC')}"
+                                                       var="reconciliationCodeItem"
+                                                       itemValue="#{reconciliationCodeItem}"
+                                                       itemLabel="#{reconciliationCodeItem.code}:#{reconciliationCodeItem.description}"/>
+                                    </p:selectOneMenu>
+                                    <p:panel id="paymentVariance" rendered="#{generalAccounntingModule.paymentVariance == true}">
+                                        <h:panelGrid styleClass="ui-nobourder" columns="2">
+                                            <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_varianceAccount}" for="varianceAccount" />
+                                            <p:selectOneMenu id="varianceAccount" value="#{autoReconciliationRulesSetupController.selected.varianceAccount}" >
+                                                <f:selectItems value="#{accountMasterController.varianceAccountNumber}"
+                                                               var="varianceAccountItem"
+                                                               itemValue="#{varianceAccountItem}"
+                                                               itemLabel="#{varianceAccountItem.businessUnit}:#{varianceAccountItem.objectAccount}"/>
+                                            </p:selectOneMenu>
+                                            <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_varianceDateMode}" for="varianceDateMode" />
+                                            <p:selectOneMenu id="varianceDateMode" value="#{autoReconciliationRulesSetupController.selected.varianceDateMode}" >
+                                                <f:selectItems value="#{udcRecordController.udcList('09', 'DT')}"
+                                                               var="varianceDateModeItem"
+                                                               itemValue="#{varianceDateModeItem}"
+                                                               itemLabel="#{varianceDateModeItem.code}:#{varianceDateModeItem.description}"/>
+                                            </p:selectOneMenu>
+                                            <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_toleranceLimit}" for="toleranceLimit" />
+                                            <p:inputText id="toleranceLimit" value="#{autoReconciliationRulesSetupController.selected.toleranceLimit}" title="#{bundle.CreateAutoReconciliationRulesSetupTitle_toleranceLimit}" />
+                                            <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_varianceDocType}" for="varianceDocType" />
+                                            <p:selectOneMenu id="varianceDocType" value="#{autoReconciliationRulesSetupController.selected.varianceDocType}" >
+                                                <f:selectItems value="#{udcRecordController.udcList('00', 'DT')}"
+                                                               var="varianceDocTypeItem"
+                                                               itemValue="#{varianceDocTypeItem}"
+                                                               itemLabel="#{varianceDocTypeItem.code}:#{varianceDocTypeItem.description}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:card>
+                            </p:tab>
+                            <p:tab title="Receipt Clear">
+                                <p:card>
+                                    <h:panelGrid styleClass="ui-nobourder" columns="3"
+                                                 <p:selectBooleanCheckbox value="#{generalAccounntingModule.receiptVariance}" itemLabel="Receipt Variance">
+                                            <p:ajax event="itemSlect" update="@form, AutoReconciliationRulesSetupCreateForm:receiptVariance"/>  
+                                        </p:selectBooleanCheckbox>
+                                        <p:selectBooleanCheckbox value="#{generalAccounntingModule.receiptReconciliationDateException}" itemLabel="Receipt Reconciliation Date Exception"/>
+                                        <p:selectBooleanCheckbox value="#{generalAccounntingModule.createAutoBatchReceipts}" itemLabel="Create Auto Batch Receipts">
+                                            <p:ajax event="itemSlect" update="@form, AutoReconciliationRulesSetupCreateForm:receiptVariance"/>  
+                                        </p:selectBooleanCheckbox>
+                                </p:card>
+                                <p:separator/>
+                                <p:card>
+                                    <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_receiptReconciliationCode}" for="receiptReconciliationCode" />
+                                    <p:selectOneMenu id="receiptReconciliationCode" value="#{generalAccounntingModule.receiptReconciliationCode}" >
+                                        <f:selectItems value="#{udcRecordController.udcList('09', 'RC')}"
+                                                       var="receiptReconciliationCodeItem"
+                                                       itemValue="#{receiptReconciliationCodeItem}"
+                                                       itemLabel="#{receiptReconciliationCodeItem.code}:#{receiptReconciliationCodeItem.description}"/>
+                                    </p:selectOneMenu>  
+                                    <p:panel id="createAutoBatchReceipt" rendered="#{generalAccounntingModule.receiptVariance == true}">
+                                        <p:outputLabel value="#{bundle.EditAutoReconciliationRulesSetupLabel_autoBatchReceiptDateMode}" for="autoBatchReceiptDateMode" />
+                                        <p:selectOneMenu id="autoBatchReceiptDateMode" value="#{generalAccounntingModule.autoBatchReceiptDateMode}" >
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{udcRecordController.udcList('09', 'DT')}"
+                                                           var="autoBatchReceiptDateModeItem"
+                                                           itemValue="#{autoBatchReceiptDateModeItem}"
+                                                           itemLabel="#{autoBatchReceiptDateModeItem.businessUnit}:#{autoBatchReceiptDateModeItem.objectAccount}"/>
+                                        </p:selectOneMenu>
+                                    </p:panel>
+                                    <p:panel id="receiptVariance" rendered="#{generalAccounntingModule.receiptVariance == true}">
+                                        <h:panelGrid styleClass="ui-nobourder" columns="2">
+                                            <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_receiptVarianceAccount}" for="receiptVarianceAccount" />
+                                            <p:selectOneMenu id="receiptVarianceAccount" value="#{generalAccounntingModule.receiptVarianceAccount}" >
+                                                <f:selectItems value="#{accountMasterController.varianceAccountNumber}"
+                                                               var="receiptVarianceAccountItem"
+                                                               itemValue="#{receiptVarianceAccountItem}"
+                                                               itemLabel="#{receiptVarianceAccountItem.businessUnit}:#{receiptVarianceAccountItem.objectAccount}"/>
+                                            </p:selectOneMenu>
+                                            <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_receiptVarianceDateMode}" for="receiptVarianceDateMode" />
+                                            <p:selectOneMenu id="receiptVarianceDateMode" value="#{generalAccounntingModule.receiptVarianceDateMode}" >
+                                                <f:selectItems value="#{udcRecordController.udcList('09', 'DT')}"
+                                                               var="receiptVarianceDateModeItem"
+                                                               itemValue="#{receiptVarianceDateModeItem}"
+                                                               itemLabel="#{receiptVarianceDateModeItem.code}:#{receiptVarianceDateModeItem.description}"/>
+                                            </p:selectOneMenu>
+                                            <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_receiptToleranceLimit}" for="receiptToleranceLimit" />
+                                            <p:inputText id="receiptToleranceLimit" value="#{generalAccounntingModule.receiptToleranceLimit}" title="#{bundle.CreateAutoReconciliationRulesSetupTitle_receiptToleranceLimit}" />
+                                            <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_receiptVarianceDocType}" for="receiptVarianceDocType" />
+                                            <p:selectOneMenu id="receiptVarianceDocType" value="#{generalAccounntingModule.receiptVarianceDocType}" >
+                                                <f:selectItems value="#{udcRecordController.udcList('00', 'DT')}"
+                                                               var="receiptVarianceDocTypeItem"
+                                                               itemValue="#{receiptVarianceDocTypeItem}"
+                                                               itemLabel="#{receiptVarianceDocTypeItem.code}:#{receiptVarianceDocTypeItem.description}"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:card>
+                            </p:tab>
+                            <p:tab title="Journal Entry Create">
+                                <p:card>
+                                    <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_journalEntryReconciliationCode}" for="journalEntryReconciliationCode" />
+                                    <p:selectOneMenu id="journalEntryReconciliationCode" value="#{generalAccounntingModule.journalEntryReconciliationCode}" >
+                                        <f:selectItems value="#{udcRecordController.udcList('09', 'RC')}"
+                                                       var="journalEntryReconciliationCodeItem"
+                                                       itemValue="#{journalEntryReconciliationCodeItem}"
+                                                       itemLabel="#{journalEntryReconciliationCodeItem.code}:#{journalEntryReconciliationCodeItem.description}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_glDateMode}" for="glDateMode" />
+                                    <p:selectOneMenu id="glDateMode" value="#{generalAccounntingModule.glDateMode}" >
+                                        <f:selectItems value="#{udcRecordController.udcList('09', 'DT')}"
+                                                       var="glDateModeItem"
+                                                       itemValue="#{glDateModeItem}"
+                                                       itemLabel="#{glDateModeItem.code}:#{glDateModeItem.description}"/>
+
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Variance Doc Type" for="JEGlDateMode" />
+                                    <p:selectOneMenu id="JEGlDateMode" value="#{generalAccounntingModule.JEGlDateMode}" >
+                                        <f:selectItems value="#{udcRecordController.udcList('00', 'DT')}"
+                                                       var="JEGlDateModeItem"
+                                                       itemValue="#{JEGlDateModeItem}"
+                                                       itemLabel="#{JEGlDateModeItem.code}:#{JEGlDateModeItem.description}"/>
+                                    </p:selectOneMenu>
+
+                                </p:card>
+                            </p:tab>
+                            <p:tab title="Journal Entry Reconcile">
+                                <p:card>
+                                    <h:panelGrid styleClass="ui-nobourder" columns="2"
+                                                 <p:selectBooleanCheckbox value="#{generalAccounntingModule.journalEntryReconcileVariance}" itemLabel="Journal Entry Reconcile Variance">
+                                            <p:ajax event="itemSlect" update="@form, AutoReconciliationRulesSetupCreateForm:journalEntryReconcileVariance"/>  
+                                        </p:selectBooleanCheckbox>
+                                        <p:selectBooleanCheckbox value="#{generalAccounntingModule.jEReconcileDateException}" itemLabel="JE Reconcile Date Exception"/>
+                                </p:card>
+                                <p:panel id="journalEntryReconcileVariance" rendered="#{generalAccounntingModule.journalEntryReconcileVariance == true}">
+                                    <h:panelGrid styleClass="ui-nobourder" columns="2">
+                                        <p:outputLabel value="Reconciliation Code" for="JECreateReconciliationCode" />
+                                        <p:selectOneMenu id="JECreateReconciliationCode" value="#{generalAccounntingModule.JECreateReconciliationCode}" >
+                                            <f:selectItems value="#{udcRecordController.udcList('09', 'RC')}"
+                                                           var="JECreateReconciliationCodeItem"
+                                                           itemValue="#{JECreateReconciliationCodeItem}"
+                                                           itemLabel="#{JECreateReconciliationCodeItem.code}:#{JECreateReconciliationCodeItem.description}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_journalEntryVarianceAccount}" for="journalEntryVarianceAccount" />
+                                        <p:selectOneMenu id="journalEntryVarianceAccount" value="#{generalAccounntingModule.journalEntryVarianceAccount}" >
+                                            <f:selectItems value="#{accountMasterController.varianceAccountNumber}"
+                                                           var="journalEntryVarianceAccountItem"
+                                                           itemValue="#{journalEntryVarianceAccountItem}"
+                                                           itemLabel="#{journalEntryVarianceAccountItem.businessUnit}:#{journalEntryVarianceAccountItem.objectAccount}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_journalEntryVarianceDateMode}" for="journalEntryVarianceDateMode" />
+                                        <p:selectOneMenu id="journalEntryVarianceDateMode" value="#{generalAccounntingModule.journalEntryVarianceDateMode}" >
+                                            <f:selectItems value="#{udcRecordController.udcList('09', 'DT')}"
+                                                           var="journalEntryVarianceDateModeItem"
+                                                           itemValue="#{journalEntryVarianceDateModeItem}"
+                                                           itemLabel="#{journalEntryVarianceDateModeItem.code}:#{journalEntryVarianceDateModeItem.description}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_journalEntryToleranceLimit}" for="journalEntryToleranceLimit" />
+                                        <p:inputText id="journalEntryToleranceLimit" value="#{generalAccounntingModule.journalEntryToleranceLimit}" title="#{bundle.CreateAutoReconciliationRulesSetupTitle_journalEntryToleranceLimit}" />
+                                        <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_journalEntryVarianceDocType}" for="journalEntryVarianceDocType" />
+                                        <p:selectOneMenu id="journalEntryVarianceDocType" value="#{generalAccounntingModule.journalEntryVarianceDocType}" >
+                                            <f:selectItems value="#{udcRecordController.udcList('00', 'DT')}"
+                                                           var="journalEntryVarianceDocTypeItem"
+                                                           itemValue="#{journalEntryVarianceDocTypeItem}"
+                                                           itemLabel="#{journalEntryVarianceDocTypeItem.code}:#{journalEntryVarianceDocTypeItem.description}"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                            <p:tab title="Draft Paid">
+                                <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_draftPaidReconciliationCode}" for="draftPaidReconciliationCode" />
+                                <p:selectOneMenu id="draftPaidReconciliationCode" value="#{generalAccounntingModule.draftPaidReconciliationCode}" >
+                                    <f:selectItems value="#{udcRecordController.udcList('09', 'RC')}"
+                                                   var="draftPaidReconciliationCodeItem"
+                                                   itemValue="#{draftPaidReconciliationCodeItem}"
+                                                   itemLabel="#{draftPaidReconciliationCodeItem.code}:#{draftPaidReconciliationCodeItem.description}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_draftPaidGlDateMode}" for="draftPaidGlDateMode" />
+                                <p:selectOneMenu id="draftPaidGlDateMode" value="#{generalAccounntingModule.draftPaidGlDateMode}" >
+                                    <f:selectItems value="#{udcRecordController.udcList('09', 'DT')}"
+                                                   var="draftPaidGlDateModeItem"
+                                                   itemValue="#{draftPaidGlDateModeItem}"
+                                                   itemLabel="#{draftPaidGlDateModeItem.code}:#{draftPaidGlDateModeItem.description}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="#{bundle.CreateAutoReconciliationRulesSetupLabel_draftDocType}" for="draftDocType" />
+                                <p:selectOneMenu id="draftDocType" value="#{generalAccounntingModule.draftDocType}" >
+                                    <f:selectItems value="#{udcRecordController.udcList('00', 'DT')}"
+                                                   var="draftDocTypeItem"
+                                                   itemValue="#{draftDocTypeItem}"
+                                                   itemLabel="#{draftDocTypeItem.code}:#{draftDocTypeItem.description}"/>
+                                </p:selectOneMenu>
+                            </p:tab>
+                        </p:tabView>
+                        <p:commandButton styleClass="btn-block btn-success btn-sm" style="width: 100px" actionListener="#{generalAccounntingModule.createRuleSetup()}" action="List.xhtml?faces-redirect=true" value="Save" update=":growl" />
+                        <p:commandButton styleClass="btn-block btn-success btn-sm" style="width: 100px" value="Cancel" action="Create.xhtml" />
+                    </h:panelGroup>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

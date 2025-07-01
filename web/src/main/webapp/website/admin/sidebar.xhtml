@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+   <style type="text/css">
+
+       /* Header Styling */
+       .header {
+           background-color: white;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+           position: fixed;
+           width: 100%;
+           top: 0;
+           left: 0;
+           z-index: 10;
+           transition: all 0.3s ease-in-out;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           zoom: 0.8;
+       }
+      .menu-toggle {
+         font-size: 350%;
+         cursor: pointer;
+         padding: 0 0 0 20px;
+      }
+
+      /* Sidebar Styling */
+      .sidebar {
+         position: fixed;
+         left: -250px; /* Initially hidden off-screen */
+         width: 250px;
+         height: 100%;
+         background-color: #2d3e50;
+         padding-top: 90px;
+         color: white;
+         transition: left 0.3s ease;
+         box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar.open {
+         left: 0; /* Show sidebar when toggled */
+          overflow-y: auto;
+      }
+
+      .sidebar h2 {
+         font-size: 24px;
+         margin-bottom: 10px;
+         text-align: center;
+         letter-spacing: 1px;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+      }
+
+      .sidebar ul {
+         list-style: none;
+         margin-top: 20px;
+      }
+
+      .sidebar ul li {
+         margin: 15px 0;
+      }
+
+      .sidebar ul li a {
+         color: white;
+         text-decoration: none;
+         font-size: 18px;
+         display: block;
+         padding: 8px 15px 8px 40px;
+         border-radius: 5px;
+         transition: background-color 0.3s ease;
+      }
+
+      .sidebar ul li a:hover {
+         background-color: #4c5b6f;
+      }
+       .close-icon {
+           font-size: 24px;
+           cursor: pointer;
+           color: white;
+           padding: 5px;
+           transition: color 0.3s ease;
+       }
+
+       .close-icon:hover {
+           color: #ff6b6b;
+       }
+
+       .lock-icon {
+           font-size: 20px;
+           margin-left: 10px;
+           cursor: pointer;
+           color: white;
+           transition: color 0.3s ease;
+       }
+
+       .lock-icon:hover {
+           color: #ffc107;
+       }
+
+       .lock-icon.locked {
+           color: red;
+       }
+
+       /* Main Content Styling */
+      .main-content {
+         margin-left: 0;
+         padding: 30px;
+         margin-top: 50px;
+         transition: all 0.3s ease;
+          overflow-x: auto;
+      }
+
+      .main-content.shifted {
+         margin-left: 270px;
+      }
+
+      .main-content h1 {
+         font-size: 36px;
+         color: #2c3e50;
+         margin-bottom: 30px;
+      }
+
+       @media (max-width: 768px) {
+           .menu-toggle {
+               font-size: 250%;
+               padding: 10px;
+           }
+           .main-content.shifted {
+               margin-left: 235px;
+           }
+       }
+   </style>
+    <script type="text/javascript">
+        let isSidebarLocked = localStorage.getItem("sidebarLocked") === "true";
+
+        window.onload = function () {
+            const lockIcon = document.querySelector('.lock-icon');
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+
+            // Apply the locked state to the lock icon and sidebar on page load
+            if (isSidebarLocked) {
+                lockIcon.innerHTML = "&#128274;"; // Locked icon
+                lockIcon.classList.add("locked");
+                lockIcon.title = "Unlock Sidebar";
+                sidebar.classList.add('open'); // Keep sidebar open when locked
+                mainContent.classList.add('shifted'); // Shift content for the open sidebar
+            } else {
+                lockIcon.innerHTML = "&#128275;"; // Unlocked icon
+                lockIcon.classList.remove("locked");
+                lockIcon.title = "Lock Sidebar";
+            }
+        };
+
+        function toggleSidebar() {
+            // Don't toggle if the sidebar is locked
+            if (isSidebarLocked) {
+                alert("Sidebar is locked. Unlock it first.");
+                return;
+            }
+
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+
+            sidebar.classList.toggle('open');
+            mainContent.classList.toggle('shifted');
+        }
+
+        function toggleLock() {
+            const lockIcon = document.querySelector('.lock-icon');
+            isSidebarLocked = !isSidebarLocked;
+
+            // Save the lock state in localStorage
+            localStorage.setItem("sidebarLocked", isSidebarLocked);
+
+            if (isSidebarLocked) {
+                lockIcon.innerHTML = "&#128274;"; // Locked icon
+                lockIcon.classList.add("locked");
+                lockIcon.title = "Unlock Sidebar";
+
+                // Ensure the sidebar remains open when locked
+                const sidebar = document.querySelector('.sidebar');
+                const mainContent = document.querySelector('.main-content');
+                sidebar.classList.add('open');
+                mainContent.classList.add('shifted');
+            } else {
+                lockIcon.innerHTML = "&#128275;"; // Unlocked icon
+                lockIcon.classList.remove("locked");
+                lockIcon.title = "Lock Sidebar";
+            }
+        }
+
+    </script>
+</h:head>
+<h:body>
+    <div class="header">
+    <span class="menu-toggle" onclick="toggleSidebar()">&#9776;</span> <!-- Hamburger icon -->
+        <ui:include src="/website/common/header.xhtml" />
+    </div>
+
+    <!-- Sidebar remains fixed on the left -->
+    <div class="sidebar">
+        <h2>
+            Admin Panel
+            <span class="close-icon" onclick="toggleSidebar()" title="Close Sidebar">&times;</span> <!-- X symbol -->
+            <span class="lock-icon" onclick="toggleLock()" title="Lock Sidebar">&#128275;</span><!-- lock symbol -->
+        </h2>
+
+        <ul>
+            <li><h:form><h:commandLink value="Users" action="#{uRLBean.redirectWithLabel('/website/admin/users')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Services" action="#{uRLBean.redirectWithLabel('/website/admin/services')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Products" action="#{uRLBean.redirectWithLabel('/website/admin/product')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Testimonials" action="#{uRLBean.redirectWithLabel('/website/admin/testimonials')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Pricing Plans" action="#{uRLBean.redirectWithLabel('/website/admin/pricing')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Contact Submissions" action="#{uRLBean.redirectWithLabel('/website/admin/contacts')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Partners" action="#{uRLBean.redirectWithLabel('/website/admin/partners')}" /></h:form></li>
+            <li><h:form><h:commandLink value="FAQ" action="#{uRLBean.redirectWithLabel('/website/admin/faq')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Team Members" action="#{uRLBean.redirectWithLabel('/website/admin/team-members')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Impact Statistics" action="#{uRLBean.redirectWithLabel('/website/admin/ImpactStat')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Home Page Block" action="#{uRLBean.redirectWithLabel('/website/admin/content-edit')}" /></h:form></li>
+            <li><h:form><h:commandLink value="Blog" action="#{uRLBean.redirectWithLabel('/website/admin/blog')}" /></h:form></li>
+        </ul>
+    </div>
+</h:body>
+</html>
+

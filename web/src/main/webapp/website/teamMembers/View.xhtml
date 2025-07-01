@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TeamMembersViewDlg" widgetVar="TeamMembersViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTeamMembersTitle}">
+            <h:form id="TeamMembersViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{teamMembersController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTeamMembersLabel_id}"/>
+                        <h:outputText value="#{teamMembersController.selected.id}" title="#{bundle.ViewTeamMembersTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewTeamMembersLabel_name}"/>
+                        <h:outputText value="#{teamMembersController.selected.name}" title="#{bundle.ViewTeamMembersTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewTeamMembersLabel_role}"/>
+                        <h:outputText value="#{teamMembersController.selected.role}" title="#{bundle.ViewTeamMembersTitle_role}"/>
+                        <h:outputText value="#{bundle.ViewTeamMembersLabel_imageUrl}"/>
+                        <h:outputText value="#{teamMembersController.selected.imageUrl}" title="#{bundle.ViewTeamMembersTitle_imageUrl}"/>
+                        <h:outputText value="#{bundle.ViewTeamMembersLabel_createdAt}"/>
+                        <h:outputText value="#{teamMembersController.selected.createdAt}" title="#{bundle.ViewTeamMembersTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTeamMembersLabel_updatedAt}"/>
+                        <h:outputText value="#{teamMembersController.selected.updatedAt}" title="#{bundle.ViewTeamMembersTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TeamMembersViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

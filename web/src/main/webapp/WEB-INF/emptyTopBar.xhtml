@@ -1,0 +1,174 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pm="http://primefaces.org/mirage"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <div class="loading-container" id="loadingContainertop">
+        <div class="loading-icon"></div>
+    </div>
+
+    <div class="layout-topbar">
+        <div class="layout-topbar-wrapper">
+            <div class="layout-topbar-left">
+                <div class="layout-topbar-logo-wrapper">
+                    <a href="dashboard.xhtml" class="layout-topbar-logo">
+                        <p:graphicImage name="logoIcon.png" library="images"/>
+                    </a>
+                </div>
+                <a href="#" class="sidebar-menu-button">
+                    <i class="pi pi-bars"/>
+                </a>
+                <a href="#" class="megamenu-mobile-button">
+                    <i class="pi pi-align-right megamenu-icon"/>
+                </a>
+                <a href="#" class="topbar-menu-mobile-button">
+                    <i class="pi pi-ellipsis-v"/>
+                </a>
+                <h:form id="HomeFormtop">
+                    <h:panelGrid styleClass="ui-noborder" columns="3" cellpadding="5" cellspacing="1">
+                        <h:panelGroup>
+                            <p:spacer width="50px"/>
+                            <p:commandButton action="/index.xhtml?faces-redirect=true"
+                                             id="home" value="Home" icon="pi pi-home" styleClass="ui-button-outlined"/>
+
+                           <style>
+                                .panel {
+                                    border: none;
+                                    background-color: transparent;
+                                }
+
+                                .table-borderless {
+                                    border: none;
+                                    background-color: transparent;
+                                }
+
+                                .table-borderless td, .table-borderless th {
+                                    border: none;
+                                }
+                            </style>
+                        </h:panelGroup>
+
+                    </h:panelGrid>
+                </h:form>
+            </div>
+
+
+            <div class="layout-topbar-right" id="dialogtop" style="position: relative; align-content: end">
+                <ul class="layout-topbar-actions">
+
+                    <p:spacer width="20px"/>
+                    <li class="topbar-item">
+                        <span class="profile-image-wrapper">
+                            <p:graphicImage value="#{companyLogoDynamicController.imagePath}" alt="Image" width="70"
+                                            height="55"/>
+                        </span>
+                        <span class="profile-info-wrapper">
+
+                            <span>#{companyLogoDynamicController.companyLogoDynamicForLogo().companyAddress.alphaName}</span>
+                        </span>
+
+
+                    </li>
+                    <p:spacer width="100px"/>
+
+
+                    <li class="topbar-item profile-item">
+                        <a href="#">
+
+                            <h5>#{loginView.authenticatedUser.employeesId.nameFirst}</h5>
+                        </a>
+                        <ul class="profile-item-submenu">
+                            <li class="profile-submenu-header">
+
+                                <div class="profile">
+                                    <p:graphicImage value="" alt="Image"
+                                                    width="70" height="55"/>
+                                    <h1>Tech Equations Web</h1>
+                                    <span></span>
+                                </div>
+                            </li>
+
+                            <li class="layout-submenu-footer">
+                                <h:form> <p:commandButton styleClass="mr-2 mb-2" action="#{loginView.logout()}"
+                                                          value="Sign out"
+                                                          class="signout-button"></p:commandButton><br/><br/>
+                                    <p:commandLink styleClass="mr-2 mb-2"
+                                                   action="#{uRLBean.encryptedLink('/changePassword1.xhtml')}"
+                                                   value="Change Password"
+                                                   class="signout-button"></p:commandLink>
+                                </h:form>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+
+                        <h:form>
+
+                        </h:form>
+                    </li>
+                </ul>
+
+                <ul class="profile-mobile-wrapper">
+
+                    <li class="topbar-item profile-item">
+                        <a href="#">
+
+                            <h5>#{loginView.authenticatedUser.employeesId.nameFirst}</h5>
+
+
+                        </a>
+                        <ul>
+                            <li class="profile-submenu-header">
+                                <div class="performance">
+                                    <span>Weekly Performance</span>
+
+                                </div>
+                                <div class="profile">
+                                    <p:graphicImage value="" alt="Image"
+                                                    width="70" height="55"/>
+                                    <h1>Tech Equations Web</h1>
+
+                                </div>
+                            </li>
+
+                            <li class="layout-submenu-footer">
+                                <h:form> <p:commandButton action="#{loginView.logout()}" value="Sign out"
+                                                          styleClass="mr-2 mb-2"
+                                                          class="signout-button"></p:commandButton>
+                                    <p:commandButton styleClass="mr-2 mb-2"
+                                                     action="#{uRLBean.encryptedLink('/changePassword.xhtml')}"
+                                                     value="Change Password"
+                                                     class="signout-button"></p:commandButton>
+                                </h:form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<!--    <ui:include src="./rightfortasksideBar.xhtml"/>-->
+    <div class="layout-menu-container">
+        <h:form id="menuformtop">
+            <pm:menu>
+
+
+            </pm:menu>
+        </h:form>
+    </div>
+    <script type="text/javascript">
+        function disableBackAndForward() {
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+        }
+    </script>
+</ui:composition>

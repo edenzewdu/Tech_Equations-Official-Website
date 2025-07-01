@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BlogViewDlg" widgetVar="BlogViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBlogTitle}">
+            <h:form id="BlogViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{blogController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBlogLabel_id}"/>
+                        <h:outputText value="#{blogController.selected.id}" title="#{bundle.ViewBlogTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewBlogLabel_title}"/>
+                        <h:outputText value="#{blogController.selected.title}" title="#{bundle.ViewBlogTitle_title}"/>
+                        <h:outputText value="#{bundle.ViewBlogLabel_summary}"/>
+                        <h:outputText value="#{blogController.selected.summary}" title="#{bundle.ViewBlogTitle_summary}"/>
+                        <h:outputText value="#{bundle.ViewBlogLabel_content}"/>
+                        <h:outputText value="#{blogController.selected.content}" title="#{bundle.ViewBlogTitle_content}"/>
+                        <h:outputText value="#{bundle.ViewBlogLabel_category}"/>
+                        <h:outputText value="#{blogController.selected.category}" title="#{bundle.ViewBlogTitle_category}"/>
+                        <h:outputText value="#{bundle.ViewBlogLabel_imageUrl}"/>
+                        <h:outputText value="#{blogController.selected.imageUrl}" title="#{bundle.ViewBlogTitle_imageUrl}"/>
+                        <h:outputText value="#{bundle.ViewBlogLabel_createdAt}"/>
+                        <h:outputText value="#{blogController.selected.createdAt}" title="#{bundle.ViewBlogTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBlogLabel_updatedAt}"/>
+                        <h:outputText value="#{blogController.selected.updatedAt}" title="#{bundle.ViewBlogTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BlogViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

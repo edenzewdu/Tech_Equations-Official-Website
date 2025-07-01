@@ -1,0 +1,213 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/mirage">
+
+
+    <div class="layout-sidebar">
+        <div class="sidebar-logo">
+            <a href="#" class="sidebar-pin" title="Toggle Menu">
+                <i class="pi pi-unlock"/>
+            </a>
+            <a href="dashboard.xhtml">
+                <p:graphicImage name="images/gg.png" library="mirage-layout" width="100" height="100"/>
+                <span class="app-name">Warehouse Management</span>
+            </a>
+        </div>
+        <div class="layout-menu-container">
+            <h:form id="menuform">
+                <p:panelMenu styleClass="layout-menu" statefulGlobal="true">
+                    <p:submenu label="Processings" class="layout-menu-container">
+                        <p:submenu label="Daily">
+                            <p:submenu id="inbound_operating" label="Inbound Warehousing Operations" >
+                                <p:menuitem value="Putaway Confirmation" outcome="/warehouse/warehouseSuggestions/WarehouseConfirmationList"/>
+                                <p:menuitem value="Putaway Requests" outcome="/warehouse/warehouseRequests/PutawayRequestList"/>
+                                <p:menuitem value="Putaway Reservations" actionListener="#{putawayReservationsController.preparePODetailForPutawayReservation()}" action="/warehouse/putawayReservations/OnlinePutawayReservationList.xhtml?faces-redirect=true"/>
+                                <p:menuitem value="Manual Putaway Location Planner" outcome="/warehouse/warehouseRequests/PutawayRequestList"/>
+                                <p:menuitem value="Process Putaway Request" action="#{processOptionModule.batchProcess('R46171', 'WarehouseRequests', 'warehouse')}"/> 
+                                <p:menuitem value="Batch Putaway Request" action="#{processOptionModule.batchProcess('R46140', 'ItemLocationFile', 'warehouse')}"/>
+                                <p:menuitem value="Batch Putaway Request" action="#{processOptionModule.batchProcess('R46140', 'ItemLocationFile', 'warehouse')}"/>
+                                <p:menuitem value="Batch Putaway Confirmation" action="#{processOptionModule.batchProcess('R4617', 'ItemLocationFile', 'warehouse')}"/>
+                            </p:submenu>
+
+                            <p:submenu id="out_bound_operating" label="Outbound Warehousing Operations" >
+                                <p:menuitem value="Carton Detail Inquiry" outcome="/warehouse/cartonDetailInformation/CartonDetailInquiryList"/>
+                                <p:menuitem value="Create Bulk Pick Requests" outcome="/warehouse/batchVersions/ForCreateBulkPickingRequestList"/>
+                                <p:menuitem value="Pick Requests" outcome="/warehouse/warehouseRequests/PickingRequestList"/>
+                                <p:menuitem value="Planned Cross Docking" outcome="/warehouse/warehouseRequests/PlannedCrossDockingWorkbenchList"/>
+                                <p:menuitem value="Batch Picking Requests" action="#{processOptionModule.batchProcess('R46150', 'SalesOrderDetailFile', 'warehouse')}"/>
+                                <p:menuitem value="Batch Picking Confirmation" action="#{processOptionModule.batchProcess('R4617', 'ItemLocationFile', 'warehouse')}"/>
+                                <p:menuitem value="Process Picking Request" action="#{processOptionModule.batchProcess('R46171', 'WarehouseRequests', 'warehouse')}"/> 
+                            </p:submenu>
+
+                            <p:submenu id="replenish_operation" label="Replenishment Operations" >
+                                <p:menuitem  value="Manual Replenishments" actionListener="#{warehouseRequestsController.preparManualReplenishment()}" action="/warehouse/warehouseRequests/ReplenishmentManualCreate.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Replenishment Requests" outcome="/warehouse/warehouseRequests/ReplenishmentRequestList"/>
+                                <p:menuitem value="Process Replenishment Request" action="#{processOptionModule.batchProcess('R46171', 'WarehouseRequests', 'warehouse')}"/>
+                                <p:menuitem value="Batch Replenishment Confirmation" action="#{processOptionModule.batchProcess('R4617', 'ItemLocationFile', 'warehouse')}"/>
+                            </p:submenu>
+
+                            <p:submenu id="shipping_package_mgt" label="Shipping and Packaging Management" >
+                                <p:menuitem value="Carton Charge Reference Setup" outcome="/warehouse/cartonChargeReferenceSetup/List"/>
+                                <p:menuitem value="Carton Recommendations" outcome="/warehouse/cartonRecommendations/List"/>
+                                <p:menuitem value="Carton Reorganization" outcome="/warehouse/cartonDetailInformation/List"/>
+                                <p:menuitem value="Unusable Label Numbers" outcome="/warehouse/unusableLabelNumbers/List"/>
+                                <p:submenu id="shipping_notice" label="Shipping Notice" >
+                                    <p:menuitem  value="Hierarchical Configuration Definition" outcome="/warehouse/hierarchicalConfiguration/List"/>
+                                </p:submenu>
+                            </p:submenu>
+
+                            <p:submenu id="license_pl_daily_pr" label="License Plate Daily Processing" >
+                                <p:menuitem  value="Assign/Remove Child License Plate" outcome="/warehouse/licensePlateItemDetail/AssignorRemoveChildLicensePlate"/>
+                                <p:menuitem  value="Assign/Remove Items to License Plate" outcome="/warehouse/licensePlateItemDetail/AssignorRemoveItemsForLicensePlate"/>
+                                <p:menuitem  value="License Plate Cross Reference" outcome="/warehouse/lpCrossreference/LisencePlateCrossReference.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="License Plate Workbench" outcome="/warehouse/licensePlateMaster/LicensePlateWorkBenchList"/>
+                            </p:submenu>
+
+                            <p:submenu id="wr_inq" label="Warehouse Inquiries and Reports">
+                                <p:menuitem value="Inbound Requests" outcome="/warehouse/warehouseRequests/PutawayRequestList"/>
+                                <p:menuitem value="Outbound Requests" outcome="/warehouse/warehouseRequests/PickingRequestList"/>
+                                <p:menuitem value="Replenishment Requests" outcome="/warehouse/warehouseRequests/ReplenishmentRequestList"/>
+                                <p:menuitem value="Warehouse Availability Inquiry" action="#{templates.link('warehouse', '/inventory/itemLocationFile/WarehouseAvailabilityInquiryList.xhtml')}"/>
+                                <p:menuitem value="Item Availability" action="#{templates.link('warehouse', '/inventory/itemLocationFile/SummaryAvailablityList.xhtml')}"/>
+                                <p:menuitem value="Item Availability By Location" action="#{templates.link('warehouse', '/inventory/itemLocationFile/ItemAvailablityByLocationList.xhtml')}"/>
+                                <p:menuitem value="Item Ledger (CARDEX)" action="#{templates.link('warehouse', '/inventory/itemLedgerFile/CardexList.xhtml')}"/>
+
+                            </p:submenu>
+                        </p:submenu>
+                        <p:submenu label="Periodic">
+                            <p:submenu id="warehouse_doc" label="Warehouse Movement Documents" >
+                                <p:menuitem  value="Create Tasks and Trip" action="#{processOptionModule.batchProcess('R46471', 'WarehouseSuggestions', 'warehouse')}"/> 
+                                <p:menuitem  value="Summary Document" action="#{processOptionModule.batchProcess('R46472', 'WarehouseSuggestions', 'warehouse')}"/> 
+                                <p:menuitem  value="Move Tag" action="#{processOptionModule.batchProcess('R46473', 'WarehouseSuggestions', 'warehouse')}"/> 
+                            </p:submenu>
+                        </p:submenu>
+                    </p:submenu>
+                    <p:submenu label="Operation Setups" class="layout-menu-container">
+                        <p:submenu label="Technical">
+                            <p:submenu id="warehouse_mov_rule" label="Warehousing Movement Rules" >
+                                <p:menuitem  value="Fixed Picking Locations" actionListener="#{warehouseModule.prepareFixedLocation('picking')}" action="/warehouse/fixedLocations/List.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Fixed Putaway Locations" actionListener="#{warehouseModule.prepareFixedLocation('putaway')}" action="/warehouse/fixedLocations/List.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Fixed Replenishment Locations" actionListener="#{warehouseModule.prepareFixedLocation('picking')}" action="/warehouse/fixedLocations/List.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Fixed Replenishment Zone" outcome="/warehouse/fixedReplenismentZones/List"/>
+                                <p:menuitem  value="Item/Carton Setup by Group" actionListener="#{warehouseModule.prepareCartonRecomRule('itemDimension')}" action="/warehouse/cartonRecommendationRules/List.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Item/Carton Setup by Item" actionListener="#{warehouseModule.prepareCartonRecomRule('itemNumber')}" action="/warehouse/cartonRecommendationRules/List.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Picking Random Requirements" outcome="/warehouse/randomTable/List"/>
+                                <p:menuitem  value="Picking Selection" outcome="/warehouse/processSelectionRules/List"/>
+                                <p:menuitem  value="Picking Instructions" actionListener="#{warehouseModule.prepareMovementInstrictions('picking')}" action="/warehouse/movementInstructions/List.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Putaway Random Requirements" outcome="/warehouse/randomTable/List"/>
+                                <p:menuitem  value="Putaway Selection" outcome="/warehouse/processSelectionRules/List"/>
+                                <p:menuitem  value="Putaway Instructions" actionListener="#{warehouseModule.prepareMovementInstrictions('putaway')}" action="/warehouse/movementInstructions/List.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Replenishment Random Requirements" outcome="/warehouse/randomTable/List"/>
+                                <p:menuitem  value="Replenishment Selection" outcome="/warehouse/processSelectionRules/List"/>
+                                <p:menuitem  value="Replenishment Instructions" actionListener="#{warehouseModule.prepareMovementInstrictions('replenishment')}" action="/warehouse/movementInstructions/List.xhtml?faces-redirect=true"/>
+                            </p:submenu>
+                        </p:submenu>
+                        <p:submenu label="Advanced">
+                            <p:submenu id="war_po" label="Process Option For Warehouse Management" >
+                                <p:menuitem  value="Data Selection"  action="#{processOptionModule.version('DS', '46', 'warehouse')}"/>
+                                <p:menuitem  value="Batch Application"  action="#{processOptionModule.version('BA', '46', 'warehouse')}"/>
+                                <p:menuitem  value="Batch Versions"  action="#{processOptionModule.version('BV', '46', 'warehouse')}" />
+                                <p:menuitem  value="Interactive Application"  action="#{processOptionModule.version('IA', '46', 'warehouse')}"/>
+                                <p:menuitem  value="Interactive Versions" action="#{processOptionModule.version('IV', '46', 'warehouse')}"/>
+                            </p:submenu>
+                            <p:submenu id="lp_po" label="Process Option For License Plate" >
+                                <p:menuitem  value="Data Selection"  action="#{processOptionModule.version('DS', '46L', 'warehouse')}"/>
+                                <p:menuitem  value="Batch Application"  action="#{processOptionModule.version('BA', '46L', 'warehouse')}"/>
+                                <p:menuitem  value="Batch Versions"  action="#{processOptionModule.version('BV', '46L', 'warehouse')}" />
+                                <p:menuitem  value="Interactive Application"  action="#{processOptionModule.version('IA', '46L', 'warehouse')}"/>
+                                <p:menuitem  value="Interactive Versions" action="#{processOptionModule.version('IV', '46L', 'warehouse')}"/>
+                            </p:submenu>
+                            <p:submenu id="rf_po" label="Process Option For RFID" >
+                                <p:menuitem  value="Data Selection"  action="#{processOptionModule.version('DS', '46R', 'warehouse')}"/>
+                                <p:menuitem  value="Batch Application"  action="#{processOptionModule.version('BA', '46R', 'warehouse')}"/>
+                                <p:menuitem  value="Batch Versions"  action="#{processOptionModule.version('BV', '46R', 'warehouse')}" />
+                                <p:menuitem  value="Interactive Application"  action="#{processOptionModule.version('IA', '46R', 'warehouse')}"/>
+                                <p:menuitem  value="Interactive Versions" action="#{processOptionModule.version('IV', '46R', 'warehouse')}"/>
+                            </p:submenu>
+                            <p:menuitem  value="Build Random Location" action="#{processOptionModule.batchProcess('R46821', 'RandomTable', 'warehouse')}"/> 
+                            <p:menuitem  value="Build Tiebreaker Information" action="#{processOptionModule.batchProcess('R46027', 'LocationMaster', 'warehouse')}"/> 
+                        </p:submenu>
+                    </p:submenu>
+                    <p:submenu label="System Setups" class="layout-menu-container">
+                        <p:submenu label="Warehouse Management">
+                            <p:submenu label="Setting Up Warehouse User Define Codes">
+                                <p:menuitem  value="Tax Codes" action="#{processOptionModule.udcRecordRevision('46', 'LT', 'N', 'warehouse', 'Tax Codes', null)}"/>
+                                <p:menuitem  value="Item Dimension Group" action="#{processOptionModule.udcRecordRevision('41', '01', 'N', 'warehouse', 'Item Dimension Group', null)}"/>
+                                <p:menuitem  value="Characteristic Groups" action="#{processOptionModule.udcRecordRevision('46', 'LC', 'N', 'warehouse', 'Characteristic Groups', null)}"/>
+                                <p:menuitem  value="Zones" action="#{processOptionModule.udcRecordRevision('46', 'ZN', 'N', 'warehouse', 'Zones', null)}"/>
+                                <p:menuitem  value="Location Dimension Groups" action="#{processOptionModule.udcRecordRevision('46', 'LD', 'N', 'warehouse', 'Location Dimension Groups', null)}"/>
+                                <p:menuitem  value="Pack Codes" action="#{processOptionModule.udcRecordRevision('46', 'PK', 'N', 'warehouse', 'Pack Codes', null)}"/>
+                                <p:menuitem  value="Container/Carton Codes" action="#{processOptionModule.udcRecordRevision('46', 'EQ', 'N', 'warehouse', 'Container/Carton Codes', null)}"/>
+                                <p:menuitem  value="Inclusion Versions" action="#{processOptionModule.udcRecordRevision('40', 'RV', 'N', 'warehouse', 'Inclusion Versions', null)}"/>
+                                <p:menuitem  value="Process Groups" action="#{processOptionModule.udcRecordRevision('41', '02', 'N', 'warehouse', 'Process Groups', null)}"/>
+                                <p:menuitem  value="Order Groups" action="#{processOptionModule.udcRecordRevision('46', 'DT', 'N', 'warehouse', 'Order Groups', null)}"/>
+                                <p:menuitem  value="Unit of Measure Groups" action="#{processOptionModule.udcRecordRevision('46', 'UG', 'N', 'warehouse', 'Unit of Measure Groups', null)}"/>
+                                <p:menuitem  value="Instruction Tables" action="#{processOptionModule.udcRecordRevision('46', 'IT', 'N', 'warehouse', 'Instruction Tables', null)}"/>
+                                <p:menuitem  value="Processing Modes" action="#{processOptionModule.udcRecordRevision('46', 'PC', 'N', 'warehouse', 'Processing Modes', null)}"/>
+                                <p:menuitem  value="Random Rule Tables" action="#{processOptionModule.udcRecordRevision('46', 'SR', 'N', 'warehouse', 'Random Rule Tables', null)}"/>
+                                <p:menuitem  value="Random Characteristic Codes" action="#{processOptionModule.udcRecordRevision('46', 'DF', 'N', 'warehouse', 'Random Characteristic Codes', null)}"/>
+                                <p:menuitem  value="Replenishment Groups" action="#{processOptionModule.udcRecordRevision('46', 'RG', 'N', 'warehouse', 'Replenishment Groups', null)}"/>
+                            </p:submenu>
+                            <p:submenu label="Setting Up Warehouse Managements">
+                                <p:menuitem  value="Allowed Containers by Location" outcome="/warehouse/allowedContainersByLocation/List"
+                                             />
+                                <p:menuitem value="Branch/Plant Constants" action="#{templates.link('warehouse', '/inventory/inventoryConstants/List.xhtml')}"
+                                            />
+                                <p:menuitem  value="Capacity Definition by Group" actionListener="#{locationCapacityController.prepareCapacityList('itemDimensionGroup')}" action="/warehouse/locationCapacity/List.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Capacity Definition by Item" actionListener="#{locationCapacityController.prepareCapacityList('itemNumber')}" action="/warehouse/locationCapacity/List.xhtml?faces-redirect=true"/>
+                                <p:menuitem  value="Container and Carton Codes" outcome="/warehouse/containerAndCartonCodes/List"
+                                             />
+                                <p:menuitem  value="Location Characteristics" outcome="/warehouse/locationCharacteristics/List"/>
+                                <p:menuitem  value="Location Dimensions" outcome="/warehouse/locationDimensions/List"/>
+                                <p:menuitem  value="Location Master" outcome="/warehouse/locationMaster/List"/>
+                                <p:menuitem  value="Location Profile" outcome="/warehouse/locationMaster/LocationProfileList"/>
+                                <p:menuitem  value="Speed Location" actionListener="#{inventoryModule.prepareCreateSpeedMaintenace()}" action="#{templates.link('warehouse', '/inventory/locationMaster/SpeedLocationCreate.xhtml')}"
+                                             />
+                                <p:menuitem  value="Order Groups" outcome="/warehouse/orderGroups/List"
+                                             />
+                                <p:menuitem  value="Request Inclusion Rules" outcome="/warehouse/demandSupplyInclusionRules/Edit"
+                                             />
+                                <p:menuitem  value="U/M Definition by Group" outcome="/warehouse/itemUnitOfMeasureDefinition/ByGroupList"
+                                             />
+                                <p:menuitem  value="U/M Definition by Item" outcome="/warehouse/itemUnitOfMeasureDefinition/ByItemList"
+                                             />
+                                <p:menuitem  value="Unit of Measure Groups" outcome="/warehouse/unitOfMeasureGroups/List"
+                                             />
+                                <p:menuitem  value="Item Profile" outcome="/warehouse/itemProfile/List"/>
+                            </p:submenu>
+                        </p:submenu>
+                        <p:submenu label="License Plate">
+                            <p:menuitem  value="Container and Carton Codes" outcome="/warehouse/containerAndCartonCodes/List"/>
+                            <p:menuitem  value="License Plate Numbering Constants" outcome="/warehouse/licensePlateNumberingContants/List"/>
+                            <p:menuitem  value="License Plate Segment Definition" outcome="/warehouse/licensePlateSegments/List"/>
+                            <p:menuitem  value="U/M Definition by Group" outcome="/warehouse/itemUnitOfMeasureDefinition/ByGroupList"/>
+                            <p:menuitem  value="U/M Definition by Item" outcome="/warehouse/itemUnitOfMeasureDefinition/ByItemList"/>
+                        </p:submenu>
+                        <p:submenu label="Shipping and Packaging">
+                            <p:menuitem  value="Additional Label Data" outcome="/warehouse/additionalDemandLabelData/List"/>
+                            <p:menuitem  value="Carton Bill of Material" outcome="/warehouse/containerBillOfMaterial/List"/>
+                            <p:menuitem  value="Container and Carton Codes" outcome="/warehouse/containerAndCartonCodes/List"/>
+                            <p:menuitem  value="Item Standard Packs" outcome="/warehouse/standardPackRecommendationRules/List"/>
+                            <p:menuitem  value="Label Next Numbers" outcome="/warehouse/labelNextNumbers/List"/>
+                            <p:menuitem  value="Mixed Sequence Packing Groups" outcome="/warehouse/mixedSequencedPackingGroups/List"/>
+                            <p:menuitem  value="Pallet Standard Packs" outcome="/warehouse/standardPackRecommendationRules/PalletList"/>
+                        </p:submenu>
+                        <p:submenu label="RFID">
+                            <p:menuitem  value="EPC Partition Definition" outcome="/warehouse/epcPartitionDefinition/List"/>
+                            <p:menuitem  value="EPC Setup" outcome="/warehouse/epc/List"/>
+                            <p:menuitem  value="Unique Product Table" outcome="/warehouse/uniqueProductNumber/List"/>
+                        </p:submenu>
+                    </p:submenu>
+                </p:panelMenu>
+                <pm:menu>
+
+                </pm:menu>
+            </h:form>
+        </div>
+    </div>
+
+</ui:composition>

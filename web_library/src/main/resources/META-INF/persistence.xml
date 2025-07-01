@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+  <!-- Existing persistence unit -->
+  <persistence-unit name="com.web_library_war_1.0-SNAPSHOTPU" transaction-type="JTA">
+    <jta-data-source>java:app/web_library</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties/>
+  </persistence-unit>
+
+  <!-- New persistence unit for UTF-8 support -->
+  <persistence-unit name="charactersAmharic" transaction-type="JTA">
+    <jta-data-source>java:app/web_library</jta-data-source> <!-- Use the same datasource -->
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <!-- Hibernate settings for MySQL UTF-8 support -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect" />
+      <property name="hibernate.jdbc.use_streams_for_binary" value="false" />
+      <property name="hibernate.jdbc.charSet" value="utf8mb4" />
+      <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- Optional: Automatic schema updates -->
+      <property name="hibernate.show_sql" value="true" /> <!-- Optional: Show generated SQL in logs -->
+      <property name="hibernate.format_sql" value="true" /> <!-- Optional: Format SQL in logs -->
+    </properties>
+  </persistence-unit>
+</persistence>

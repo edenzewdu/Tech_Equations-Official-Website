@@ -1,0 +1,776 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pm="http://primefaces.org/mirage"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <style>
+
+
+        .reminder {
+            width: 250px;
+            background-color: #e8f1f8;
+            padding: 100px;
+            border: 1px solid #d0d7de;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .reminder-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .reminder-count {
+            font-weight: bold;
+        }
+
+        .dismiss-all {
+            font-size: 12px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .reminder-item {
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #d0d7de;
+        }
+
+        .reminder-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .subject {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .time-range {
+            color: #555;
+        }
+
+        .meeting-link {
+            color: #0066cc;
+            font-size: 12px;
+            text-decoration: none;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .time-left {
+            color: #888;
+            font-size: 12px;
+            align-self: flex-end;
+        }
+
+        .reminder-actions {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .reminder-timing {
+            font-size: 12px;
+            padding: 2px;
+        }
+
+        .dismiss, .snooze {
+            font-size: 12px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .dismiss:hover, .snooze:hover {
+            background-color: #d0d0d0;
+        }
+
+        .show-more {
+            display: block;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #0066cc;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .dropbutton {
+            background-color: #f1f1f1;
+            color: black;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            text-align: left;
+            font-size: small;
+        }
+
+        .dropbutton2 {
+            background-color: #f1f1f1;
+            color: black;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            text-align: left;
+            font-size: small;
+
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown2 {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            place-content: stretch;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            text-align: left;
+            font-size: small;
+        }
+
+
+        .dropdown-content2 {
+            display: none;
+            position: relative;
+            place-content: stretch;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            text-align: left;
+            font-size: small;
+        }
+
+        .dropdown:hover .dropdown-content {
+            font-size: small;
+            font-weight: bold;
+            display: block;
+        }
+
+        .dropdown2:hover .dropdown-content2 {
+            font-size: small;
+            font-weight: bold;
+            display: block;
+        }
+
+        .dropdown:hover .dropbutton {
+            font-size: small;
+            background-color: #f1f1f1;
+        }
+
+        .dropdown2:hover .dropbutton2 {
+            font-size: small;
+            background-color: #f1f1f1;
+        }
+
+        .subMenuStyle {
+            text-align: left;
+            font-size: small;
+            width: fit-content;
+            align-items: flex-end;
+            background-color: #ccccff;
+        }
+
+        .no-border-submenu .ui-menu-child {
+            border: none;
+        }
+
+        .topbar-icon pi pi-bell .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 50%;
+            background: red;
+            color: white;
+        }
+
+        .dialog-container {
+            display: none;
+            position: fixed;
+            top: 335px;
+            left: 1450px;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 450px;
+            max-width: 90%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        .dialog-container.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .dialog-header {
+            background-color: #2a6ebd; /* Blue color for header */
+            color: white; /* White text */
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Close button styling */
+        .close-button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close-button:hover {
+            color: #d4d4d4;
+        }
+
+        .dialog-container {
+            position: fixed; /* Ensures the dialog stays in place relative to the viewport */
+            top: 32%; /* Center vertically */
+            left: 83%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Offset by half the height and width to center */
+            z-index: 1000; /* Ensure it appears above other elements */
+            width: 90%; /* Optional: Adjust width to fit the screen */
+            max-width: 500px; /* Optional: Maximum width for responsiveness */
+            background-color: #fff; /* Background color */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add some shadow for a popup effect */
+            border-radius: 8px; /* Optional: Rounded corners */
+            overflow: hidden; /* Prevent content overflow */
+        }
+
+        /* Notification items styling */
+        .dialog-content .menu-text {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dialog-content .menu-text:last-child {
+            border-bottom: none;
+        }
+
+        /* Link styling within notifications */
+        .dialog-content .card p {
+            margin: 0;
+            font-weight: bold;
+            color: #004085;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .dialog-content .card p:hover {
+            color: #0056b3;
+        }
+
+        /* Divider styling */
+        .dialog-content p:divider {
+            margin: 10px 0;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .notification-list {
+            max-height: 500px; /* Adjust the height as needed */
+            overflow-y: auto;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        #notificationList {
+            display: none; /* Initially hidden - controlled by JS */
+            position: absolute;
+            top: 100%; /* Position below the trigger */
+            right: 0; /* Align to the right */
+            width: 420px; /* As specified in your HTML */
+            background-color: #ffffff;
+            border: 1px solid #ced4da; /* Softer border color */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            z-index: 1000; /* Ensure it's above other content */
+            list-style: none;
+            padding: 0;
+            margin-top: 5px; /* Small gap from the top bar */
+            max-height: 450px; /* Limit height and allow scrolling */
+            overflow-y: auto; /* Enable vertical scrollbar when needed */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        #notificationForm .dialog-header {
+            padding: 12px 15px;
+            font-size: 16px;
+            font-weight: 600; /* Slightly less bold */
+            color: #343a40;
+            border-bottom: 1px solid #e9ecef; /* Lighter border */
+            background-color: #f8f9fa; /* Slight background tint */
+            position: sticky; /* Keep header visible when scrolling */
+            top: 0;
+            z-index: 1; /* Ensure header stays above scrolled content */
+        }
+
+        #notificationList .layout-submenu-item {
+            /* No border here if using p:divider */
+            /* border-bottom: 1px solid #e9ecef; */ /* Use if not using p:divider */
+            margin: 0;
+            padding: 0; /* Padding handled by inner div */
+        }
+        #notificationList .layout-submenu-item:last-child {
+            /* Remove border from last item if using border instead of p:divider */
+            /* border-bottom: none; */
+        }
+
+        /* Add hover effect to list items */
+        #notificationList .layout-submenu-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Inner content div for padding */
+        #notificationList .menu-text {
+            padding: 15px;
+            position: relative; /* For absolute positioning of date if needed */
+        }
+
+        /* Status text */
+        .notification-status {
+            font-weight: bold;
+            font-size: 0.85em;
+            color: #6c757d; /* Grey color for status */
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Description paragraph/link */
+        .notification-description {
+            font-size: 1em; /* Base font size */
+            font-weight: 500;
+            color: #212529;
+            margin: 0 0 10px 0; /* Space below description */
+        }
+        .notification-description .ui-link { /* Target PrimeFaces link */
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+
+        }
+        .notification-description .ui-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Date text */
+        .notification-date {
+            font-size: 0.8em;
+            color: #6c757d;
+            text-align: right; /* Align date to the right */
+            display: block; /* Ensure it takes its own line */
+            margin-top: -10px; /* Adjust slightly upwards if needed */
+            margin-bottom: 10px;
+        }
+
+        /* Actions area (buttons) */
+        .notification-actions {
+            display: flex; /* Use flexbox for button alignment */
+            flex-wrap: wrap; /* Allow buttons to wrap on small widths */
+            gap: 8px; /* Space between buttons */
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e9ecef; /* Separator line */
+        }
+
+        /* Style action buttons */
+        .notification-actions .ui-button {
+            font-size: 0.9em;
+            padding: 4px 8px; /* Smaller padding for actions */
+        }
+
+        /* Divider */
+        #notificationForm .ui-divider {
+            margin: 0; /* Remove default divider margins */
+            border-color: #e9ecef; /* Match other border colors */
+        }
+        #notificationForm .ui-divider .ui-divider-content {
+            padding: 0; /* Remove padding if divider has content alignment */
+        }
+
+
+        /* "Load More" button container */
+        .load-more-container {
+            text-align: center;
+            padding: 10px 0; /* Padding top/bottom */
+            border-top: 1px solid #e9ecef;
+        }
+        /* Style for the "Load More" button itself */
+        .load-more-container .ui-button {
+            font-size: 0.9em;
+        }
+
+        /* "No new notifications" message */
+        .no-notifications-message {
+            padding: 25px 15px;
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        /* "Show All" link */
+        .show-all-link .ui-link { /* Target PrimeFaces link */
+            display: block;
+            text-align: center;
+            padding: 12px 15px;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+            border-top: 1px solid #e9ecef;
+            background-color: #f8f9fa;
+            transition: background-color 0.2s ease;
+        }
+        .show-all-link .ui-link:hover {
+            background-color: #e9ecef;
+            text-decoration: none;
+        }
+        .topbar-item .ui-badge {
+            /* PrimeFaces default styles are usually okay, adjust if needed */
+            font-size: 0.8em;
+            line-height: 1.5; /* Adjust for better vertical centering */
+        }
+    </style>
+
+    <h:outputScript target="head">
+
+        function showNotificationPanel1() {
+            var list = document.getElementById('notificationList');
+            if (list) {
+                list.style.display = 'block';
+                console.log("Notification panel shown.");
+            } else {
+                console.error("Element with ID 'notificationList' not found for showing.");
+            }
+        }
+
+        function closeNotificationPanel() {
+            var list = document.getElementById('notificationList');
+            if (list) {
+                list.style.display = 'none';
+                console.log("Notification panel hidden.");
+            } else {
+                console.error("Element with ID 'notificationList' not found for closing.");
+            }
+        }
+
+        // Optional: Close dropdown if clicking outside
+        document.addEventListener('click', function(event) {
+            var topbarItem = event.target.closest('.topbar-item');
+            var list = document.getElementById('notificationList');
+            if (list &amp;&amp; list.style.display === 'block' &amp;&amp; !topbarItem) {
+                // Only close if the click is outside the notification item AND the list is visible
+                closeNotificationPanel();
+            }
+        }, true); // Use capture phase might help sometimes
+
+    </h:outputScript>
+
+
+
+    <div class="loading-container" id="loadingContainer">
+        <div class="loading-icon"></div>
+    </div>
+
+    <div class="layout-topbar" style="zoom: 80%;">
+        <div class="layout-topbar-wrapper">
+            <div class="layout-topbar-left">
+                <div class="layout-topbar-logo-wrapper">
+                    <a href="dashboard.xhtml" class="layout-topbar-logo">
+                        <p:graphicImage name="images/gg.png" library="mirage-layout"/>
+                        <span class="app-name">Savvy ERP</span>
+                    </a>
+                </div>
+                <a href="#" class="sidebar-menu-button">
+                    <i class="pi pi-bars"/>
+                </a>
+                <a href="#" class="megamenu-mobile-button">
+                    <i class="pi pi-align-right megamenu-icon"/>
+                </a>
+                <a href="#" class="topbar-menu-mobile-button">
+                    <i class="pi pi-ellipsis-v"/>
+                </a>
+                <h:form id="HomeForm">
+                    <h:panelGrid styleClass="ui-noborder" columns="3" cellpadding="5" cellspacing="1">
+                        <h:panelGroup>
+                            <p:spacer width="50px"/>
+                            <p:commandButton action="/index.xhtml?faces-redirect=true"
+                                             id="home" value="Home" icon="pi pi-home" styleClass="ui-button-outlined"/>
+
+
+                            <style>
+                                .panel {
+                                    border: none;
+                                    background-color: transparent;
+                                }
+
+                                .table-borderless {
+                                    border: none;
+                                    background-color: transparent;
+                                }
+
+                                .table-borderless td, .table-borderless th {
+                                    border: none;
+                                }
+                            </style>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <p:commandButton id="env" value="Environment" icon="pi pi-angle-down"
+                                             styleClass="ui-button-outlined"/>
+                            <p:tieredMenu overlay="true" trigger="env" my="left top" at="left bottom"
+                                          style="width:300px" widgetVar="tieredMenuBar1"
+                                          styleClass="custom-tiered-menu">
+
+                            </p:tieredMenu>
+                        </h:panelGroup>
+
+
+                    </h:panelGrid>
+                </h:form>
+            </div>
+
+
+            <div class="layout-topbar-right" id="dialog1" style="position: relative; align-content: end">
+                <ul class="layout-topbar-actions">
+                    <li class="topbar-item">
+                        <a href="#" onclick="loadNotificationsCommand(); return false;" title="Notifications">
+                            <h:form id="badgeForm">
+                            <span class="ui-overlay-badge topbar-icon">
+                                <i class="topbar-icon pi pi-bell"/>
+                                <p:outputLabel rendered="#{notificationAndMessage.newNotificationCount > 0}">
+                                    <span class="ui-badge">
+                                        <h:outputText value="#{notificationAndMessage.newNotificationCount}"/>
+                                    </span>
+                                </p:outputLabel>
+                            </span>
+                            </h:form>
+                        </a>
+                        <ul id="notificationList" class="notification-list" style="display: none;">
+                            <h:form id="notificationForm">
+                                <div class="dialog-header">
+                                    Notifications <p:spacer/>
+                                    <p:commandButton value="Dismiss All" update=":notificationForm :badgeForm :growl"
+                                                     actionListener="#{notificationAndMessage.dismissAllAssignedToUserNotf1()}"/>
+                                </div>
+
+                                <c:if test="#{notificationAndMessage.initialLoadDone}">
+                                    <c:forEach var="item" items="#{notificationAndMessage.displayedNotificationList}">
+                                        <li class="layout-submenu-item"> <!-- No style needed here -->
+                                            <div class="menu-text">
+                                                <!-- ADDED styleClass -->
+                                                <h:outputText styleClass="notification-status"
+                                                              value="#{item.status}"/><br/>
+                                                <!-- ADDED styleClass -->
+                                                <p class="notification-description">
+                                                    <p:commandLink value="#{item.description}"
+                                                                   update=":badgeForm :growl"
+                                                                   action="#{notificationAndMessage.forwarToLink(item.link.link,item.controllerName,item.tableId,item)}"
+                                                                   oncomplete="closeNotificationPanel()"/>
+                                                </p>
+                                                <!-- Wrap date in its own paragraph or span with styleClass -->
+                                                <p>
+                                                    <h:outputText styleClass="notification-date"
+                                                                  value="#{item.dateSent}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm"/>
+                                                    </h:outputText>
+                                                </p>
+                                                <!-- ADDED styleClass -->
+                                                <span class="notification-actions">
+
+                                                    <!-- Removed p:spacer -->
+                                                    <p:commandButton update=":notificationForm :badgeForm :growl"
+                                                                     value="Dismiss" icon="pi pi-times"
+                                                                     actionListener="#{notificationAndMessage.dismisNotification(item)}"
+                                                                     process="@this"/>
+                            </span>
+                                            </div>
+                                        </li>
+                                        <p:divider/> <!-- Keep divider -->
+                                    </c:forEach>
+
+                                    <!-- "Load More" Button Container -->
+                                    <!-- ADDED styleClass and removed inline style -->
+                                    <div class="load-more-container"
+                                         style="#{notificationAndMessage.hasMoreNotifications ? '' : 'display: none;'}">
+                                        <p:commandButton value="Load More Notifications"
+                                                         action="#{notificationAndMessage.loadMoreNotifications}"
+                                                         update="@form" process="@this"
+                                                         styleClass="ui-button-secondary" icon="pi pi-arrow-down"/>
+                                    </div>
+
+                                    <!-- Message if list is empty *after* initial load -->
+                                    <!-- ADDED styleClass -->
+                                    <c:if test="${empty notificationAndMessage.displayedNotificationList}">
+                                        <h:outputText styleClass="no-notifications-message"
+                                                      value="No new notifications."/>
+                                    </c:if>
+                                </c:if> <!-- End initialLoadDone check -->
+
+                                <br/> <!-- Keep br if needed for spacing -->
+                                <!-- ADDED styleClass for the wrapper -->
+                                <div class="show-all-link">
+                                    <p:commandLink value="Show All"
+                                                   action="#{uRLBean.encryptedLink('/Notifications.xhtml')}"
+                                                   rendered="#{notificationAndMessage.newNotificationCount > 0}"/>
+                                </div>
+                            </h:form>
+                        </ul>
+                    </li>
+                    <h:form>
+                        <p:remoteCommand name="loadNotificationsCommand"
+                                         actionListener="#{notificationAndMessage.loadInitialNotifications()}"
+                                         update=":notificationForm :badgeForm"
+                                         process="@this"
+                                         onstart="PF('loadingDialog').show(); console.log('Starting notification load...');"
+                                         oncomplete="PF('loadingDialog').hide(); showNotificationPanel1(); console.log('Notification load complete.');"
+                                         onerror="PF('loadingDialog').hide(); console.error('Error loading notifications.'); alert('Error loading notifications.');"/>
+                    </h:form>
+                    <p:dialog widgetVar="loadingDialog" modal="true" draggable="false" closable="false"
+                              resizable="false" showHeader="false">
+                        <i class="pi pi-spin pi-spinner" style="font-size: 3em;"></i> Loading...
+                    </p:dialog>
+                    <p:spacer width="20px"/>
+                    <li class="topbar-item">
+                        <span class="profile-image-wrapper">
+                            <p:graphicImage value="" alt="Image" width="70"
+                                            height="55"/>
+                        </span>
+                        <span class="profile-info-wrapper">
+
+                            <span>Tech Equations Web</span>
+                        </span>
+
+
+                    </li>
+                    <p:spacer width="100px"/>
+
+
+                    <li class="topbar-item profile-item">
+                        <a href="#">
+
+                            <h5>#{loginView.authenticatedUser.employeesId.nameFirst}</h5>
+                        </a>
+                        <ul class="profile-item-submenu">
+                            <li class="profile-submenu-header">
+
+                                <div class="profile">
+                                    <p:graphicImage value="" alt="Image"
+                                                    width="70" height="55"/>
+                                    <h1>Tech Equations Web</h1>
+                                    <span></span>
+                                </div>
+                            </li>
+
+                            <li class="layout-submenu-footer">
+                                <h:form> <p:commandButton styleClass="mr-2 mb-2" action="#{loginView.logout()}"
+                                                          value="Sign out"
+                                                          class="signout-button"></p:commandButton><br/><br/>
+                                    <p:commandLink styleClass="mr-2 mb-2"
+                                                   action="/changePassword.xhtml?faces-redirect=true"
+                                                   value="Change Password"
+                                                   class="signout-button"></p:commandLink><br/>
+
+
+                                </h:form>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+
+                        <h:form>
+                            <i class="topbar-icon pi pi-calendar"
+                               style="font-size: 20px; cursor: pointer;"
+                               title="Open the calendar"
+                               onclick="PF('taskcal').show()">
+                            </i>
+
+                        </h:form>
+                    </li>
+                </ul>
+
+                <ul class="profile-mobile-wrapper">
+
+                    <li class="topbar-item profile-item">
+                        <a href="#">
+
+                            <h5>#{loginView.authenticatedUser.employeesId.nameFirst}</h5>
+
+
+                        </a>
+                        <ul>
+                            <li class="profile-submenu-header">
+                                <div class="performance">
+                                    <span>Weekly Performance</span>
+
+                                </div>
+                                <div class="profile">
+                                    <p:graphicImage value="" alt="Image"
+                                                    width="70" height="55"/>
+                                    <h1>Tech Equations Web</h1>
+
+                                </div>
+                            </li>
+
+                            <li class="layout-submenu-footer">
+                                <h:form> <p:commandButton action="#{loginView.logout()}" value="Sign out"
+                                                          styleClass="mr-2 mb-2"
+                                                          class="signout-button"></p:commandButton>
+                                    <p:commandButton styleClass="mr-2 mb-2"
+                                                     action="/changePassword.xhtml?faces-redirect=true"
+                                                     value="Change Password"
+                                                     class="signout-button"></p:commandButton>
+                                </h:form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        function disableBackAndForward() {
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+        }
+    </script>
+</ui:composition>

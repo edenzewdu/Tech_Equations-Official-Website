@@ -1,0 +1,115 @@
+/* Full-page dark background */
+body {
+    background: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Wrapper */
+.login-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Gold-themed login container */
+.login-container {
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(255, 215, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+}
+
+/* Logo styling */
+.logo-container img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* Product title */
+.product-name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* Input container */
+.input-container {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* Label */
+.input-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffd700;
+    margin-bottom: 5px;
+}
+
+/* Input fields */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid rgba(255, 215, 0, 0.6);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.input-field:focus {
+    border-color: #ffd700;
+    box-shadow: 0px 0px 5px rgba(255, 215, 0, 0.8);
+    outline: none;
+}
+
+/* Login button */
+.login-button {
+    width: 100%;
+    background-color: #ffd700;
+    color: black;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #e6c200;
+    box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Support info */
+.support-info {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #ffd700;
+}
+
+.support-info p {
+    margin: 5px 0;
+}
+
+.support-info i {
+    margin-right: 5px;
+    color: #ffd700;
+}

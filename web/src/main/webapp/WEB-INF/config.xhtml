@@ -1,0 +1,96 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <div id="layout-config" class="layout-config">
+
+        <a href="#" id="layout-config-button" class="layout-config-button">
+            <i class="pi pi-cog"/>
+        </a>
+
+        <a href="#" id="layout-config-close" class="layout-config-close">
+            <i class="pi pi-times"/>
+        </a>
+
+        <div class="layout-config-content">
+            <h:form id="config-form">
+                <h5 style="margin-top: 0;">Menu Type</h5>
+                <p:selectOneRadio value="#{guestPreferences.horizontalMenu}" layout="responsive" columns="2">
+                    <f:selectItem itemLabel="Overlay" itemValue="false" />
+                    <f:selectItem itemLabel="Horizontal" itemValue="true" />
+                    <p:ajax listener="#{guestPreferences.onMenuTypeChange}" process="@this" update=":config-form"/>
+                </p:selectOneRadio>
+
+                <h5>Color Scheme</h5>
+                <p:selectOneRadio value="#{guestPreferences.darkMode}" layout="responsive" columns="2">
+                    <f:selectItem itemLabel="Light" itemValue="false" />
+                    <f:selectItem itemLabel="Dark" itemValue="true" />
+                    <p:ajax onstart="PrimeFaces.MirageConfigurator.beforeResourceChange()"
+                            listener="#{guestPreferences.onColorSchemeChange}" process="@this" update=":config-form" />
+                </p:selectOneRadio>
+
+                <h5>Input Style</h5>
+                <p:selectOneRadio value="#{guestPreferences.inputStyle}" layout="responsive" columns="2"
+                                  onchange="PrimeFaces.MirageConfigurator.updateInputStyle(event.target.value)">
+                    <f:selectItem itemLabel="Outlined" itemValue="outlined" />
+                    <f:selectItem itemLabel="Filled" itemValue="filled" />
+                </p:selectOneRadio>
+
+                <h5>Menu Colors</h5>
+                <p:selectOneRadio value="#{guestPreferences.menuColor}"  layout="responsive" columns="2">
+                    <f:selectItem itemLabel="Light" itemValue="light" />
+                    <f:selectItem itemLabel="Dark" itemValue="dark" />
+                    <f:selectItem itemLabel="Custom" itemValue="custom" />
+                    <p:ajax onstart="PrimeFaces.MirageConfigurator.beforeResourceChange()" listener="#{guestPreferences.onMenuColorChange()}" update=":config-form"/>
+                </p:selectOneRadio>
+
+                <p:outputPanel id="menucolors-panel">
+                    <div class="layout-themes">
+                        <ui:repeat value="#{guestPreferences.menuColors.get(guestPreferences.menuColor)}" var="menuColor">
+                            <div>
+                                <p:commandLink actionListener="#{guestPreferences.setMenuTheme(menuColor.file)}"
+                                               style="background-color: #{menuColor.color}" title="#{menuColor.name}"
+                                               process="@this" update=":config-form"
+                                               onstart="PrimeFaces.MirageConfigurator.beforeResourceChange()"
+                                               oncomplete="PrimeFaces.MirageConfigurator.changeMenuTheme('#{guestPreferences.menuColor}', '#{menuColor.file}', #{guestPreferences.darkMode})">
+                                    <p:graphicImage name="images/configurator/menu/theme/#{menuColor.color}"
+                                                    library="mirage-layout" title="#{menuColor.name}"
+                                                    style="height: 100%; width: 100%;"
+                                                    rendered="#{guestPreferences.menuColor eq 'custom'}"/>
+                                    <ui:fragment rendered="#{menuColor.file eq guestPreferences.menuTheme}">
+                                        <i class="pi pi-check"/>
+                                    </ui:fragment>
+                                </p:commandLink>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </p:outputPanel>
+
+                <h5>Themes</h5>
+                <p:outputPanel id="componentThemes-panel">
+                    <div class="layout-themes">
+                        <ui:repeat value="#{guestPreferences.componentThemes}" var="componentTheme">
+                            <div>
+                                <p:commandLink actionListener="#{guestPreferences.setComponentTheme(componentTheme.file)}"
+                                               style="background-color: #{componentTheme.color}"
+                                               process="@this" update=":config-form"
+                                               onstart="PrimeFaces.MirageConfigurator.beforeResourceChange()"
+                                               oncomplete="PrimeFaces.MirageConfigurator.changeComponentsTheme('#{componentTheme.file}', #{guestPreferences.darkMode})">
+                                    <ui:fragment rendered="#{componentTheme.file eq guestPreferences.componentTheme}">
+                                        <i class="pi pi-check"/>
+                                    </ui:fragment>
+                                </p:commandLink>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </p:outputPanel>
+
+            </h:form>
+
+        </div>
+
+    </div>
+</ui:composition>

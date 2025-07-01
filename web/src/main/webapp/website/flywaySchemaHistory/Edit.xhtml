@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/webTemplate.xhtml">
+
+
+        <ui:define name="content">  
+            <h:form id="FlywaySchemaHistoryEditForm">
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+                <p:messages id="grid" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <p:panel header="FlywaySchemaHistory">
+                    <h:panelGroup id="display">
+                        <p:toolbar>
+                            <p:toolbarGroup>
+                                <p:commandButton actionListener="#{flywaySchemaHistoryController.saveInEdit}"  icon="pi pi-check" styleClass="p-mr-2 p-mb-2" value="Save" update="display"/>
+                                <p:commandButton value="Cancel" actionListener="#{flywaySchemaHistoryController.cancelUpdate}"  icon="pi pi-times" styleClass="p-mr-2 p-mb-2" action="List.xhtml?faces-redirect=true" />
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <br/>
+                        <p:card>
+                            //Header data
+                        </p:card>
+                        <p:divider/>
+                        <p:dataTable id="datalist" value="#{flywaySchemaHistoryController.editItems}" var="item"
+                                     selectionMode="single" selection="#{flywaySchemaHistoryController.selected}"
+                                     paginator="true" paginatorPosition="bottom" tableStyle="width:auto"
+                                     rowKey="#{item.installedRank}" 
+                                     rows="10" resizableColumns="true" resizeMode="expand"
+
+                                     reflow="true" editable="true" editMode="cell"
+                                     styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+
+
+                            <p:column>
+                                <p:commandButton id="deleteButton" immediate="true" actionListener="#{flywaySchemaHistoryController.removeInEdit(item)}"   update="datalist, :growl"  icon="pi pi-trash" styleClass="ui-button-danger" >
+                                    <p:confirm header="Confirmation" message="Do you want to delete this record?" icon="pi pi-info-circle"/>
+                                </p:commandButton>
+                            </p:column>    
+                            <p:column headerText="installedRank">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.installedRank}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.installedRank}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="version">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.version}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.version}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="description">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.description}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.description}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="type">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.type}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.type}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="script">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.script}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.script}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="checksum">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.checksum}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.checksum}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="installedBy">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.installedBy}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.installedBy}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="installedOn">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.installedOn}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:calendar  navigator="true"  pattern="MM/dd/yyyy" value="#{item.installedOn}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="executionTime">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.executionTime}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.executionTime}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="success">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <p:selectBooleanCheckbox value="#{item.success}" disabled="true"/>
+
+                                    </f:facet>
+                                    <f:facet name="input">
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:columnGroup type="footer" class="columnGroupStyle">
+                                <p:row style="width: inherit">
+                                    <p:column>
+                                        <f:facet name="footer">
+                                            <p:commandButton process="@this" update="datalist,:growl" title="Add row"
+                                                             oncomplete="jQuery('.editableDatatable .ui-datatable-data tr').last().find('span.ui-icon-pencil').each(function(){jQuery(this).click()}); "
+                                                             icon="pi pi-plus" styleClass="rounded-button ui-button-info p-mr-2 p-mb-2"
+                                                             actionListener="#{flywaySchemaHistoryController.prepareCreateInEdit}" />
+                                        </f:facet>
+
+                                    </p:column>
+                                </p:row>
+                            </p:columnGroup>
+
+                        </p:dataTable>
+                        <p:confirmPopup global="true">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirm-popup-no ui-button-flat"/>
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirm-popup-yes" />
+                        </p:confirmPopup>
+
+
+                    </h:panelGroup>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>

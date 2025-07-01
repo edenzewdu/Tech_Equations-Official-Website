@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Micro Products</title>
+    <h:outputStylesheet>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            min-height: 100vh;
+            zoom: 0.8;
+        }
+        .ellipse-1 {
+            position: absolute;
+            width: 634px;
+            height: 634px;
+            top: 0;
+            left: 0;
+            background-color: #0f416c;
+            border-radius: 50%;
+            filter: blur(500px);
+        }
+
+        .ellipse, .ellipse-2 {
+            position: absolute;
+            width: 634px;
+            height: 634px;
+            border-radius: 50%;
+            filter: blur(500px);
+        }
+
+        .ellipse {
+            background-color: #ffd5d5;
+            top: 34px;
+            left: 0;
+        }
+
+        .ellipse-2 {
+            background-color: #54be96;
+            bottom: 0;
+            right: 0;
+        }
+        .product-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            max-width: 100%;
+            border-radius: 10px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .sub-product {
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        .title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .stock {
+            color: #888;
+            font-style: italic;
+        }
+        @media (max-width: 768px) {
+            .ellipse-1 {
+                width: 434px;
+                height: 434px;
+            }
+
+            .ellipse, .ellipse-2 {
+                width: 434px;
+                height: 434px;
+            }
+        }
+    </h:outputStylesheet>
+</h:head>
+
+<h:body>
+    <ui:include src="/website/common/navbar.xhtml" />
+
+    <p:outputPanel styleClass="ellipse" />
+    <p:outputPanel styleClass="ellipse-2" />
+    <p:outputPanel styleClass="ellipse-1" />
+    <h:form>
+        <p:outputPanel id="microProductPanel">
+            <ui:repeat value="#{productsController.userSelectedMicroProducts}" var="micro">
+                <div class="product-card">
+                    <h2 class="title">#{micro.name}</h2>
+                    <p:graphicImage value="#{micro.imageUrl}" styleClass="product-image"/>
+                    <p>Description: #{micro.description}</p>
+                    <p class="price">Price: $#{micro.price}</p>
+                    <p class="stock">Stock: #{micro.stock}</p>
+
+                    <h:panelGroup rendered="#{not empty micro.subMicroProductsCollection}">
+                        <h3>Sub Products:</h3>
+                        <ui:repeat value="#{micro.subMicroProductsCollection}" var="sub">
+                            <div class="sub-product">
+                                <strong>#{sub.name}</strong><br/>
+                                <span>#{sub.description}</span>
+                            </div>
+                        </ui:repeat>
+                    </h:panelGroup>
+                </div>
+            </ui:repeat>
+        </p:outputPanel>
+    </h:form>
+
+</h:body>
+<footer style="margin-top: auto;">
+    <ui:include src="/website/common/footer.xhtml" />
+</footer>
+</html>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<ui:composition template="#{loginView.lattestSystemCode}">
+
+
+        <ui:define name="title">
+            <h:outputText value="NotificationTable"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="NotificationTableListForm">
+                <p:panel header="Notifications - #{loginView.authenticatedUser.addressNumber.alphaName}">
+                    <p:tabView>
+                        <p:tab title="Assigned to Me">
+                            <p:toolbar>
+                                <p:toolbarGroup>
+                                    <p:commandButton value="Dismiss All" update="DataView,:growl"
+                                                     actionListener="#{notificationTableController.dismissAllAssignedToUserNotf}"/>
+                                </p:toolbarGroup>
+                            </p:toolbar><br/>
+
+                            <p:dataView var="item" id="DataView" value="#{notificationTableController.assignedToUserNotifications}"
+                                        gridIcon="pi pi-th-large" listIcon="pi pi-bars"
+                                        paginator="true" rows="10" layout="grid" paginatorPosition="bottom">
+
+                                <p:dataViewGridItem>
+                                    <div class="product-grid-item card border-1">
+                                        <div class="product-grid-item-top">
+                                            <div>
+                                                <i class="pi pi-tag product-category-icon"/>
+                                                <span class="product-category">#{item.notificationType}</span>
+                                            </div>
+                                            <span class="product-badge status-in-stock">#{item.status}</span>
+                                        </div>
+                                        <div class="product-grid-item-content">
+
+                                            <p:spacer/>
+                                            <p:commandLink style="font-weight: bold; font-size: 15px" value="#{item.description}" action="#{linkLabelRelationController.forwarToLink(item.link.links,item.tableName,item.tableId)}" />
+                                      
+                                            <p> <h:outputText style="padding-left: 15px;padding-right: 15px; font-size:16px; font-weight: bold; float: right; margin-top: 5px"  value="#{item.dateSent}" >
+                                                <f:convertDateTime pattern="MM/dd/YYYY" />
+                                            </h:outputText></p>
+                                        </div>
+                                        <div class="product-grid-item-bottom">
+                                            
+                                            <ui:repeat var="item1" value="#{notificationAndMessage.getNotificationActions(item.tableName)}">
+                                                <p:commandButton rendered="#{item.statusNotification.equals('New')}"  styleClass="mr-2 mb-2" update="notificationForm, :badgeForm,:growl"  value="#{item1.action}" actionListener="#{notificationAndMessage.applyNotificationAction(item1,item)}" />
+
+                                                <p:spacer/>
+                                            </ui:repeat><p:spacer/>
+                                             <p:commandButton rendered="#{item.statusNotification.equals('New')}"  styleClass="mr-2 mb-2" style="padding-left: 15px;padding-right: 15px" update="notificationForm, :badgeForm,:growl"
+                                                            value="Dismiss" actionListener="#{notificationAndMessage.dismisNotification(item)}" />
+
+                                        </div>
+
+                                    </div>
+                                </p:dataViewGridItem>
+                            </p:dataView>
+
+                        </p:tab>
+
+                        <p:tab  title="Created by me">
+
+
+                            <p:dataView var="item" id="DataView1" value="#{notificationTableController.assignedByUserNotifications}"
+                                        gridIcon="pi pi-th-large" listIcon="pi pi-bars"
+                                        paginator="true" rows="10" layout="grid" paginatorPosition="bottom">
+
+                                <p:dataViewGridItem>
+                                    <div class="product-grid-item card border-1">
+                                        <div class="product-grid-item-top">
+                                            <div>
+                                                <i class="pi pi-tag product-category-icon"/>
+                                                <span class="product-category">#{item.notificationType}</span>
+                                            </div>
+                                            <span class="product-badge status-in-stock">#{item.status}</span>
+                                        </div>
+                                        <div class="product-grid-item-content">
+
+                                            <p:spacer/>
+                                            <p:commandLink style="font-weight: bold; font-size: 15px" value="#{item.description}" action="#{linkLabelRelationController.forwarToLink(item.link.links,item.tableName,item.tableId)}" />
+                                      
+                                            <p> <h:outputText style="padding-left: 15px;padding-right: 15px; font-size:16px; font-weight: bold; float: right; margin-top: 5px"  value="#{item.dateSent}" >
+                                                <f:convertDateTime pattern="MM/dd/YYYY" />
+                                            </h:outputText></p>
+                                        </div>
+                                       
+
+                                    </div>
+                                </p:dataViewGridItem>
+                            </p:dataView>
+
+                        </p:tab>
+                    </p:tabView>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

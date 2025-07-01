@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:form id="taskcalForm" >
+
+    <p:sidebar widgetVar="taskcal" styleClass="task-sidebar" position="right" onHide="toggleBodyScroll()" onShow="toggleBodyScroll()">
+
+        <div class="right-panel-header">
+            <div class="title">
+                <h2> #{defaults.dateForsidebar()}
+                    <p:clock pattern="HH:mm:ss" timeZone="#{defaults.timeZone}"/>
+                </h2>
+            </div>
+        </div>
+
+
+    </p:sidebar>
+
+    <!-- ✅ Responsive Styling for PC & Mobile -->
+    <style type="text/css">
+        /* Default (PC) */
+        .task-sidebar {
+            width: 750px !important;
+        }
+        .tab-container {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        .responsive-panel {
+            width: 700px;
+        }
+        .task-grid {
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 10px;
+        }
+
+        /* 📱 Mobile Optimization */
+        @media (max-width: 768px) {
+            .task-sidebar {
+                width: 100% !important;
+            }
+            .tab-container {
+                overflow-x: auto;
+                max-width: 100%;
+            }
+            .responsive-panel {
+                width: 100% !important;
+            }
+            .task-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hide body scroll when sidebar is open */
+        .no-scroll {
+            overflow: hidden;
+        }
+    </style>
+
+</h:form>
+
+
+
+</html>

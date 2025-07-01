@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "link": "auth/login",
+    "used_for": "Login Authorization"
+  },
+  {
+    "id": 2,
+    "link": "sitedetailtable/all",
+    "used_for": "all site detail table"
+  },
+  {
+    "id": 3,
+    "link": "sitedetailtable/single",
+    "used_for": "Create a new single data"
+  },
+  {
+    "id": 4,
+    "link": "sitedetailtable/batch",
+    "used_for": "Create a new batch of data"
+  }
+]

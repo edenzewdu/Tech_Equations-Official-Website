@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SubMicroProductsViewDlg" widgetVar="SubMicroProductsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSubMicroProductsTitle}">
+            <h:form id="SubMicroProductsViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{subMicroProductsController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSubMicroProductsLabel_id}"/>
+                        <h:outputText value="#{subMicroProductsController.selected.id}" title="#{bundle.ViewSubMicroProductsTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewSubMicroProductsLabel_name}"/>
+                        <h:outputText value="#{subMicroProductsController.selected.name}" title="#{bundle.ViewSubMicroProductsTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewSubMicroProductsLabel_description}"/>
+                        <h:outputText value="#{subMicroProductsController.selected.description}" title="#{bundle.ViewSubMicroProductsTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewSubMicroProductsLabel_createdAt}"/>
+                        <h:outputText value="#{subMicroProductsController.selected.createdAt}" title="#{bundle.ViewSubMicroProductsTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSubMicroProductsLabel_updatedAt}"/>
+                        <h:outputText value="#{subMicroProductsController.selected.updatedAt}" title="#{bundle.ViewSubMicroProductsTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSubMicroProductsLabel_microProductId}"/>
+                        <h:outputText value="#{subMicroProductsController.selected.microProductId}" title="#{bundle.ViewSubMicroProductsTitle_microProductId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SubMicroProductsViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

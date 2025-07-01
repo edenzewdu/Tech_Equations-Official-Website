@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PartnersViewDlg" widgetVar="PartnersViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPartnersTitle}">
+            <h:form id="PartnersViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{partnersController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPartnersLabel_id}"/>
+                        <h:outputText value="#{partnersController.selected.id}" title="#{bundle.ViewPartnersTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPartnersLabel_name}"/>
+                        <h:outputText value="#{partnersController.selected.name}" title="#{bundle.ViewPartnersTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewPartnersLabel_logoUrl}"/>
+                        <h:outputText value="#{partnersController.selected.logoUrl}" title="#{bundle.ViewPartnersTitle_logoUrl}"/>
+                        <h:outputText value="#{bundle.ViewPartnersLabel_websiteUrl}"/>
+                        <h:outputText value="#{partnersController.selected.websiteUrl}" title="#{bundle.ViewPartnersTitle_websiteUrl}"/>
+                        <h:outputText value="#{bundle.ViewPartnersLabel_displayOrder}"/>
+                        <h:outputText value="#{partnersController.selected.displayOrder}" title="#{bundle.ViewPartnersTitle_displayOrder}"/>
+                        <h:outputText value="#{bundle.ViewPartnersLabel_createdAt}"/>
+                        <h:outputText value="#{partnersController.selected.createdAt}" title="#{bundle.ViewPartnersTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPartnersLabel_updatedAt}"/>
+                        <h:outputText value="#{partnersController.selected.updatedAt}" title="#{bundle.ViewPartnersTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PartnersViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

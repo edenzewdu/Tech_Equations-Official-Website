@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="5.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
+<!--    <filter>-->
+<!--        <filter-name>PrimeFaces FileUpload Filter</filter-name>-->
+<!--        <filter-class>-->
+<!--            org.primefaces.webapp.filter.FileUploadFilter-->
+<!--        </filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>PrimeFaces FileUpload Filter</filter-name>-->
+<!--        <servlet-name>Faces Servlet</servlet-name> &lt;!&ndash; More specific mapping &ndash;&gt;-->
+<!--    </filter-mapping>-->
+    <!--
+       Consider also mapping FileUploadFilter to /* if you need it for non-JSF uploads,
+       but be aware it will run on every request.
+       The stack trace showed it mapped to /*, so you might still need that.
+       However, for a "no session" approach, minimizing filter scope is good if possible.
+    -->
+<!--    <filter-mapping>-->
+<!--        <filter-name>PrimeFaces FileUpload Filter</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--        <dispatcher>REQUEST</dispatcher>-->
+<!--        <dispatcher>FORWARD</dispatcher>-->
+<!--    </filter-mapping>-->
+
+
+<!--    <error-page>-->
+<!--        <error-code>500</error-code>-->
+<!--        <location>/500.xhtml</location>-->
+<!--    </error-page>-->
+<!--    <error-page>-->
+<!--        <exception-type>jakarta.faces.FacesException</exception-type>-->
+<!--        <location>/500.xhtml</location>-->
+<!--    </error-page>-->
+    <!-- You have duplicate 500 error-code mapping, the first one will likely be used -->
+    <!--
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error500.xhtml</location>
+    </error-page>
+    -->
+<!--    <error-page>-->
+<!--        <error-code>408</error-code>-->
+<!--        <location>/timeout.xhtml</location>-->
+<!--    </error-page>-->
+
+<!--    <context-param>-->
+<!--        <param-name>primefaces.UPLOADER</param-name>-->
+<!--        <param-value>native</param-value>-->
+<!--    </context-param>-->
+    <context-param>
+        <param-name>jakarta.faces.DEFAULT_ENCODING</param-name>
+        <param-value>UTF-8</param-value>
+    </context-param>
+    <!--
+        MyFaces specific, not directly related to sessions but to EL.
+        "noCache" can have performance implications in production.
+    -->
+<!--    <context-param>-->
+<!--        <param-name>org.apache.myfaces.CACHE_EL_EXPRESSIONS</param-name>-->
+<!--        <param-value>noCache</param-value>-->
+<!--    </context-param>-->
+
+    <!-- THIS IS KEY for reducing JSF's reliance on sessions for view state -->
+<!--    <context-param>-->
+<!--        <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>-->
+<!--        <param-value>client</param-value>-->
+<!--    </context-param>-->
+<!--    <context-param>-->
+<!--        <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>-->
+<!--        <param-value>true</param-value> &lt;!&ndash; Good for client state saving performance &ndash;&gt;-->
+<!--    </context-param>-->
+
+    <!--
+        This parameter controls how many logical views JSF *might* store in the session
+        IF state saving were 'server'. With 'client' state saving, it's less relevant
+        for view data itself, but some Mojarra mechanisms might still consult it.
+        To be strictly "no session", its effect should be minimal.
+    -->
+<!--    <context-param>-->
+<!--        <param-name>com.sun.faces.NUMBER_OF_LOGICAL_VIEWS_IN_SESSION</param-name>-->
+<!--        <param-value>0</param-value> &lt;!&ndash; Setting to 0 to strongly discourage session use by JSF internals &ndash;&gt;-->
+<!--    </context-param>-->
+<!--    <context-param>-->
+<!--        <param-name>jakarta.faces.PROJECT_STAGE</param-name>-->
+<!--        <param-value>Development</param-value> &lt;!&ndash; Change to Production for deployment &ndash;&gt;-->
+<!--    </context-param>-->
+<!--    <context-param>-->
+<!--        <param-name>primefaces.THEME</param-name>-->
+<!--        <param-value>saga</param-value>-->
+<!--    </context-param>-->
+<!--    <context-param>-->
+<!--        <param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>-->
+<!--        <param-value>true</param-value>-->
+<!--    </context-param>-->
+<!--    <context-param>-->
+<!--        <param-name>jakarta.faces.FACELETS_LIBRARIES</param-name>-->
+<!--        <param-value>/WEB-INF/primefaces-mirage.taglib.xml</param-value>-->
+<!--    </context-param>-->
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <mime-mapping>
+        <extension>ico</extension>
+        <mime-type>image/x-icon</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/font-woff</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff2</extension>
+        <mime-type>application/font-woff2</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>ttf</extension>
+        <mime-type>application/font-sfnt</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>eot</extension>
+        <mime-type>application/vnd.ms-fontobject</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>otf</extension>
+        <mime-type>font/opentype</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <!-- <mime-mapping><extension>jsp</extension><mime-type>text/html</mime-type></mime-mapping> --> <!-- JSP usually not needed with JSF/XHTML -->
+
+
+<!--    <servlet>-->
+<!--        <servlet-name>Faces Servlet</servlet-name>-->
+<!--        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>-->
+<!--        <load-on-startup>1</load-on-startup>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>Faces Servlet</servlet-name>-->
+<!--        <url-pattern>*.xhtml</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+    <!--
+        By removing or commenting out <session-config>, you let the container use its defaults.
+        This doesn't prevent session creation if the application code requests it.
+        Some argue that explicitly setting a very short timeout (e.g., 1 minute) can
+        be a strategy if sessions are unavoidably created but should be cleaned up fast.
+        However, for a "no session" goal, not configuring it is a common approach.
+    -->
+    <!--
+    <session-config>
+        <session-timeout>
+            1
+        </session-timeout> <!- Minimal timeout if sessions are somehow created ->
+        <tracking-mode>COOKIE</tracking-mode> <!- Explicitly state cookie, though default ->
+    </session-config>
+    -->
+    <filter>
+        <filter-name>AuthorizationFilter</filter-name>
+        <filter-class>com.web.security.AuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+<!--    <welcome-file-list>-->
+<!--        <welcome-file>website/public/index.xhtml</welcome-file>-->
+<!--    </welcome-file-list>-->
+    <context-param>
+        <param-name>jakarta.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>jakarta.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>jakarta.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <!--
+        The CharacterEncodingFilters were commented out in your provided web.xml,
+        but your stack trace suggests they ARE running.
+        If they are indeed active (perhaps via programmatic registration or web-fragments),
+        ensure they are configured correctly and aren't doing anything unusual with the response.
+        Standard encoding filters don't usually cause this session problem.
+    -->
+
+    <!--
+        You have duplicate FileUploadFilter definition and mapping.
+        The filter-mapping with <servlet-name> is more specific for JSF requests.
+        The <url-pattern>/* will make it run for ALL requests.
+        If file uploads only happen through JSF, the servlet-name mapping might be sufficient.
+        If you have other non-JSF servlets/paths that handle uploads, /* might be needed.
+    -->
+    <!--
+    <filter>
+        <filter-name>FileUploadFilter</filter-name> <!- Name already defined above ->
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FileUploadFilter</filter-name> <!- Name already defined above ->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    -->
+
+    <!-- Removed the JSP buffer config as it's less relevant if you are not using JSPs
+         and it's a workaround, not a fix for the session creation issue.
+         If you still see benefits from it, you can keep it.
+    -->
+    <!-- <jsp-config><jsp-property-group><url-pattern>*.xhtml</url-pattern><buffer>32kb</buffer></jsp-property-group></jsp-config> -->
+
+</web-app>

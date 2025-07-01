@@ -1,0 +1,30 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/mirage">
+
+    <div class="layout-sidebar">
+        <div class="sidebar-logo">
+            <a href="#" class="sidebar-pin" title="Toggle Menu">
+                <i class="pi pi-lock"/>
+            </a>
+            <a href="dashboard.xhtml">
+                <p:graphicImage name="images/logo-mirage@2x.png" library="mirage-layout" />
+                <span class="app-name">Mirage</span>
+            </a>
+        </div>
+
+        <div class="layout-menu-container">
+            <h:form id="menuform">
+                <pm:menu>
+
+                    
+                </pm:menu>
+            </h:form>
+        </div>
+    </div>
+
+</ui:composition>

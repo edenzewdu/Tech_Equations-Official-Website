@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UdcRecordCreateDlg" widgetVar="UdcRecordCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUdcRecordTitle}">
+            <h:form id="UdcRecordCreateForm">
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="2" rendered="#{udcRecordController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUdcRecordLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{udcRecordController.selected.id}" title="#{bundle.CreateUdcRecordTitle_id}" required="true" requiredMessage="#{bundle.CreateUdcRecordRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateUdcRecordLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{udcRecordController.selected.code}" title="#{bundle.CreateUdcRecordTitle_code}" />
+                        <p:outputLabel value="#{bundle.CreateUdcRecordLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{udcRecordController.selected.description}" title="#{bundle.CreateUdcRecordTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreateUdcRecordLabel_businessUnit}" for="businessUnit" />
+                        <p:selectOneMenu id="businessUnit" value="#{udcRecordController.selected.businessUnit}" >
+                            <f:selectItems value="#{udcRecordController.itemsAvailableSelectOne}"
+                                           var="businessUnitItem"
+                                           itemValue="#{businessUnitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUdcRecordLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{udcRecordController.selected.userId}" >
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUdcRecordLabel_udcHeader}" for="udcHeader" />
+                        <p:selectOneMenu id="udcHeader" value="#{udcRecordController.selected.udcHeader}" >
+                            <f:selectItems value="#{udcHeaderController.itemsAvailableSelectOne}"
+                                           var="udcHeaderItem"
+                                           itemValue="#{udcHeaderItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUdcRecordLabel_description2}" for="description2" />
+                        <p:inputText id="description2" value="#{udcRecordController.selected.description2}" title="#{bundle.CreateUdcRecordTitle_description2}" />
+                    </h:panelGrid>
+                    <p:commandButton actionListener="#{udcRecordController.create}" value="Save" update="display,:UdcRecordListForm:datalist,:growl" oncomplete="handleSubmit(args,'UdcRecordCreateDialog');"/>
+                    <p:commandButton value="Cancel" onclick="UdcRecordCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

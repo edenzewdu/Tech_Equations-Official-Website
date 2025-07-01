@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<p:growl id="growl" showDetail="true" skipDetailIfEqualsSummary="true"/>
+<h:head>
+    <title>Testimonials Management</title>
+    <script type="text/javascript">
+        function toggleCreateForm() {
+            var formDiv = document.getElementById("createTestimonialForm");
+            formDiv.style.display = formDiv.style.display === "none" ? "flex" : "none";
+        }
+    </script>
+    <style type="text/css">
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body setup */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fc;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .search-bar {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .search-bar p\:inputText {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        p\:column[headerText] {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Main container styling */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 220px; /* Adjust for sidebar */
+
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 20px;
+
+        }
+
+        p\:column[headerText] {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        /* Style for the button */
+        .clickable-btn {
+            padding: 20px 30px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: auto;
+            min-width: 120px;
+        }
+
+        /* Animation effect on click */
+        .clickable-btn:active {
+            transform: scale(0.95); /* Slightly shrink the button */
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+        }
+
+        /* Hover effect for more visual feedback */
+        .clickable-btn:hover {
+            background-color: #2c3e50; /* Darker shade when hovered */
+        }
+        /* Modal form overlay */
+        .modal-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centers the modal */
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-block-start: 30rem;
+        }
+
+        /* Headings */
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .form-grid{
+            width: 100%;
+        }
+
+        /* Labels */
+        .form-label {
+            display: block;
+            width: 100%;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+            color: #333;
+            border: none;
+        }
+
+        /* Inputs */
+        .form-input {
+            display: block;
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Messages */
+        .error-message {
+            display: block;
+            color: #d9534f;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            border: none;
+        }
+
+        /* Buttons */
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-submit, .btn-cancel {
+            padding: 0.6rem 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background-color: #007bff;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-cancel {
+            background-color: #d9534f;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+
+        /* Form title */
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+
+        /* Search bar */
+        .search-bar { margin-bottom: 10px; }
+        .search-bar input { width: 300px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;}
+
+        /* DataTable styling */
+        .ui-datatable th { background: #2c3e50; color: #fff; font-weight: bold; padding: 10px; }
+        .ui-datatable td { padding: 12px; border-bottom: 1px solid #eee; }
+        .ui-datatable tr:hover { background: #f1f1f1; }
+
+        /* RowEditor icons */
+        .ui-row-editor .ui-button-icon-only { margin: 0 5px; }
+
+        /* Make sure to override PrimeFaces defaults */
+        .custom-delete-button {
+            background-color: transparent !important;
+            border: none !important;
+            color: red !important;
+            box-shadow: none !important;
+            border-radius: 4px;
+            padding: 0.4em 0.6em;
+        }
+
+        .custom-delete-button:hover {
+            background-color: transparent !important;
+            border: none !important;
+            color: darkred !important;
+        }
+
+        .custom-delete-button .pi {
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .ui-datatable {
+            min-width: 850px; /* Keeps full table width and prevents compression */
+        }
+        .table-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+                overflow-x: auto;
+            }
+
+
+            .main-content.shifted {
+                overflow-x: auto;
+                margin-left: 230px;
+            }
+
+            .search-bar input {
+                width: 55%;
+            }
+
+            .modal-content {
+                max-width: 90%;
+            }
+            .table-wrapper {
+                overflow-x: auto;
+            }
+
+            .ui-datatable {
+                display: block;
+            }
+        }
+    </style>
+</h:head>
+<h:body>
+    <ui:include src="sidebar.xhtml" />
+
+    <div class="main-content">
+        <h1>Testimonial Management</h1>
+
+        <!-- Add Testimonial Button -->
+        <h:form style="display: flex; justify-content: flex-end; padding: 10px;">
+            <h:commandButton value="+ Add New Testimonial" type="button" onclick="toggleCreateForm()" styleClass="clickable-btn" />
+        </h:form>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <h:form>
+                <p:inputText value="#{testimonialsController.searchTerm}" placeholder="Search by author..." />
+                <p:commandButton value="Search" icon="pi pi-search" action="#{testimonialsController.searchTestimonials()}" update="testimonialForm:testimonialTable" />
+            </h:form>
+        </div>
+
+        <!-- Testimonial Creation Form Modal -->
+        <div id="createTestimonialForm" class="modal-form">
+            <div class="modal-content">
+                <h2>Create New Testimonial</h2>
+                <h:form id="adminTestimonialForm">
+                    <h:panelGrid columns="2" columnClasses="form-label,form-input" styleClass="form-grid">
+
+                        <h:messages globalOnly="true" layout="list" styleClass="error-message" />
+
+                        <h:outputLabel for="authorName" value="Author Name:"/>
+                        <h:inputText id="authorName" value="#{testimonialsController.authorName}" required="true" requiredMessage="Author Name is required" styleClass="form-input"/>
+                        <h:message for="authorName" styleClass="error-message" />
+
+                        <h:outputLabel for="authorTitle" value="Author Title:"/>
+                        <h:inputText id="authorTitle" value="#{testimonialsController.authorTitle}" styleClass="form-input"/>
+
+
+                        <h:outputLabel for="quoteText" value="Quote Text:"/>
+                        <h:inputTextarea id="quoteText" value="#{testimonialsController.quoteText}" required="true" rows="4" requiredMessage="Quote is required" styleClass="form-input"/>
+                        <h:message for="quoteText" styleClass="error-message" />
+
+                        <h:outputLabel for="displayOrder" value="Display Order:" />
+                        <h:inputText id="displayOrder" value="#{testimonialsController.displayOrder}" validatorMessage="Please enter a whole number above 0." styleClass="form-input">
+                            <f:passThroughAttribute name="type" value="number" />
+                            <f:passThroughAttribute name="min" value="0" />
+                            <f:validateLongRange minimum="0" />
+                        </h:inputText>
+                        <h:message for="displayOrder" styleClass="error-message" />
+
+
+                        <h:outputLabel for="avatarUrl" value="Avatar URL:"/>
+                        <h:inputText id="avatarUrl" value="#{testimonialsController.avatarUrl}" styleClass="form-input"/>
+
+
+                        <h:outputLabel for="published" value="Status:"/>
+                        <h:selectOneMenu id="published" value="#{testimonialsController.isPublished}" styleClass="form-input">
+                            <f:selectItem itemLabel="Draft" itemValue="false"/>
+                            <f:selectItem itemLabel="Published" itemValue="true"/>
+                        </h:selectOneMenu>
+
+                    </h:panelGrid>
+                    <div class="form-buttons">
+                        <p:commandButton value="Create Testimonials"
+                                         action="#{testimonialsController.createTestimonial()}"
+                                         update="testimonialForm:testimonialTable, adminTestimonialForm"
+                                         oncomplete="if (!args.validationFailed) toggleCreateForm();"
+                                         styleClass="btn-submit" />
+                        <h:commandButton value="Cancel" type="button" onclick="toggleCreateForm()" styleClass="btn-cancel" />
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+
+        <!-- Testimonial Table -->
+        <h:form id="testimonialForm">
+            <p:dataTable id="testimonialTable" value="#{testimonialsController.getItems()}" var="testimonial" paginator="true" rows="10" columnClasses="form-label,form-input" editable="true">
+                <p:ajax event="rowEdit"
+                        listener="#{testimonialsController.onRowEdit}"
+                        oncomplete="if (!args.validationFailed) PF('editConfirmWidget').show();"
+                        process="@this"
+                        update="testimonialForm:testimonialTable"
+                        editable="if (!args.validationFailed) true"
+                />
+                <p:ajax event="rowEditCancel" listener="#{testimonialsController.cancelEdit}" update="testimonialForm:testimonialTable"  />
+                <p:column headerText="Author Name" sortBy="#{testimonial.authorName}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{testimonial.authorName}" /></f:facet>
+                        <f:facet name="input">
+                            <h:inputText id="nameInput" value="#{testimonial.authorName}" required="true" requiredMessage="Author Name is required" styleClass="form-input" />
+                            <h:message for="nameInput" styleClass="error-message" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Author Title" sortBy="#{testimonial.authorTitle}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{testimonial.authorTitle}" /></f:facet>
+                        <f:facet name="input">
+                            <h:inputText id="authorTitleInput" value="#{testimonial.authorTitle}" styleClass="form-input" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Quote" sortBy="#{testimonial.quoteText}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{testimonial.quoteText.length() > 50 ? testimonial.quoteText.substring(0, 50).concat('...') : testimonial.quoteText}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:inputTextarea id="quoteTextInput" value="#{testimonial.quoteText}" required="true" requiredMessage="Quote is required" styleClass="form-input"/>
+                            <h:message for="quoteTextInput" styleClass="error-message" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Displayed Order"  sortBy="#{testimonial.displayOrder}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{testimonial.displayOrder}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:inputText id="displayOrderInput" value="#{testimonial.displayOrder}" validatorMessage="Please enter a whole number above 0." styleClass="form-input">
+                                <f:passThroughAttribute name="type" value="number" />
+                                <f:passThroughAttribute name="min" value="0" />
+                                <f:validateLongRange minimum="0" />
+                            </h:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+
+                <p:column headerText="Status"  sortBy="#{testimonial.isPublished}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:commandButton
+                                    icon="#{testimonial.isPublished ? 'pi pi-toggle-on' : 'pi pi-toggle-off'}"
+                                    title="Toggle Published"
+                                    value="#{testimonial.isPublished ? 'Published' : 'Draft'}"
+                                    styleClass="ui-button #{testimonial.isPublished ? 'ui-button-success' : 'ui-button-secondary'} rounded-button"
+                                    actionListener="#{testimonialsController.prepareTogglePublished(testimonial)}"
+                                    oncomplete="PF('publishConfirmDialog').show();"
+                                    update="@form"
+                                    style="margin-left:8px" />
+
+
+
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu  id="publishedInput" value="#{testimonial.isPublished}" styleClass="form-input">
+                                <f:selectItem itemValue="#{true}" itemLabel="Published" />
+                                <f:selectItem itemValue="#{false}" itemLabel="Draft" />
+
+                            </h:selectOneMenu>
+                            <h:message for="publishedInput" styleClass="error-message" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Avatar Url">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                    <h:graphicImage value="#{testimonial.avatarUrl}" width="40" height="40" rendered="#{not empty testimonial.avatarUrl}" />
+                    <h:outputText value="#{testimonial.avatarUrl}"/></f:facet>
+                        <f:facet name="input">
+                            <h:inputText id="avatarUrlInput" value="#{testimonial.avatarUrl}" styleClass="form-input"/>
+                            <h:message for="avatarUrlInput" styleClass="error-message" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Actions">
+                    <p:rowEditor editTitle="Edit" cancelTitle="Cancel" saveTitle="Save" />
+                    <!-- Delete Button -->
+                    <p:commandButton icon="pi pi-trash"
+                                     action="#{testimonialsController.prepareDelete(testimonial)}"
+                                     oncomplete="PF('deleteDialogWidget').show();"
+                                     update="@form"
+                                     styleClass="custom-delete-button"
+                                     title="Delete"
+                                     process="@this" />
+                </p:column>
+            </p:dataTable>
+            <!-- Delete Confirmation Dialog -->
+            <p:confirmDialog id="deleteConfirmDialog"
+                             widgetVar="deleteDialogWidget"
+                             message="Are you sure you want to delete this testimonial?"
+                             header="Confirm Deletion"
+                             icon="pi pi-exclamation-triangle"
+                             showEffect="fade"
+                             severity="warn"
+                             hideEffect="fade"
+                             closable="false">
+
+                <p:commandButton value="Yes"
+                                 action="#{testimonialsController.deleteTestimonial()}"
+                                 update="testimonialForm:testimonialTable"
+                                 oncomplete="PF('deleteDialogWidget').hide();"
+                                 icon="pi pi-check" />
+
+
+                <p:commandButton value="No"
+                                 onclick="PF('deleteDialogWidget').hide();"
+                                 icon="pi pi-times"
+                                 type="button" />
+
+            </p:confirmDialog>
+            <p:confirmDialog id="publishConfirmDialog"
+                             widgetVar="publishConfirmDialog"
+                             header="Confirm Toggle"
+                             message="#{testimonialsController.isPublished ?
+                                       'Are you sure you want to Unpublish this testimonial?' :
+                                       'Are you sure you want to publish this testimonial?'}"
+                             icon="pi pi-exclamation-triangle"
+                             severity="info"
+                             closable="false">
+
+                <p:commandButton value="Yes"
+                                 action="#{testimonialsController.togglePublishedStatus()}"
+                                 update="testimonialForm:testimonialTable"
+                                 oncomplete="PF('publishConfirmDialog').hide();"
+                                 icon="pi pi-check" />
+
+                <p:commandButton value="No"
+                                 onclick="PF('publishConfirmDialog').hide();"
+                                 icon="pi pi-times"
+                                 type="button" />
+            </p:confirmDialog>
+
+        </h:form>
+    </div>
+    <p:confirmDialog id="editConfirmDialog"
+                     message="Are you sure you want to edit this testimonial?"
+                     header="Edit Confirmation"
+                     severity="warn"
+                     widgetVar="editConfirmWidget"
+                     closable="false">
+
+        <p:commandButton value="Yes"
+                         actionListener="#{testimonialsController.confirmEdit}"
+                         update="testimonialForm:testimonialTable growl"
+                         oncomplete="PF('editConfirmWidget').hide()"
+                         icon="pi pi-check" />
+
+        <p:commandButton value="No"
+                         actionListener="#{testimonialsController.cancelEdit}"
+                         process="@this"
+                         oncomplete="PF('editConfirmWidget').hide()"
+                         icon="pi pi-times"
+                         immediate="true"
+                         update="testimonialForm"/>
+    </p:confirmDialog>
+    <p:dialog id="WarningDialog" widgetVar="WarningDialogWidget" modal="true" resizable="false" draggable="false" closable="true">
+        <h:outputText value="Published testimonial with the same order exist!" />
+    </p:dialog>
+
+</h:body>
+</html>

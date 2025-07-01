@@ -1,0 +1,271 @@
+/* --- Global Styles & Body --- */
+body {
+    /* Base color - Gradient will be overlayed by shapes */
+    background-color: #e0f7fa; /* Fallback color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative; /* Needed for absolute positioned pseudo-elements */
+    overflow: hidden; /* Prevent shapes from causing scrollbars */
+}
+
+/* --- BACKGROUND ENHANCEMENT: Abstract Shapes --- */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    z-index: -1; /* Place behind all content */
+    border-radius: 50%; /* Make them circular/oval */
+    opacity: 0.15; /* Soft opacity */
+    filter: blur(80px); /* Significant blur for softness */
+}
+
+/* First Shape */
+body::before {
+    width: 60vw; /* Large size relative to viewport */
+    height: 60vw;
+    /* Soft blue/cyan gradient */
+    background: radial-gradient(circle, hsla(188, 70%, 70%, 0.8) 0%, hsla(195, 80%, 60%, 0) 70%);
+    top: -25vh;  /* Positioned towards top-left */
+    left: -25vw;
+    animation: float1 15s ease-in-out infinite alternate; /* Subtle movement */
+}
+
+/* Second Shape */
+body::after {
+    width: 55vw;
+    height: 55vw;
+    /* Slightly different teal/green gradient */
+    background: radial-gradient(circle, hsla(170, 65%, 65%, 0.7) 0%, hsla(175, 75%, 55%, 0) 70%);
+    bottom: -30vh; /* Positioned towards bottom-right */
+    right: -30vw;
+    animation: float2 18s ease-in-out infinite alternate; /* Different timing/movement */
+}
+
+/* --- Subtle Animation for Shapes --- */
+@keyframes float1 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(10px, 15px) rotate(10deg); }
+}
+
+@keyframes float2 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-12px, -8px) rotate(-12deg); }
+}
+
+/* --- Login Wrapper & Container --- */
+.login-wrapper {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Ensure wrapper is above pseudo-elements */
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+    padding: 40px 45px; /* Slightly more padding */
+    border-radius: 12px; /* Slightly more rounded */
+    /* More defined shadow */
+    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Very subtle border */
+    backdrop-filter: blur(5px); /* Subtle blur behind the container (if bg isn't fully opaque) */
+    -webkit-backdrop-filter: blur(5px); /* Safari */
+}
+
+/* --- Logo & Title --- */
+.logo-container {
+    margin-bottom: 30px; /* More space */
+}
+
+.logo-image {
+    width: 90px; /* Slightly smaller logo */
+    height: auto;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+.product-title {
+    font-size: 1.9em; /* Slightly larger title */
+    font-weight: 600;
+    /* Updated color for more pop */
+    color: #00695C; /* Darker teal */
+    margin: 0;
+    letter-spacing: -0.5px; /* Slight tightening */
+}
+
+
+/* --- PrimeFaces Panel Customization --- */
+.login-panel.ui-panel {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    background: none;
+}
+.login-panel .ui-panel-titlebar { display: none; }
+.login-panel .ui-panel-content { padding: 0; border: none; }
+
+/* --- Form & Input Styling --- */
+#loginForm {
+    margin-top: 25px;
+}
+
+.input-group {
+    margin-bottom: 22px;
+    text-align: left;
+}
+
+.input-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.9em; /* Slightly smaller label */
+    color: #444; /* Slightly darker label color */
+    padding-left: 2px; /* Align better with input text */
+}
+
+/* PrimeFaces Input Field Styling */
+.input-field.ui-inputfield,
+.input-field.ui-password-input {
+    width: 100%;
+    padding: 14px 18px; /* More comfortable padding */
+    font-size: 1em;
+    border: 1px solid #d1d9e6; /* Softer border color */
+    border-radius: 8px; /* Match container roundness more */
+    background-color: #f0f4f8; /* Slightly blueish-gray background */
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    box-sizing: border-box;
+    letter-spacing: 0.2px; /* Slight spacing */
+}
+
+.input-field.ui-inputfield:focus,
+.input-field.ui-password-input:focus {
+    border-color: #00796b;
+    /* Enhanced focus shadow */
+    box-shadow: 0 0 0 4px rgba(0, 121, 107, 0.1);
+    background-color: #fff; /* White background on focus */
+    outline: none;
+}
+
+.input-field.ui-inputfield::placeholder,
+.input-field.ui-password-input::placeholder {
+    color: #99a;
+    opacity: 1;
+}
+
+/* --- Login Button Styling --- */
+.login-button.ui-button {
+    width: 100%;
+    background-color: #00796b; /* Teal primary */
+    /* Add a subtle gradient for depth */
+    background-image: linear-gradient(to bottom, #00897b, #00695c);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 0; /* Taller button */
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Added transform */
+    cursor: pointer;
+    margin-top: 20px; /* More space above button */
+    /* Slightly stronger shadow */
+    box-shadow: 0 4px 12px rgba(0, 121, 107, 0.25), 0 1px 3px rgba(0,0,0,0.1);
+    text-transform: uppercase; /* UPPERCASE text */
+    letter-spacing: 0.5px; /* Space out letters */
+}
+
+.login-button.ui-button:hover,
+.login-button.ui-button:focus {
+    background-color: #005f56; /* Darker solid color on hover */
+    background-image: linear-gradient(to bottom, #00796b, #005f56); /* Darker gradient */
+    /* Enhance shadow and lift effect */
+    box-shadow: 0 6px 16px rgba(0, 121, 107, 0.3), 0 2px 5px rgba(0,0,0,0.15);
+    transform: translateY(-2px); /* Subtle lift */
+    outline: none;
+}
+
+/* Lift effect on active/click */
+.login-button.ui-button:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 6px rgba(0, 121, 107, 0.2), 0 1px 2px rgba(0,0,0,0.1);
+}
+
+
+.login-button.ui-button .ui-button-icon-left {
+    margin-right: 10px; /* More space for icon */
+    font-size: 1.2em;
+    vertical-align: middle; /* Align icon */
+    margin-top: -2px; /* Fine-tune vertical alignment */
+}
+
+/* --- Support Info --- */
+.support-info {
+    margin-top: 35px; /* Increased spacing */
+    font-size: 0.9em;
+    color: #555; /* Slightly darker */
+    line-height: 1.7; /* More line spacing */
+}
+
+.support-info p {
+    margin: 6px 0;
+}
+
+.support-icon {
+    margin-right: 10px; /* More space */
+    color: #00796b;
+    vertical-align: middle;
+    font-size: 1.1em; /* Slightly larger icon */
+}
+
+/* --- PrimeFaces Growl/Messages --- */
+.ui-growl {
+    top: 25px; /* Position growl */
+    right: 25px; /* Position growl */
+    z-index: 9999;
+}
+.ui-growl-item-container {
+    background-color: #333; /* Darker growl */
+    color: #fff;
+    opacity: 0.97; /* Almost opaque */
+    border-radius: 8px; /* Match other elements */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.ui-growl-message p { color: #fff; font-weight: 500; }
+.ui-growl-icon-close { color: #ddd; }
+.ui-growl-icon-close:hover { color: #fff; }
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 600px) {
+    body::before, body::after {
+        /* Reduce size and blur on smaller screens */
+        width: 90vw;
+        height: 90vw;
+        filter: blur(60px);
+        opacity: 0.12;
+    }
+    body::before { top: -40vh; left: -45vw; }
+    body::after { bottom: -40vh; right: -45vw; }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 25px; /* Adjust padding */
+        max-width: 90%;
+    }
+    .product-title { font-size: 1.7em; }
+    .login-button.ui-button { padding: 13px 0; font-size: 1em; }
+    .input-field.ui-inputfield,
+    .input-field.ui-password-input { padding: 12px 15px; }
+}

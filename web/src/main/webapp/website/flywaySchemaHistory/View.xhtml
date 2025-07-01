@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FlywaySchemaHistoryViewDlg" widgetVar="FlywaySchemaHistoryViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFlywaySchemaHistoryTitle}">
+            <h:form id="FlywaySchemaHistoryViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{flywaySchemaHistoryController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_installedRank}"/>
+                        <h:outputText value="#{flywaySchemaHistoryController.selected.installedRank}" title="#{bundle.ViewFlywaySchemaHistoryTitle_installedRank}"/>
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_version}"/>
+                        <h:outputText value="#{flywaySchemaHistoryController.selected.version}" title="#{bundle.ViewFlywaySchemaHistoryTitle_version}"/>
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_description}"/>
+                        <h:outputText value="#{flywaySchemaHistoryController.selected.description}" title="#{bundle.ViewFlywaySchemaHistoryTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_type}"/>
+                        <h:outputText value="#{flywaySchemaHistoryController.selected.type}" title="#{bundle.ViewFlywaySchemaHistoryTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_script}"/>
+                        <h:outputText value="#{flywaySchemaHistoryController.selected.script}" title="#{bundle.ViewFlywaySchemaHistoryTitle_script}"/>
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_checksum}"/>
+                        <h:outputText value="#{flywaySchemaHistoryController.selected.checksum}" title="#{bundle.ViewFlywaySchemaHistoryTitle_checksum}"/>
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_installedBy}"/>
+                        <h:outputText value="#{flywaySchemaHistoryController.selected.installedBy}" title="#{bundle.ViewFlywaySchemaHistoryTitle_installedBy}"/>
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_installedOn}"/>
+                        <h:outputText value="#{flywaySchemaHistoryController.selected.installedOn}" title="#{bundle.ViewFlywaySchemaHistoryTitle_installedOn}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_executionTime}"/>
+                        <h:outputText value="#{flywaySchemaHistoryController.selected.executionTime}" title="#{bundle.ViewFlywaySchemaHistoryTitle_executionTime}"/>
+                        <h:outputText value="#{bundle.ViewFlywaySchemaHistoryLabel_success}"/>
+                        <p:selectBooleanCheckbox value="#{flywaySchemaHistoryController.selected.success}" disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="FlywaySchemaHistoryViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

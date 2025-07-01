@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PricingPlansViewDlg" widgetVar="PricingPlansViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPricingPlansTitle}">
+            <h:form id="PricingPlansViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pricingPlansController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_id}"/>
+                        <h:outputText value="#{pricingPlansController.selected.id}" title="#{bundle.ViewPricingPlansTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_name}"/>
+                        <h:outputText value="#{pricingPlansController.selected.name}" title="#{bundle.ViewPricingPlansTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_price}"/>
+                        <h:outputText value="#{pricingPlansController.selected.price}" title="#{bundle.ViewPricingPlansTitle_price}"/>
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_billingFrequency}"/>
+                        <h:outputText value="#{pricingPlansController.selected.billingFrequency}" title="#{bundle.ViewPricingPlansTitle_billingFrequency}"/>
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_features}"/>
+                        <h:outputText value="#{pricingPlansController.selected.features}" title="#{bundle.ViewPricingPlansTitle_features}"/>
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_isHighlighted}"/>
+                        <p:selectBooleanCheckbox value="#{pricingPlansController.selected.isHighlighted}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_displayOrder}"/>
+                        <h:outputText value="#{pricingPlansController.selected.displayOrder}" title="#{bundle.ViewPricingPlansTitle_displayOrder}"/>
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_createdAt}"/>
+                        <h:outputText value="#{pricingPlansController.selected.createdAt}" title="#{bundle.ViewPricingPlansTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_updatedAt}"/>
+                        <h:outputText value="#{pricingPlansController.selected.updatedAt}" title="#{bundle.ViewPricingPlansTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPricingPlansLabel_originalPrice}"/>
+                        <h:outputText value="#{pricingPlansController.selected.originalPrice}" title="#{bundle.ViewPricingPlansTitle_originalPrice}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PricingPlansViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,148 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pm="http://primefaces.org/mirage">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeicons/primeicons.css"/>
+
+    <div class="layout-sidebar" style="zoom: 100%">
+        <!-- Sidebar Header with Centered Logo -->
+        <div class="sidebar-logo">
+            <a href="#" class="sidebar-pin" title="Toggle Menu Pin" style="cursor: default;"> <!-- Prevent default link cursor -->
+                <i id="sidebarPinIcon"
+                   class="pi pi-unlock"
+                   title="Pin Menu"
+                   onclick="toggleIconPinState(event)"
+                   style="cursor: pointer; font-size: 1.2em; vertical-align: middle;">
+                </i>
+            </a>
+
+            <h:link outcome="/webHome" styleClass="logo-link"> <!-- Adjust outcome as needed -->
+                <!-- Assuming logoSystem.png is in resources/images -->
+                <p:graphicImage name="logoSystem.png" library="images" styleClass="sidebar-logo-img" />
+            </h:link>
+
+        </div>
+
+        <!-- Sidebar Navigation Menu with Animation -->
+        <div class="sidebar-menu animated-menu" style="zoom: 110%">
+            <h:form>
+                <h:panelGrid>
+                <p:commandButton   styleClass="rounded-button ui-button-success" icon="pi pi-home"   value="Home"  action="/index.xhtml?faces-redirect=true" />
+                <h:panelGroup style="text-align: left;">
+
+
+                    <p:menuButton value="Settings" icon="pi pi-cog" styleClass="rounded-button ui-button-secondary"
+                                  style="margin-right: 8px; color: #3498db; width: 100px; font-size: 16px" >
+                        <p:menuitem value="System Constant"
+                                    style="color: #ffffff; text-decoration: none; font-size: 10px; font-weight: bolder"
+                                    actionListener="#{systemConstantController.prepareEdit()}"
+                                   >
+                        </p:menuitem>
+                        <p:menuitem value="FS Number"
+                                    style="color: #ffffff; text-decoration: none; font-size: 10px; font-weight: bolder"/>
+                        <p:menuitem value="System Configurations (Tax)"
+                                    style="color: #ffffff; text-decoration: none; font-size: 10px; font-weight: bolder"/>
+                    </p:menuButton>
+                </h:panelGroup>
+                </h:panelGrid>
+                <p:spacer height="100px"/>
+            </h:form>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links">
+
+        </div>
+    </div>
+
+    <style>
+        /* Sidebar Styling */
+        .layout-sidebar {
+            background: white;
+            width: 210px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            border-right: 3px solid #1abc9c;
+        }
+
+
+        /* Sidebar Menu Styling */
+        .sidebar-menu ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .sidebar-menu ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar-menu ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar-menu ul li a:hover {
+            background-color: #1abc9c;
+            color: #ffffff;
+        }
+
+        /* Animation for Sidebar Menu */
+        .animated-menu {
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Quick Links Styling */
+        .quick-links ul {
+            padding: 0;
+        }
+
+        .quick-links ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quick-links ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .quick-links ul li a:hover {
+            color: #1abc9c;
+            transform: translateX(5px);
+        }
+
+        h3 {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+        }
+    </style>
+</ui:composition>

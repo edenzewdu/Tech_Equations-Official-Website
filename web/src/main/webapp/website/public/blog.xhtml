@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Latest News</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            zoom: 0.8;
+        }
+
+        .ellipse-1 {
+            position: absolute;
+            width: 634px;
+            height: 634px;
+            top: 0;
+            left: 0;
+            background-color: #0f416c;
+            border-radius: 50%;
+            filter: blur(500px);
+        }
+
+        .ellipse, .ellipse-2 {
+            position: absolute;
+            width: 634px;
+            height: 634px;
+            border-radius: 50%;
+            filter: blur(500px);
+        }
+
+        .ellipse {
+            background-color: #ffd5d5;
+            top: 34px;
+            left: 0;
+        }
+
+        .ellipse-2 {
+            background-color: #54be96;
+            bottom: 0;
+            right: 0;
+        }
+
+        .header-blog {
+            padding: 2rem;
+            text-align: center;
+            background: #2c3e50;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .news-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 1rem;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .news-meta {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 0.2rem;
+        }
+
+        .news-summary {
+            margin-top: 0.8rem;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .read-more {
+            margin-top: 1rem;
+            display: inline-block;
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            padding-top: 80px;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 60%;
+            position: relative;
+            animation: fadeIn 0.4s;
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @media (min-width: 768px) {
+            .ellipse-1 {
+                width: 434px;
+                height: 434px;
+            }
+
+            .ellipse, .ellipse-2 {
+                width: 434px;
+                height: 434px;
+            }
+        }
+    </style>
+
+    <script>
+        function openModal(title, content) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalContent').innerText = content;
+            document.getElementById('blogModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('blogModal').style.display = "none";
+        }
+    </script>
+</h:head>
+
+<h:body>
+    <ui:include src="/website/common/navbar.xhtml" />
+
+
+    <div class="header-blog">Latest News</div>
+    <div class="news-container">
+        <ui:repeat value="#{blogController.blogs}" var="news">
+            <div class="news-card">
+                <h:graphicImage value="#{news.imageUrl}" alt="news image" styleClass="news-image" />
+                <div class="news-content">
+                    <div class="news-title">#{news.title}</div>
+                    <div class="news-meta">#{news.category} | #{news.createdAt}</div>
+                    <div class="news-summary">#{news.summary}</div>
+                    <a href="javascript:void(0);" class="read-more"
+                       onclick="openModal('#{news.title}', '#{news.content}')">
+                        Read more →
+                    </a>
+                </div>
+            </div>
+        </ui:repeat>
+    </div>
+
+    <!-- Modal HTML -->
+    <div id="blogModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">×</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalContent"></p>
+        </div>
+    </div>
+</h:body>
+<footer>
+    <ui:include src="/website/common/footer.xhtml" />
+</footer>
+</html>

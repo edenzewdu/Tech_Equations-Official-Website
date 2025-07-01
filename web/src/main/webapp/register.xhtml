@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Sign in</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon.ico']}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-16x16.png']}" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-32x32.png']}" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-96x96.png']}" sizes="96x96"/>
+        <meta name="theme-color" content="#444"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+
+        <style type="text/css">
+            body .load-bar {
+                margin-top: -20px;
+            }
+            /* below css hides growls in small screens and makes messages visible */
+            @media (max-width: 768px) {
+
+                body div.ui-growl {
+                    display: none;
+                }
+
+                body div.ui-messages {
+                    display: block;
+                }
+
+            }
+
+            /* below css hides messages in medium/big devices and makes growl visible in such devices */
+            @media (min-width: 769px) {
+                body div.ui-growl {
+                    display: block;
+                }
+
+                body div.ui-messages {
+                    display: none;
+                }
+            }
+
+            body.login-page {
+                background-color: transparent;
+            }
+
+            html {
+                background: url(#{resource[ 'images:pexels-karolina-grabowska-4491452.jpg' ]}) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+            @media (max-width: 768px) {
+                html {
+                    background-image: url(#{resource[ 'images:login-bg-mobile.jpeg' ]});
+                }
+            }
+            .abt-system{
+                float: left;
+                background: rgba(0,0,0,0.5);
+                padding: 20px;
+                color: #fff;
+
+                font-size: 18px; 
+
+                height: 200%;
+                width: 50%;
+            }
+            .login-box{
+                float: right;
+                margin-right: 300px;
+            }
+        </style>
+    </h:head>
+
+    <h:body styleClass="hold-transition login-page">
+        <p:growl sticky="true" id="growl">
+            <p:autoUpdate/>
+        </p:growl>
+        <div id="loader" class="load-bar" style="display: none">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
+                  resizable="false" responsive="true" showHeader="false" appendTo="@(body)">
+            <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
+        </p:dialog>
+
+        <div class="abt-system">
+            <h2>Welcome to human resource management system</h2>
+            <h2>With our system you can:</h2>
+            <ul>
+                <li>Register Employees</li>
+                <li>Track attendances</li>
+                <li>Schedule employee shifts</li>
+                <li>Register there leaves</li>
+                <li>Register there over time work hours</li>
+                <li>Register employee tour and training</li>
+
+                <li>Finally considering every paid and unpaid days calculates payroll any day for any employee</li>
+            </ul>
+        </div>
+
+        <div class="login-box">
+
+            <p:link href="signin.xhtml">Back to login</p:link>
+
+            <!-- /.login-logo -->
+            <div class="box login-box-body">
+                <h:form id="Others">
+
+                    <p:messages closable="true"/>
+
+                    <p:panel style="border: 0px">
+
+                        <p:panel header="Company detail" style="border: 0px">
+
+                            <div class="form-group has-feedback">
+                                <p:inputText id="companyName" value="#{companyController.selected.companyName}" styleClass="form-control" 
+                                             placeholder="Company name"
+                                             required="true"
+                                             requiredMessage="Comapany name is required."/>
+                                <i class="fa fa-building form-control-feedback" ></i>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:inputText id="legalName" value="#{companyController.selected.legalName}" styleClass="form-control" 
+                                             placeholder="Legal name"
+                                             required="true"
+                                             requiredMessage="Legal name is required."/>
+
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:inputText id="city" value="#{companyController.selected.city}" styleClass="form-control" 
+                                             placeholder="City"
+                                             required="true"
+                                             requiredMessage="City is required."/>
+                                <i class="fa fa-city form-control-feedback" ></i>
+
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:inputText id="state" value="#{companyController.selected.state}" styleClass="form-control" 
+                                             placeholder="State"
+                                             required="true"
+                                             requiredMessage="State is required."/>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:inputText id="country" value="#{companyController.selected.country}" styleClass="form-control" 
+                                             placeholder="Country"
+                                             required="true"
+                                             requiredMessage="Country is required."/>
+                                <i class="fa fa-flag form-control-feedback" ></i>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:inputText id="zipCode" value="#{companyController.selected.zipCode}" styleClass="form-control" 
+                                             placeholder="Zip-code"
+                                             required="true"
+                                             requiredMessage="Zip-code is required."/>
+
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:inputText id="phoneNumber" value="#{companyController.selected.phoneNumber}" styleClass="form-control" 
+                                             placeholder="Phone number"
+                                             required="true"
+                                             requiredMessage="phone number is required."/>
+                                <i class="fa fa-phone-volume form-control-feedback" ></i>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:inputText id="email" value="#{companyController.selected.email}" styleClass="form-control" 
+                                             placeholder="Email"
+                                             />
+                                <i class="fa fa-envelope form-control-feedback" ></i>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:inputText id="website" value="#{companyController.selected.website}" styleClass="form-control" 
+                                             placeholder="Website"
+                                             />
+
+                            </div>
+                        </p:panel>
+                        <p:panel header="Administrator" style="margin-top: 5px; border: 0px;">
+                            <div class="form-group has-feedback">
+                                <p:inputText  value="#{loginView.email}" styleClass="form-control" 
+                                              placeholder="Email"
+                                              />
+                                <i class="fa fa-envelope form-control-feedback" ></i>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:password  value="#{loginView.password}" styleClass="form-control" 
+                                              placeholder="Password"
+                                              />
+
+                            </div>
+                            <div class="form-group has-feedback">
+                                <p:inputText  value="#{loginView.username}" styleClass="form-control" 
+                                              placeholder="username"
+                                              />
+
+                            </div>
+                        </p:panel>
+                    </p:panel>
+
+
+                    <div class="row">
+
+                        <p:spacer height="10"/>
+                        <div class="col-xs-12">
+                            <p:commandButton styleClass="btn btn-success btn-block" action="#{loginView.createUser()}" 
+                                             value="Register" update=":form,:growl"/>
+                        </div>
+                    </div>
+                </h:form>
+
+
+                <!-- /.social-auth-links -->
+
+
+            </div>
+            <!-- /.login-box-body -->
+        </div>
+
+        <h:outputScript library="js" name="admintemplate.js" target="head"/>
+
+    </h:body>
+</html>

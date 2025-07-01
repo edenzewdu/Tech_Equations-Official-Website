@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TestimonialsViewDlg" widgetVar="TestimonialsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTestimonialsTitle}">
+            <h:form id="TestimonialsViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{testimonialsController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTestimonialsLabel_id}"/>
+                        <h:outputText value="#{testimonialsController.selected.id}" title="#{bundle.ViewTestimonialsTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewTestimonialsLabel_authorName}"/>
+                        <h:outputText value="#{testimonialsController.selected.authorName}" title="#{bundle.ViewTestimonialsTitle_authorName}"/>
+                        <h:outputText value="#{bundle.ViewTestimonialsLabel_authorTitle}"/>
+                        <h:outputText value="#{testimonialsController.selected.authorTitle}" title="#{bundle.ViewTestimonialsTitle_authorTitle}"/>
+                        <h:outputText value="#{bundle.ViewTestimonialsLabel_quoteText}"/>
+                        <h:outputText value="#{testimonialsController.selected.quoteText}" title="#{bundle.ViewTestimonialsTitle_quoteText}"/>
+                        <h:outputText value="#{bundle.ViewTestimonialsLabel_isPublished}"/>
+                        <p:selectBooleanCheckbox value="#{testimonialsController.selected.isPublished}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTestimonialsLabel_displayOrder}"/>
+                        <h:outputText value="#{testimonialsController.selected.displayOrder}" title="#{bundle.ViewTestimonialsTitle_displayOrder}"/>
+                        <h:outputText value="#{bundle.ViewTestimonialsLabel_createdAt}"/>
+                        <h:outputText value="#{testimonialsController.selected.createdAt}" title="#{bundle.ViewTestimonialsTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTestimonialsLabel_updatedAt}"/>
+                        <h:outputText value="#{testimonialsController.selected.updatedAt}" title="#{bundle.ViewTestimonialsTitle_updatedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTestimonialsLabel_avatarUrl}"/>
+                        <h:outputText value="#{testimonialsController.selected.avatarUrl}" title="#{bundle.ViewTestimonialsTitle_avatarUrl}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TestimonialsViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

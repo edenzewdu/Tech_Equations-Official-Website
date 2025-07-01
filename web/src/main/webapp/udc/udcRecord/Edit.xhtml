@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UdcRecordEditDlg" widgetVar="UdcRecordEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUdcRecordTitle}">
+            <h:form id="UdcRecordEditForm">
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="2" rendered="#{udcRecordController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditUdcRecordLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{udcRecordController.selected.id}" title="#{bundle.EditUdcRecordTitle_id}" required="true" requiredMessage="#{bundle.EditUdcRecordRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditUdcRecordLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{udcRecordController.selected.code}" title="#{bundle.EditUdcRecordTitle_code}" />
+                        <p:outputLabel value="#{bundle.EditUdcRecordLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{udcRecordController.selected.description}" title="#{bundle.EditUdcRecordTitle_description}" />
+                        <p:outputLabel value="#{bundle.EditUdcRecordLabel_businessUnit}" for="businessUnit" />
+                        <p:selectOneMenu id="businessUnit" value="#{udcRecordController.selected.businessUnit}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{udcRecordController.itemsAvailableSelectOne}"
+                                           var="businessUnitItem"
+                                           itemValue="#{businessUnitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditUdcRecordLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{udcRecordController.selected.userId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditUdcRecordLabel_udcHeader}" for="udcHeader" />
+                        <p:selectOneMenu id="udcHeader" value="#{udcRecordController.selected.udcHeader}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{udcHeaderController.itemsAvailableSelectOne}"
+                                           var="udcHeaderItem"
+                                           itemValue="#{udcHeaderItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditUdcRecordLabel_description2}" for="description2" />
+                        <p:inputText id="description2" value="#{udcRecordController.selected.description2}" title="#{bundle.EditUdcRecordTitle_description2}" />
+                    </h:panelGrid>
+                    <p:commandButton actionListener="#{udcRecordController.update}" value="Save" update="display,:UdcRecordListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UdcRecordEditDialog');"/>
+                    <p:commandButton value="Cancel" onclick="UdcRecordEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

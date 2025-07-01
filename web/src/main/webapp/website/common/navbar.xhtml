@@ -1,0 +1,588 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <h:head>
+        <title>Tech Equations - Navigation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript">
+
+            window.addEventListener('resize', function () {
+                const mobileMenuPanel = document.getElementById('mobileMenuPanel');
+                if (window.innerWidth > 1084 &amp;&amp; mobileMenuPanel &amp;&amp; mobileMenuPanel.classList.contains('show')) {
+                    mobileMenuPanel.classList.remove('show');
+                }
+            });
+            function toggleAvatarDropdown() {
+                const avatarDropdownMenu = document.getElementById('avatarDropdownMenu');
+                if (avatarDropdownMenu) {
+                    avatarDropdownMenu.classList.toggle('show');
+                }
+            }
+
+            function toggleMobileMenu() {
+                const mobileMenuPanel = document.getElementById('mobileMenuPanel');
+                const avatarDropdownMenu = document.getElementById('avatarDropdownMenu');
+                const avatarDropdownMenuMobile = document.getElementById('avatarDropdownMenuMobile');
+
+                if (mobileMenuPanel) {
+                    mobileMenuPanel.classList.toggle('show');
+                }
+
+                if (avatarDropdownMenu &amp;&amp; avatarDropdownMenu.classList.contains('show')) {
+                    avatarDropdownMenu.classList.remove('show');
+                }
+
+                if (avatarDropdownMenuMobile &amp;&amp; avatarDropdownMenuMobile.classList.contains('show')) {
+                    avatarDropdownMenuMobile.classList.remove('show');
+                }
+            }
+        </script>
+        <style>
+            .te-navbar-wrapper * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            .te-navbar-wrapper {
+                font-family: "Inter", Helvetica, sans-serif;
+                background-color: #ffffff;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                position: relative;
+                z-index: 1000;
+            }
+
+            .te-navbar-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 15px 5%;
+                max-width: 1600px;
+                margin: 0 auto;
+                gap: 15px; /* Add a gap between main sections: brand, menu, user */
+            }
+
+            /* Brand: Logo and Name */
+            .te-brand {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                flex-shrink: 0; /* Brand should not shrink easily */
+            }
+            /* ... (te-brand-logo, te-brand-name-part1, te-brand-name-part2 styles as before) ... */
+            .te-brand-logo {
+                width: 50px;
+                height: 50px;
+                object-fit: contain;
+                margin-right: 10px;
+            }
+            .te-brand-name-part1, .te-brand-name-part2 {
+                font-size: 1.8em;
+                font-weight: 800;
+            }
+            .te-brand-name-part1 { color: #30407B; }
+            .te-brand-name-part2 { background-color: #FBD208; color: #ffffff; font-weight: 600; }
+
+
+            /* Desktop Navigation Menu */
+            .te-menu-desktop {
+                display: flex;
+                list-style: none;
+                gap: 1%;
+                align-items: center;
+                flex-grow: 1; /* Allow menu to take available space */
+                flex-shrink: 1; /* Allow menu to shrink */
+                justify-content: center; /* Center the menu items if there's extra space */
+                min-width: 0; /* Crucial for allowing menu to shrink properly with long items */
+                overflow: hidden; /* Hide items that overflow if it can't shrink enough, not ideal but a fallback */
+            }
+            /* ... (te-menu-desktop li a, .ui-button.ui-button-flat styles as before) ... */
+            .te-menu-desktop li a,
+            .te-menu-desktop .ui-button.ui-button-flat {
+                color: #0e4270; text-decoration: none; font-size: 1rem; font-weight: 500;
+                padding: 8px 12px; border-radius: 5px; transition: color 0.3s ease, background-color 0.3s ease;
+                background-color: transparent !important; border: none !important; box-shadow: none !important;
+                white-space: nowrap; /* Prevent nav items from wrapping text to multiple lines */
+            }
+            .te-menu-desktop .ui-button.ui-button-flat .ui-button-text,
+            .te-menu-desktop .ui-button.ui-button-flat .ui-icon-right {
+                color: #0e4270 !important; transition: color 0.3s ease;
+            }
+            .te-menu-desktop li a:hover, .te-menu-desktop li a:focus,
+            .te-menu-desktop .ui-button.ui-button-flat:hover, .te-menu-desktop .ui-button.ui-button-flat:focus {
+                color: #73d2f3 !important; background-color: rgba(14, 66, 112, 0.1) !important;
+            }
+            .te-menu-desktop .ui-button.ui-button-flat:hover .ui-button-text,
+            .te-menu-desktop .ui-button.ui-button-flat:hover .ui-icon-right,
+            .te-menu-desktop .ui-button.ui-button-flat:focus .ui-button-text,
+            .te-menu-desktop .ui-button.ui-button-flat:focus .ui-icon-right {
+                color: #73d2f3 !important;
+            }
+            .te-menu-desktop li a.active {
+                color: #73d2f3 !important; font-weight: 700;
+            }
+            .te-menu-desktop .ui-button.ui-button-flat.active .ui-button-text {
+                color: #73d2f3 !important; font-weight: 700;
+            }
+
+
+            /* User Section: Login Button / Avatar */
+            .te-user-section {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                position: relative;
+                flex-shrink: 0; /* User section (login/avatar) should not shrink easily */
+            }
+
+            .te-login-btn {
+                background: #73d2f3;
+                border: 1px solid #0e4270;
+                color: #0e4270;
+                font-size: 0.9rem;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 20px;
+                transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+                white-space: nowrap; /* Prevent "Login" from breaking into two lines */
+            }
+            .te-login-btn:hover {
+                background: #0e4270;
+                color: #ffffff;
+            }
+
+            /* ... (te-avatar, te-avatar-dropdown styles as before) ... */
+            .te-avatar {
+                width: 45px; height: 45px; background-color: #0e4270; color: #ffffff;
+                font-size: 1.3rem; font-weight: bold; border-radius: 50%;
+                display: flex; justify-content: center; align-items: center;
+                text-transform: uppercase; cursor: pointer; border: 2px solid #73d2f3;
+                transition: transform 0.2s ease;
+            }
+            .te-avatar:hover { transform: scale(1.1); }
+            .te-avatar-dropdown {
+                display: none; position: absolute; top: 100%; right: 0;
+                background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); min-width: 150px;
+                z-index: 1010; overflow: hidden;
+            }
+            .te-avatar-dropdown.show { display: block; }
+            .te-avatar-dropdown a {
+                display: block; padding: 10px 15px; color: #333333; text-decoration: none;
+                font-size: 0.95rem; transition: background-color 0.2s ease;
+            }
+            .te-avatar-dropdown a:hover { background-color: #f5f5f5; color: #0e4270; }
+
+            /* ... (Mobile menu toggle, panel, and other styles as before) ... */
+            .te-menu-toggle { display: none; font-size: 2em; color: #0e4270; cursor: pointer; background: none; border: none; }
+            .te-menu-mobile-panel { /* ... styles ... */ }
+            /* ... (rest of your styles) ... */
+
+            /* PrimeFaces OverlayPanel custom styling */
+            .ui-overlaypanel { /* ... styles ... */ }
+            .support-dropdown-button.ui-button.ui-button-flat { /* ... styles ... */ }
+
+
+            /*.te-login-btn {*/
+            /*    background: #73d2f3;*/
+            /*    border: 1px solid #0e4270;*/
+            /*    color: #0e4270;*/
+            /*    font-size:0.2rem;*/
+            /*    font-weight: bold;*/
+            /*    cursor: pointer;*/
+            /*    padding: 3px 4px;*/
+            /*    border-radius: 5px;*/
+            /*    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;*/
+            /*}*/
+
+            .te-login-btn:hover {
+                background: #0e4270;
+                color: #ffffff;
+            }
+
+            .te-avatar {
+                width: 45px;
+                height: 45px;
+                background-color: #0e4270; /* Dark blue background */
+                color: #ffffff; /* White text */
+                font-size: 1.3rem;
+                font-weight: bold;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-transform: uppercase;
+                cursor: pointer;
+                border: 2px solid #73d2f3; /* Light blue border */
+                transition: transform 0.2s ease;
+            }
+            .te-avatar:hover {
+                transform: scale(1.1);
+            }
+
+
+            .te-avatar-dropdown {
+                display: none; /* Hidden by default */
+                position: absolute;
+                top: 100%; /* Position below the avatar */
+                right: 0;
+                background-color: #ffffff;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                min-width: 150px;
+                z-index: 1010; /* Above navbar content, below modals if any */
+                overflow: hidden; /* For rounded corners on links */
+            }
+
+            .te-avatar-dropdown.show {
+                display: block;
+            }
+
+            .te-avatar-dropdown a {
+                display: block;
+                padding: 10px 15px;
+                color: #333333;
+                text-decoration: none;
+                font-size: 0.95rem;
+                transition: background-color 0.2s ease;
+            }
+
+            .te-avatar-dropdown a:hover {
+                background-color: #f5f5f5;
+                color: #0e4270;
+            }
+
+            /* Mobile Menu Toggle (Hamburger) */
+            .te-menu-toggle {
+                display: none; /* Hidden on desktop */
+                font-size: 2em; /* Larger hamburger */
+                color: #0e4270;
+                cursor: pointer;
+                background: none;
+                border: none;
+            }
+
+            /* Mobile Menu Panel */
+            .te-menu-mobile-panel {
+                display: none; /* Hidden by default */
+                flex-direction: column;
+                list-style: none;
+                background-color: #0c3a61; /* Slightly darker primary */
+                position: absolute; /* Or fixed, depending on desired behavior */
+                top: 100%; /* Position below the navbar */
+                left: 0;
+                width: 100%;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                z-index: 999; /* Below navbar, above page content */
+                padding-bottom: 10px; /* Space for the last item */
+            }
+
+            .te-menu-mobile-panel.show {
+                display: flex;
+            }
+
+            .te-menu-mobile-panel li {
+                border-bottom: 1px solid rgba(115, 210, 243, 0.2); /* Separator with accent color */
+            }
+            .te-menu-mobile-panel li:last-child {
+                border-bottom: none;
+            }
+
+            .te-menu-mobile-panel li a,
+            .te-menu-mobile-panel .ui-button.ui-button-flat {
+                display: block;
+                padding: 15px 20px;
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 1rem;
+                font-weight: 500;
+                transition: background-color 0.3s ease;
+                width: 100%;
+                text-align: left;
+            }
+            .te-menu-mobile-panel .ui-button.ui-button-flat .ui-button-text,
+            .te-menu-mobile-panel .ui-button.ui-button-flat .ui-icon-right {
+                color: #ffffff !important;
+            }
+
+
+            .te-menu-mobile-panel li a:hover,
+            .te-menu-mobile-panel li a:focus,
+            .te-menu-mobile-panel .ui-button.ui-button-flat:hover,
+            .te-menu-mobile-panel .ui-button.ui-button-flat:focus {
+                background-color: #73d2f3; /* Accent color for hover */
+                color: #0e4270 !important;
+            }
+            .te-menu-mobile-panel .ui-button.ui-button-flat:hover .ui-button-text,
+            .te-menu-mobile-panel .ui-button.ui-button-flat:hover .ui-icon-right {
+                color: #0e4270 !important;
+            }
+
+
+            .te-menu-mobile-panel li a.active {
+                background-color: #73d2f3;
+                color: #0e4270 !important;
+                font-weight: bold;
+            }
+
+            /* User section in mobile menu */
+            .te-user-section-mobile {
+                padding: 15px 20px;
+                margin-top: 10px;
+                border-top: 1px solid rgba(115, 210, 243, 0.2);
+            }
+            .te-user-section-mobile .te-login-btn,
+            .te-user-section-mobile .te-avatar { /* Style differently or reuse? For now, make login full width */
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            .te-user-section-mobile .te-avatar {
+                margin: 0 auto 10px auto; /* Center avatar */
+            }
+            .te-user-section-mobile .te-avatar-dropdown a{ /* Mobile logout might need simpler styling */
+                color: #ffffff;
+                font-size: 1rem;
+                background-color: transparent;
+            }
+            .te-user-section-mobile .te-avatar-dropdown a:hover{
+                background-color: #73d2f3;
+                color: #0e4270;
+            }
+            .te-user-section-mobile .te-avatar-dropdown { /* For mobile dropdown needs to be relative */
+                position: relative;
+                top: auto;
+                right: auto;
+                width: 100%;
+                background-color: transparent;
+                box-shadow: none;
+                border: none;
+            }
+
+
+            /* PrimeFaces OverlayPanel custom styling */
+            .ui-overlaypanel {
+                border-radius: 8px !important;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.15) !important;
+                padding: 5px !important; /* Minimal padding, let content dictate */
+            }
+            .ui-overlaypanel .ui-datatable thead th {
+                background: #f0f5f9 !important;
+                color: #0e4270 !important;
+                font-weight: 600 !important;
+            }
+            .ui-overlaypanel .ui-datatable tbody td {
+                padding: 8px 10px !important;
+            }
+            .ui-overlaypanel .ui-datatable .ui-column-title {
+                font-size: 0.95em;
+            }
+            .ui-overlaypanel .ui-datatable-scrollable-body {
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+            .ui-overlaypanel .ui-commandlink, .ui-overlaypanel .ui-button {
+                color: #0e4270 !important;
+                font-weight: 500;
+            }
+            .ui-overlaypanel .ui-commandlink:hover, .ui-overlaypanel .ui-button:hover {
+                color: #73d2f3 !important;
+                text-decoration: underline !important;
+            }
+
+            /* Support dropdown specific buttons inside overlay */
+            .support-dropdown-button.ui-button.ui-button-flat {
+                color: #0e4270 !important;
+                justify-content: flex-start !important; /* Align text left */
+                width: 100%;
+                padding: 10px 15px !important;
+                margin-bottom: 2px; /* Small gap between buttons */
+            }
+            .support-dropdown-button.ui-button.ui-button-flat:hover {
+                background-color: #f0f5f9 !important;
+                color: #005a9e !important;
+            }
+            .support-dropdown-button.ui-button.ui-button-flat .ui-button-text {
+                color: inherit !important;
+            }
+
+
+            /* Responsive Adjustments */
+            @media (max-width: 1084px) { /* Tablet and Mobile */
+                .te-menu-desktop {
+                    display: none; /* Hide desktop menu */
+                }
+                .te-user-section {
+                    display: none; /* Hide desktop user section, will be moved to mobile menu */
+                }
+                .te-menu-toggle {
+                    display: block; /* Show hamburger */
+                }
+                .te-navbar-container {
+                    padding: 15px 3%; /* Adjust padding for smaller screens */
+                }
+                .te-brand-logo {
+                    width: 40px;
+                    height: 40px;
+                }
+                .te-brand-name-part1, .te-brand-name-part2 {
+                    font-size: 1.5em;
+                }
+                .te-navbar-container { padding: 15px 3%; }
+                .te-brand-logo { width: 40px; height: 40px; }
+                .te-brand-name-part1, .te-brand-name-part2 { font-size: 1.5em; }
+            }
+
+            @media (max-width: 767px) { /* Mobile specific, if needed */
+                /* Further adjustments if necessary */
+            }
+
+        </style>
+    </h:head>
+
+    <h:body>
+        <div class="te-navbar-wrapper">
+            <div class="te-navbar-container">
+                <!-- Brand -->
+                <h:form>
+                    <h:commandLink action="#{uRLBean.redirectWithLabel('/website/public/index.xhtml')}" class="te-brand">
+                        <p:graphicImage value="#{resource['images/logo.png']}" styleClass="te-brand-logo" alt="Tech Equations Logo"/>
+                        <div>
+                            <span class="te-brand-name-part1">Tech</span><span class="te-brand-name-part2">Equations</span>
+                        </div>
+                    </h:commandLink>
+                </h:form>
+
+                <!-- Desktop Navigation -->
+                <ul class="te-menu-desktop">
+                    <li> <p:spacer width="15px"/> </li>
+                    <li><h:form><h:commandLink value="Home" action="#{uRLBean.redirectWithLabel('/website/public/index.xhtml')}" /></h:form></li>
+                    <li><h:form><h:commandLink value="About" action="#{uRLBean.redirectWithLabel('/website/public/about.xhtml')}" /></h:form></li>
+                    <li><h:form><h:commandLink value="Services" action="#{uRLBean.redirectWithLabel('/website/public/service.xhtml')}" /></h:form></li>
+                    <li>
+                        <h:form prependId="false">
+                            <p:commandButton id="productsDesktopBtn" value="Product" type="button" icon="pi pi-angle-down" iconPos="right"
+                                             styleClass="ui-button-flat" />
+                            <p:overlayPanel id="productsDesktopPanel" for="productsDesktopBtn" dynamic="true" style="width:250px;">
+                                <p:dataTable id="productsDesktopTable" value="#{productsController.products}" var="item"
+                                             selectionMode="single" rowKey="#{item.id}"
+                                             scrollable="true" scrollHeight="150"
+                                             styleClass="ui-datatable-sm ui-datatable-striped">
+                                    <p:column headerText="Our Products">
+                                        <p:commandLink value="#{item.name}" action="#{productsController.goToProductDetailPage(item.id)}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:overlayPanel>
+                        </h:form>
+                    </li>
+                    <li><h:form><h:commandLink value="Pricing" action="#{uRLBean.redirectWithLabel('/website/public/pricing.xhtml')}" /></h:form></li>
+                    <li><h:form><h:commandLink value="Partners" action="#{uRLBean.redirectWithLabel('/website/public/partners.xhtml')}" /></h:form></li>
+                    <li>
+                        <h:form prependId="false">
+                            <p:commandButton id="supportDesktopBtn" value="Support" type="button" icon="pi pi-angle-down" iconPos="right"
+                                             styleClass="ui-button-flat"/>
+                            <p:overlayPanel id="supportDesktopPanel" for="supportDesktopBtn" dynamic="true" style="width:180px;">
+                                <p:commandLink action="#{uRLBean.redirectWithLabel('/website/public/faq.xhtml')}" value="FAQ" styleClass="support-dropdown-button ui-button ui-button-flat"/>
+                                <p:commandLink action="#{uRLBean.redirectWithLabel('/website/public/contact.xhtml')}" value="Contact Us" styleClass="support-dropdown-button ui-button ui-button-flat"/>
+                            </p:overlayPanel>
+                        </h:form>
+                    </li>
+                    <li><h:form><h:commandLink value="Blog" action="#{uRLBean.redirectWithLabel('/website/public/blog.xhtml')}" /></h:form></li>
+
+                </ul>
+
+                <!-- Desktop User Section -->
+                <div class="te-user-section">
+                    <h:panelGroup rendered="#{userSessionBean.loggedInUser == null}">
+                        <h:form>
+                            <p:commandButton value="Login" styleClass="te-login-btn" action="#{uRLBean.redirectWithLabel('/website/public/login.xhtml')}" />
+                        </h:form>
+                         </h:panelGroup>
+                    <h:panelGroup rendered="#{userSessionBean.loggedInUser != null}">
+                        <div class="te-avatar" onclick="toggleAvatarDropdown()">
+                            <h:outputText value="#{userSessionBean.firstLetter}" />
+                        </div>
+                        <div class="te-avatar-dropdown" id="avatarDropdownMenu">
+                            <h:form>
+                                <!-- <a href="#">Profile</a> Add other links as needed -->
+                                <h:commandLink action="#{authController.logout}" value="Logout" />
+                            </h:form>
+                        </div>
+                    </h:panelGroup>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="te-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            </div>
+
+            <!-- Mobile Menu Panel -->
+            <ul class="te-menu-mobile-panel" id="mobileMenuPanel">
+                <li><h:form><h:commandLink value="Home" action="#{uRLBean.redirectWithLabel('/website/public/index')}" /></h:form></li>
+                <li>
+
+                    <p:commandLink actionListener="#{uRLBean.redirectWithLabel('/website/public/about.xhtml')}"
+                                   value="About" styleClass="ui-button ui-button-flat"/>
+                </li>
+                <li><h:form><h:commandLink value="Services" action="#{uRLBean.redirectWithLabel('/website/public/service.xhtml')}" /></h:form></li>
+                <li>
+                    <h:form prependId="false">
+                        <p:commandButton id="productsMobileBtn" value="Product" type="button" icon="pi pi-angle-down" iconPos="right"
+                                         styleClass="ui-button-flat" />
+                        <p:overlayPanel id="productsMobilePanel" for="productsMobileBtn" dynamic="true" style="width:90vw;max-width:300px;">
+                            <p:dataTable id="productsMobileTable" value="#{productsController.products}" var="item"
+                                         selectionMode="single" rowKey="#{item.id}"
+                                         scrollable="true" scrollHeight="150"
+                                         styleClass="ui-datatable-sm ui-datatable-striped">
+                                <p:column headerText="Our Products">
+                                    <p:commandLink value="#{item.name}" action="#{productsController.goToProductDetailPage(item.id)}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:overlayPanel>
+                    </h:form>
+                </li>
+                <li><h:form><h:commandLink value="Pricing" action="#{uRLBean.redirectWithLabel('/website/public/pricing.xhtml')}" /></h:form></li>
+                <li><h:form><h:commandLink value="Partners" action="#{uRLBean.redirectWithLabel('/website/public/partners.xhtml')}" /></h:form></li>
+                <li>
+                    <h:form prependId="false">
+                        <p:commandButton id="supportMobileBtn" value="Support" type="button" icon="pi pi-angle-down" iconPos="right"
+                                         styleClass="ui-button-flat"/>
+                        <p:overlayPanel id="supportMobilePanel" for="supportMobileBtn" dynamic="true" style="width:90vw;max-width:200px;">
+                            <p:commandLink action="#{uRLBean.redirectWithLabel('/website/public/faq.xhtml')}" value="FAQ" styleClass="support-dropdown-button ui-button ui-button-flat"/>
+                            <p:commandLink action="#{uRLBean.redirectWithLabel('/website/public/contact.xhtml')}" value="Contact Us" styleClass="support-dropdown-button ui-button ui-button-flat"/>
+                        </p:overlayPanel>
+                    </h:form>
+                </li>
+                <li><h:form><h:commandLink value="Blog" action="#{uRLBean.redirectWithLabel('/website/public/blog.xhtml')}" /></h:form></li>
+
+                <!-- User section for mobile -->
+                <li class="te-user-section-mobile">
+                    <h:panelGroup rendered="#{userSessionBean.loggedInUser == null}">
+                        <h:form>
+                            <p:commandButton value="Login" styleClass="te-login-btn" action="#{uRLBean.redirectWithLabel('/website/public/login.xhtml')}" />
+                        </h:form>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{userSessionBean.loggedInUser != null}">
+                        <div style="display: flex; align-items: center; justify-content: space-between; cursor:pointer;" onclick="toggleAvatarDropdownMobile()">
+                            <div class="te-avatar" style="margin:0;"> <!-- Simpler avatar display -->
+                                <h:outputText value="#{userSessionBean.firstLetter}" />
+                            </div>
+                            <span style="color:white; font-weight:500;">#{userSessionBean.loggedInUser.name}</span>
+                            <i class="pi pi-angle-down" style="color:white;"></i>
+                        </div>
+                        <div class="te-avatar-dropdown" id="avatarDropdownMenuMobile" style="position:relative; width:100%; background:transparent; box-shadow:none; border-top: 1px solid rgba(115,210,243,0.2); margin-top:10px;">
+                            <h:form>
+                                <h:commandLink action="#{authController.logout}" value="Logout" style="color:white; padding-left:0;"/>
+                            </h:form>
+                        </div>
+                    </h:panelGroup>
+                </li>
+            </ul>
+        </div>
+    </h:body>
+</ui:composition>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UdcHeaderViewDlg" widgetVar="UdcHeaderViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUdcHeaderTitle}">
+            <h:form id="UdcHeaderViewForm">
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="2" rendered="#{udcHeaderController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUdcHeaderLabel_id}"/>
+                        <h:outputText value="#{udcHeaderController.selected.id}" title="#{bundle.ViewUdcHeaderTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewUdcHeaderLabel_productCode}"/>
+                        <h:outputText value="#{udcHeaderController.selected.productCode}" title="#{bundle.ViewUdcHeaderTitle_productCode}"/>
+                        <h:outputText value="#{bundle.ViewUdcHeaderLabel_productCodeDescription}"/>
+                        <h:outputText value="#{udcHeaderController.selected.productCodeDescription}" title="#{bundle.ViewUdcHeaderTitle_productCodeDescription}"/>
+                        <h:outputText value="#{bundle.ViewUdcHeaderLabel_userDefinedCodes}"/>
+                        <h:outputText value="#{udcHeaderController.selected.userDefinedCodes}" title="#{bundle.ViewUdcHeaderTitle_userDefinedCodes}"/>
+                        <h:outputText value="#{bundle.ViewUdcHeaderLabel_userDefinedCodeDescription}"/>
+                        <h:outputText value="#{udcHeaderController.selected.userDefinedCodeDescription}" title="#{bundle.ViewUdcHeaderTitle_userDefinedCodeDescription}"/>
+                        <h:outputText value="#{bundle.ViewUdcHeaderLabel_description}"/>
+                        <h:outputText value="#{udcHeaderController.selected.description}" title="#{bundle.ViewUdcHeaderTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewUdcHeaderLabel_description2}"/>
+                        <h:outputText value="#{udcHeaderController.selected.description2}" title="#{bundle.ViewUdcHeaderTitle_description2}"/>
+                        <h:outputText value="#{bundle.ViewUdcHeaderLabel_businessUnit}"/>
+                        <h:outputText value="#{udcHeaderController.selected.businessUnit}" title="#{bundle.ViewUdcHeaderTitle_businessUnit}"/>
+                        <h:outputText value="#{bundle.ViewUdcHeaderLabel_userId}"/>
+                        <h:outputText value="#{udcHeaderController.selected.userId}" title="#{bundle.ViewUdcHeaderTitle_userId}"/>
+                    </h:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UdcHeaderViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

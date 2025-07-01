@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UdcHeaderEditDlg" widgetVar="UdcHeaderEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUdcHeaderTitle}">
+            <h:form id="UdcHeaderEditForm">
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="2" rendered="#{udcHeaderController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditUdcHeaderLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{udcHeaderController.selected.id}" title="#{bundle.EditUdcHeaderTitle_id}" required="true" requiredMessage="#{bundle.EditUdcHeaderRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditUdcHeaderLabel_productCode}" for="productCode" />
+                        <p:inputText id="productCode" value="#{udcHeaderController.selected.productCode}" title="#{bundle.EditUdcHeaderTitle_productCode}" />
+                        <p:outputLabel value="#{bundle.EditUdcHeaderLabel_productCodeDescription}" for="productCodeDescription" />
+                        <p:inputText id="productCodeDescription" value="#{udcHeaderController.selected.productCodeDescription}" title="#{bundle.EditUdcHeaderTitle_productCodeDescription}" />
+                        <p:outputLabel value="#{bundle.EditUdcHeaderLabel_userDefinedCodes}" for="userDefinedCodes" />
+                        <p:inputText id="userDefinedCodes" value="#{udcHeaderController.selected.userDefinedCodes}" title="#{bundle.EditUdcHeaderTitle_userDefinedCodes}" />
+                        <p:outputLabel value="#{bundle.EditUdcHeaderLabel_userDefinedCodeDescription}" for="userDefinedCodeDescription" />
+                        <p:inputText id="userDefinedCodeDescription" value="#{udcHeaderController.selected.userDefinedCodeDescription}" title="#{bundle.EditUdcHeaderTitle_userDefinedCodeDescription}" />
+                        <p:outputLabel value="#{bundle.EditUdcHeaderLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{udcHeaderController.selected.description}" title="#{bundle.EditUdcHeaderTitle_description}" />
+                        <p:outputLabel value="#{bundle.EditUdcHeaderLabel_description2}" for="description2" />
+                        <p:inputText id="description2" value="#{udcHeaderController.selected.description2}" title="#{bundle.EditUdcHeaderTitle_description2}" />
+                        <p:outputLabel value="#{bundle.EditUdcHeaderLabel_businessUnit}" for="businessUnit" />
+                        <p:selectOneMenu id="businessUnit" value="#{udcHeaderController.selected.businessUnit}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{businessUnitMasterController.itemsAvailableSelectOne}"
+                                           var="businessUnitItem"
+                                           itemValue="#{businessUnitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditUdcHeaderLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{udcHeaderController.selected.userId}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <p:commandButton actionListener="#{udcHeaderController.update}" value="Save" update="display,:UdcHeaderListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UdcHeaderEditDialog');"/>
+                    <p:commandButton value="Cancel" onclick="UdcHeaderEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

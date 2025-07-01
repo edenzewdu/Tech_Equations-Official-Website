@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UdcRecordViewDlg" widgetVar="UdcRecordViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUdcRecordTitle}">
+            <h:form id="UdcRecordViewForm">
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="2" rendered="#{udcRecordController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUdcRecordLabel_id}"/>
+                        <h:outputText value="#{udcRecordController.selected.id}" title="#{bundle.ViewUdcRecordTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewUdcRecordLabel_code}"/>
+                        <h:outputText value="#{udcRecordController.selected.code}" title="#{bundle.ViewUdcRecordTitle_code}"/>
+                        <h:outputText value="#{bundle.ViewUdcRecordLabel_description}"/>
+                        <h:outputText value="#{udcRecordController.selected.description}" title="#{bundle.ViewUdcRecordTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewUdcRecordLabel_businessUnit}"/>
+                        <h:outputText value="#{udcRecordController.selected.businessUnit}" title="#{bundle.ViewUdcRecordTitle_businessUnit}"/>
+                        <h:outputText value="#{bundle.ViewUdcRecordLabel_userId}"/>
+                        <h:outputText value="#{udcRecordController.selected.userId}" title="#{bundle.ViewUdcRecordTitle_userId}"/>
+                        <h:outputText value="#{bundle.ViewUdcRecordLabel_udcHeader}"/>
+                        <h:outputText value="#{udcRecordController.selected.udcHeader}" title="#{bundle.ViewUdcRecordTitle_udcHeader}"/>
+                        <h:outputText value="#{bundle.ViewUdcRecordLabel_description2}"/>
+                        <h:outputText value="#{udcRecordController.selected.description2}" title="#{bundle.ViewUdcRecordTitle_description2}"/>
+                    </h:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UdcRecordViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

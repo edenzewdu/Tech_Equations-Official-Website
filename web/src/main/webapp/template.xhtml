@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/admin.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="head">
+        <title>Employee Management</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <h:outputStylesheet library="css" name="starter.css"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <h:outputScript library="js" name="main.js"/>
+        <h:outputScript library="js" name="starter.js"/>
+        <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+    </ui:define>
+
+    <ui:define name="logo-lg">
+        <img src="/human_resource_management/resources/images/employeeLogo2.jpg" alt="Employee Management"></img>
+    </ui:define>
+
+    <ui:define name="logo-mini">
+        Admin
+
+    </ui:define>
+
+    <ui:define name="menu">
+
+        <p:growl id="growl" life="4000" />
+        <ul class="sidebar-menu" data-widget="tree">
+            <li>
+                <p:link outcome="/hr.xhtml" onclick="clearBreadCrumbs()">
+                    <i class="fa fa-home"></i>
+                    <span>Home</span>
+                </p:link>
+            </li>
+
+            <li class="header">
+                General
+            </li>
+
+            <li>
+                <li> 
+                    <p:link  outcome="/hr/company/List"> 
+                        <i class="fa fa-university"></i>
+                        <span>Company</span>
+                    </p:link>
+
+                </li>
+                <li>
+                    <p:link  outcome="/hr/employee/List">
+
+                        <i class="fa fa-users"></i>
+                        <span>Employee</span>
+
+                    </p:link>
+                </li>
+
+            </li>
+            <li class="treeview active menu-open">
+                <a href="#">
+                    <i class="fa fa-cog"></i>
+                    <span>Parameter Settings</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><p:link outcome="/hr/department/List.xhtml" >
+
+                            <span>Departments</span>
+                        </p:link></li>
+                    <li><p:link outcome="/hr/position/List.xhtml" >
+
+                            <span>Positions</span>
+                        </p:link></li>
+                    <li>
+                        <p:link outcome="/hr/qualification/List.xhtml" >
+
+                            <span>Qualifications</span>
+                        </p:link></li>
+                    <li>
+                        <p:link outcome="/hr/shiftSettings/List.xhtml" >
+                            <i class="fa fa-adjust"></i>
+                            <span>Shift Settings</span>
+                        </p:link></li>
+                    <li>
+                        <p:link outcome="/hr/pension/List.xhtml" >
+
+                            <span>Pension Settings</span>
+                        </p:link></li>
+                    <li>
+                        <p:link outcome="/hr/taxSettings/List.xhtml" >
+
+                            <span>Tax Settings</span>
+                        </p:link></li>
+
+
+                    <li>
+                        <p:link outcome="/hr/profidentFund/List.xhtml">
+                            <i class="fa fa-hourglass-half"></i>
+                            <span>Provident Fund settings</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/leaveSettings/List.xhtml">
+                            <i class="fa fa-calendar-minus-o"></i>
+                            <span>Leave Settings</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/otSetting/List.xhtml">
+                            <i class="fa fa-level-up"></i>
+                            <span>Overtime settings</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/bank/List.xhtml">
+                            <i class="fa fa-bank"></i>
+                            <span>Banks</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/payGrade/List.xhtml">
+                            <span>Pay Grade</span>
+
+                        </p:link>
+                    </li>
+                   
+
+                </ul>
+            </li>
+
+
+            <li class="treeview active menu-open">
+                <a href="#">
+                    <i class="fa fa-list"></i>
+                    <span>Attendance</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <p:link outcome="/hr/attendance/List">
+                            <span>Attendance List</span>
+                            <i class="fa fa-th-list"></i>
+                        </p:link>
+                    </li>
+
+                    <li>
+                        <h:form>
+                            <p:commandLink  actionListener="#{attendanceModule.generateDailyAttendance()}" update="growl" action="/hr/attendance/List?faces-redirect=true" >
+                                <span>Generate todays Attendance</span>
+                                <i class="fa fa-plus-circle"></i>
+                            </p:commandLink>
+                        </h:form>
+                    </li>
+
+
+                </ul>
+
+            </li>
+
+            <li>
+                <p:link outcome="/hr/lcElDeduction/List.xhtml">
+                    <i class="fa fa-thumbs-o-down"></i>
+                    <span>LcEl Deduction</span>
+
+                </p:link>
+            </li>
+
+            <li>
+                <p:link outcome="/hr/employeeShift/List.xhtml">
+                    <i class="fa fa-clock-o"></i>
+                    <span>Shift scheduler</span>
+                </p:link>
+            </li>
+            <li>
+                <p:link outcome="/hr/employeeLeaveDetail/List">
+                    <i class="fa fa-users"></i>
+                    <span>Leave</span>
+                </p:link>
+            </li>
+            <li>
+                <p:link outcome="/hr/employeeOt/List">
+                    <i class="fa fa-times-circle-o"></i>
+                    <span>Over time</span>
+                </p:link>
+            </li>
+            <li class="treeview active menu-open">
+                <a href="#">
+
+                    <span>Tour and Training</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <p:link outcome="/hr/tour/List">
+                            <span>Tour</span>
+                            <i class="fa fa-th-list"></i>
+                        </p:link>
+                    </li>
+                    <li>
+
+                        <p:link outcome="/hr/training/List" >
+                            <span>Training</span>
+                            <i class="fa fa-plus-circle"></i>
+                        </p:link>
+
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="treeview active menu-open">
+                <a href="#">
+                    <span>Increment/Decrement</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <p:link outcome="/hr/temporaryIncrement/List">
+                            <span>Temporary Increment</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+
+                        <p:link outcome="/hr/temporaryDecrement/List" >
+                            <span>Temporary Decrement</span>
+
+                        </p:link>
+
+                    </li>
+                    <li>
+
+                        <p:link outcome="/hr/permanentIncrement/List" >
+                            <span>Permanent Increment</span>
+
+                        </p:link>
+
+                    </li>
+                    <li>
+
+                        <p:link outcome="/hr/permanentDecrement/List" >
+                            <span>Permanent Decrement</span>
+
+                        </p:link>
+
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+
+                <p:link outcome="/hr/payroll" >
+                    <span>Payroll</span>
+
+                </p:link>
+
+            </li>
+
+            <li class="treeview active menu-open">
+                <a href="#">
+                    <span>Misc</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <p:link outcome="/hr/employeePensionLine/List">
+                            <span>Employee pensions</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+
+                        <p:link outcome="/hr/employeeProvidentFundLine/List" >
+                            <span>Employee Provident funds</span>
+
+                        </p:link>
+
+                    </li>
+                    <li>
+
+                        <p:link outcome="/hr/taxListLine/List" >
+                            <span>Tax lists</span>
+
+                        </p:link>
+
+                    </li>
+
+                </ul>
+            </li>
+            <li class="treeview active menu-open">
+                <a href="#">
+                    <i class="fa fa-list"></i>
+                    <span>Benfit Administration</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <p:link outcome="/hr/dateCode/List">
+                            <span>Date Codes</span>
+
+                        </p:link>
+                    </li>
+
+                    <li>
+                        <p:link outcome="/hr/eligibility/List">
+                            <span>Eligibility</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/benefitGroup/List">
+                            <span>Benefit group</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/benefitCategory/List">
+                            <span>Benefit category</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/benefitPlan/List">
+                            <span>Benefit plan</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/planWithInBenefitCategories/List">
+                            <span>Benefit plan with category</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/employeeEnrollement/List">
+                            <span>Employee benefit plans</span>
+
+                        </p:link>
+                    </li>
+                    <li><h:form>
+                            <p:remoteCommand name="rc" action="#{benefitAdministration.prepareEmployeeEnrolement()}"/>
+                        </h:form>
+                        <p:link onclick="rc()" outcome="/hr/employeeEnrollement/EnrollEmployeeInPlan">
+                            <span>Enroll employee </span>
+
+                        </p:link>
+                    </li>
+
+                    <li>
+                        <p:link outcome="/hr/benefitCollectionLine/List">
+                            <span>Employee benefits</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/benefitDeduction/List">
+                            <span>Benefit usage/deduction</span>
+
+                        </p:link>
+                    </li>
+
+                </ul>
+
+            </li>
+            <li class="treeview active menu-open">
+                <a href="#">
+
+                    <span>Labor and time</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <p:link outcome="/hr/project/List">
+                            <span>Project</span>
+                        </p:link>
+                    </li>
+                   
+                    <li>
+                        <p:link outcome="/hr/payGradeByPayTypeHeader/List">
+                            <span>Pay grade by pay type header</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+                        <p:link outcome="/hr/payGradeByPayTypeLine/List">
+                            <span>Pay grade by pay type Line</span>
+                        </p:link>
+                    </li>
+                    
+                    <li>
+                        <p:link outcome="/hr/timeSheetLine/List">
+                            <span>Time sheet</span>
+                        </p:link>
+                    </li>
+                    
+
+                </ul>
+            </li>
+            <li class="treeview active menu-open">
+                <a href="#">
+
+                    <span>Finance</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <p:link outcome="/hr/paymentMethods/List">
+                            <span>Payment Method</span>
+
+                        </p:link>
+                    </li>
+                    <li>
+
+                        <p:link outcome="/hr/paymentRequest/List" >
+                            <span>Payment request</span>
+
+                        </p:link>
+
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+
+    </ui:define>
+
+
+
+    <ui:define name="top-menu">
+        <ui:include src="./topbar.xhtml" />
+        <ui:include src="/includes/top-bar.xhtml"/>
+
+    </ui:define>
+
+    <ui:define name="footer">
+
+        Copyright (C) 2021 - Human resource Management System
+
+
+        <div class="pull-right hidden-xs" style="color: gray">
+            <i>1.0.0</i>
+        </div>
+    </ui:define>
+
+</ui:composition>

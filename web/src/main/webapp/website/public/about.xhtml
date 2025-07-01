@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head>
+    <title>Tech Equations - About</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+    <!-- CountUp.js -->
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.0.8/dist/countUp.umd.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            tsParticles.load("tsparticles", {
+                fullScreen: { enable: false },
+                particles: {
+                    number: { value: 80 },
+                    color: { value: "#0f0f0f" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5 },
+                    size: { value: 3 },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: "top",
+                        outModes: { default: "out" }
+                    }
+                },
+                interactivity: {
+                    events: {
+                        onHover: { enable: true, mode: "repulse" },
+                        onClick: { enable: true, mode: "push" }
+                    },
+                    modes: {
+                        repulse: { distance: 100 },
+                        push: { quantity: 4 }
+                    }
+                },
+                background: {
+                    color: "#ffffff"
+                }
+            });
+        });
+    </script>
+
+    <style>
+        /* General Reset and Base */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            background: transparent;
+            overflow-x: hidden;
+            position: relative;
+            zoom: 0.8;
+        }
+
+        /* Particle Canvas */
+        #tsparticles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -100;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, #007ad9 0%, #124271 100%);
+        }
+
+        /* Glowing Ellipses */
+        .ellipse-1 {
+            position: absolute;
+            width: 634px;
+            height: 634px;
+            top: 0;
+            left: 0;
+            background-color: #0f416c;
+            border-radius: 50%;
+            filter: blur(500px);
+        }
+
+        .ellipse, .ellipse-2 {
+            position: absolute;
+            width: 634px;
+            height: 634px;
+            border-radius: 50%;
+            filter: blur(500px);
+        }
+
+        .ellipse {
+            background-color: #ffd5d5;
+            top: 34px;
+            left: 0;
+        }
+
+        .ellipse-2 {
+            background-color: #54be96;
+            bottom: 0;
+            right: 0;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(6px);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            color: #124271;
+            animation: fadeIn 1.5s ease;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            color: #0f416c;
+            animation: fadeIn 2s ease;
+        }
+
+        /* Section Layout */
+        .section {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            animation: fadeUp 1s ease;
+        }
+
+        /* Section Headings */
+        h2 {
+            color: #124271;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Paragraphs and Lists */
+        .section p, .section ul {
+            font-size: 1.1rem;
+            color: #000000;
+            line-height: 1.7;
+        }
+
+        ul {
+            padding-left: 1rem;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Team Grid */
+        .team {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .member {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .member img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            border: 4px solid #00ffe0;
+            transition: transform 0.3s ease;
+        }
+
+        .member img:hover {
+            transform: scale(1.1);
+        }
+
+        .member h4 {
+            margin-top: 0.75rem;
+            font-size: 1.2rem;
+            color: #0f416c;
+        }
+
+        /* Counters */
+        .counter-section {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .counter-section div {
+            margin: 1rem;
+        }
+
+        .counter-section h3 {
+            font-size: 2.8rem;
+            color: #0f416c;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            .team {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section {
+                margin: 2rem 1rem;
+            }
+            .ellipse-1 {
+                width: 434px;
+                height: 434px;
+            }
+
+            .ellipse, .ellipse-2 {
+                width: 434px;
+                height: 434px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // CountUp Logic
+            const options = { duration: 2 };
+            const projects = new countUp.CountUp('projectsCounter', 120, options);
+            const clients = new countUp.CountUp('clientsCounter', 75, options);
+            const countries = new countUp.CountUp('countriesCounter', 18, options);
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        projects.start();
+                        clients.start();
+                        countries.start();
+                        observer.disconnect();
+                    }
+                });
+            });
+
+            const counterSection = document.getElementById('projectsCounter').parentElement.parentElement;
+            observer.observe(counterSection);
+        });
+    </script>
+</h:head>
+
+<h:body>
+    <div id="tsparticles"></div>
+
+    <div class="particle" style="top: 100vh; left: 20vw; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 100vh; left: 40vw; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 100vh; left: 60vw; animation-delay: 4s;"></div>
+
+
+    <ui:include src="/website/common/navbar.xhtml" />
+    <p:outputPanel styleClass="ellipse" />
+    <p:outputPanel styleClass="ellipse-2" />
+    <p:outputPanel styleClass="ellipse-1" />
+    <header>
+        <h1>About TechEquations</h1>
+        <p>Innovating Today for a Smarter Tomorrow</p>
+    </header>
+
+    <section class="section">
+        <h2>Our Mission &amp; Vision</h2>
+        <p>
+            At TechEquations, our mission is to bridge the gap between technology and practical solutions.
+            Our vision is to become a leading force in global tech innovation—delivering sustainable, secure, and scalable solutions that empower communities and businesses.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Our Story</h2>
+        <p>
+            Founded in 2018 by a group of passionate engineers, TechEquations began as a small consultancy and quickly evolved into a full-stack innovation lab.
+            With roots in open-source, education, and scalable enterprise tech, we’ve expanded across industries and continents.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2 style="display: flex;justify-content: center;">Our Impact in Numbers</h2>
+        <div class="counter-section">
+            <ui:repeat value="#{impactStatsController.stats}" var="stat">
+                <div>
+                    <h3><h:outputText value="#{stat.value}" /></h3>
+                    <p><h:outputText value="#{stat.label}" /></p>
+                </div>
+            </ui:repeat>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 style="display: flex;justify-content: center;">Meet the Team</h2>
+        <div class="team">
+            <ui:repeat value="#{teamMembersController.getItems()}" var="member">
+                <div class="member">
+                    <h:graphicImage value="#{member.imageUrl}" alt="#{member.name}" />
+                    <h4><h:outputText value="#{member.name}" /></h4>
+                    <p><h:outputText value="#{member.role}" /></p>
+                </div>
+            </ui:repeat>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Our Values</h2>
+        <ul>
+            <li>🔍 Transparency in technology and process</li>
+            <li>🌱 Sustainability in innovation</li>
+            <li>🤝 Collaboration across cultures</li>
+            <li>🚀 Growth mindset &amp; continuous learning</li>
+        </ul>
+    </section>
+</h:body>
+<footer>
+    <ui:include src="/website/common/footer.xhtml" />
+</footer>
+</html>

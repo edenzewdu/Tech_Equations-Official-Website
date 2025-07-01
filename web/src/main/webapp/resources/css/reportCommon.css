@@ -1,0 +1,2792 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Jan 11, 2025, 8:17:25 PM
+    Author     : Amanuel
+*/
+
+
+.lucy-reports {
+    display: flex;
+    flex-grow: 1;
+}
+
+.reports-left-panel {
+    background-color: #f4f4f4;
+    width: auto; /* Dynamic width based on text content */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.reports-left-panel a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    padding: 5px 0;
+    margin: 5px 0;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+}
+
+.reports-left-panel a:hover {
+    background-color: #e0e0e0;
+}
+
+.reports-left-panel a .lucy-reports-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.reports-right-panel {
+    flex-grow: 1; /* Allow the panel to grow and fill available space */
+    padding: 20px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    background-color: #fff;
+    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
+}
+
+.contactList-body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+}
+
+.contactList-container {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 20px;
+    overflow-x: auto;
+}
+
+.contactList-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contactList-header img {
+    width: 50px;
+    height: 50px;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.contactList-header h4 {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+.contactList-header h1 {
+    font-size: 16px;
+    color: #0073e6;
+    margin-top: 5px;
+}
+
+.contactList-details-table, .contactList-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: auto; /* Allow dynamic column width based on content */
+    white-space: normal; /* Allows text to wrap */
+    word-wrap: break-word; /* Ensures text wraps properly */
+    overflow-wrap: break-word; /* Better wrapping support */
+
+}
+
+.contactList-details-table th, .contactList-details-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 12px;
+    white-space: normal; /* Allows text to wrap */
+    word-wrap: break-word; /* Ensures text wraps properly */
+    overflow-wrap: break-word; /* Better wrapping support */
+
+}
+
+.contactList-details-table th {
+    background-color: #f0f4f8;
+    color: #333;
+    font-weight: normal;
+    white-space: normal; /* Allows text to wrap */
+    word-wrap: break-word; /* Ensures text wraps properly */
+    overflow-wrap: break-word; /* Better wrapping support */
+
+}
+
+.contactList-summary-table th, .contactList-summary-table td {
+    font-size: 12px;
+    padding: 5px;
+    overflow-x: auto;
+}
+
+.contactList-summary-table th {
+    text-align: right;
+    color: #555;
+    overflow-x: auto;
+}
+
+.contactList-summary-table td {
+    text-align: right;
+    color: #333;
+    white-space: normal; /* Allows text to wrap */
+    word-wrap: break-word; /* Ensures text wraps properly */
+    overflow-wrap: break-word;
+}
+td {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+}
+@media print {
+    @page {
+        margin: 0.5in !important; /* Sets all margins to 0.1 inch */
+    }
+
+    .contactList-container {
+        box-shadow: none;
+        width: 100%;
+        margin: 0; /* Ensures no additional margin inside the container */
+        padding: 20px 20px;
+        border: none;
+        color: #333;
+        overflow-x: auto;
+    }
+    .contactList-details-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+        white-space: normal; /* Allows text to wrap */
+        word-wrap: break-word; /* Ensures text wraps properly */
+        overflow-wrap: break-word; /* Better wrapping support */
+    }
+    .contactList-footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+    }
+
+    .contactList-page-break {
+        page-break-before: always;
+    }
+    td {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+}
+
+.customerList {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+}
+
+.customerList .container {
+    width: 100%;
+    margin: auto;
+    background-color: #fff;
+    padding: 50px 60px;
+    margin-top: 60px;
+}
+
+.customerList .header {
+    text-align: left;
+}
+
+.customerList .header img {
+    width: 100px;
+    height: 100px;
+}
+
+.customerList .header h1 {
+    font-size: 20px;
+    color: #0073e6;
+    margin-top: 5px;
+}
+
+.customerList .details-table,
+.customerList .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: auto; /* Allow dynamic column width based on content */
+}
+
+.customerList .details-table th,
+.customerList .details-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 12px;
+    white-space: nowrap; /* Prevent text from wrapping, making columns adapt to content */
+}
+
+.customerList .details-table th {
+    background-color: #f0f4f8;
+    color: #333;
+    font-weight: normal;
+}
+
+.customerList .summary-table th,
+.customerList .summary-table td {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.customerList .summary-table th {
+    text-align: right;
+    color: #555;
+}
+
+.customerList .summary-table td {
+    text-align: right;
+    color: #333;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .customerList .container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+
+    .customerList .footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+    }
+
+    .customerList .page-break {
+        page-break-before: always;
+    }
+}
+
+
+.customerMasterList-container {
+    width: 100%;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.customerMasterList-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.customerMasterList-header img {
+    width: 100px;
+    height: auto;
+}
+
+.customerMasterList-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.customerMasterList-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.customerMasterList-details-table th,
+.customerMasterList-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 12px;
+}
+
+.customerMasterList-details-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    text-align: center;
+}
+
+.customerMasterList-summary-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.customerMasterList-summary-table th,
+.customerMasterList-summary-table td {
+    font-size: 12px;
+    padding: 10px;
+    text-align: right;
+}
+
+.customerMasterList-summary-table th {
+    background-color: #f4f4f4;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .customerMasterList-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+
+    .customerMasterList-header {
+        text-align: center;
+    }
+
+    .customerMasterList-details-table th,
+    .customerMasterList-details-table td {
+        border: 1px solid black;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+    }
+
+    .page-break {
+        page-break-before: always;
+    }
+}
+
+
+.customerTransaction-container {
+    width: 100%;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px 20px;
+}
+
+.customerTransaction-header {
+    text-align: left;
+}
+
+.customerTransaction-header img {
+    width: 100px;
+    height: 100px;
+}
+
+.customerTransaction-header h1 {
+    font-size: 20px;
+    color: #0073e6;
+    margin-top: 5px;
+}
+
+.customerTransaction-company-info, .customerTransaction-customer-info {
+    width: 45%;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 20px;
+}
+
+.customerTransaction-customer-info {
+    text-align: right;
+}
+
+.customerTransaction-details-table, .customerTransaction-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.customerTransaction-details-table th, .customerTransaction-details-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 12px;
+}
+
+.customerTransaction-details-table th {
+    background-color: #f0f4f8;
+    color: #333;
+    font-weight: normal;
+}
+
+.customerTransaction-summary-table th, .customerTransaction-summary-table td {
+    font-size: 13px;
+    padding: 10px;
+}
+
+.customerTransaction-summary-table th {
+    width: 70%;
+    text-align: right;
+    color: #555;
+}
+
+.customerTransaction-summary-table td {
+    text-align: right;
+    color: #333;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .customerTransaction-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        padding: 20px 20px;
+    }
+
+    .customerTransaction-footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+    }
+
+    .customerTransaction-page-break {
+        page-break-before: always;
+    }
+}
+
+.salesOrderReport-container {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 10px;
+    border: none; /* No border for container */
+    box-shadow: none; /* No shadow */
+    margin-top: 0px;
+    overflow-x: auto;
+}
+
+.salesOrderReport-table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse table borders */
+    border: none; /* Remove table border */
+}
+
+.salesOrderReport-table th, .salesOrderReport-table td {
+    border: none; /* Remove borders for all table cells */
+    padding: 8px;
+    text-align: left;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.salesOrderReport-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.salesOrderReport-header, .salesOrderReport-footer {
+    text-align: center;
+    font-size: 12px;
+    padding: 5px;
+    color: #666;
+}
+
+.salesOrderReport-report-header th {
+    text-align: center; /* Center the text */
+    border: none; /* Remove the border */
+    padding: 0; /* Remove padding for neatness */
+    font-size: 16px; /* Adjust font size if needed */
+}
+
+.salesOrderReport-report-header h5, .salesOrderReport-report-header h6 {
+    margin: 0; /* Remove margin to keep it compact */
+}
+
+.salesOrderReport-report-header {
+    border: none; /* No border on header row */
+}
+
+@media print {
+    @page {
+        margin: 0.5in 0.5in 0.75in 0.5in;
+    }
+
+    .salesOrderReport-container {
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        margin: 0 auto;
+    }
+
+    .salesOrderReport-table {
+        max-width: 100%;
+        font-size: 10px;
+    }
+
+    .salesOrderReport-table thead {
+        display: table-header-group;
+    }
+
+    .salesOrderReport-table th {
+        page-break-before: always;
+    }
+
+    .salesOrderReport-table tr {
+        page-break-inside: avoid;
+    }
+
+    .salesOrderReport-table tbody {
+        page-break-after: auto;
+    }
+}
+
+.sales-by-business-unit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.sales-by-business-unit-date-container {
+    text-align: right;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.sales-by-business-unit-container {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.sales-by-business-unit-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.sales-by-business-unit-details-table th, .sales-by-business-unit-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.sales-by-business-unit-details-table th {
+    background-color: #dfdfdf;
+    color: black;
+    font-weight: 500;
+}
+
+.sales-by-business-unit-h1, .sales-by-business-unit-h2, .sales-by-business-unit-h3 {
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .sales-by-business-unit-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .sales-by-business-unit-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .sales-by-business-unit-details-table thead {
+        display: table-header-group;
+    }
+
+    .sales-by-business-unit-details-table th {
+        page-break-before: always;
+    }
+
+    .sales-by-business-unit-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .sales-by-business-unit-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .sales-by-business-unit-details-table tbody {
+        page-break-after: auto;
+    }
+}
+
+.sales-by-date-date-container {
+    text-align: right;
+    font-size: 14px;
+}
+
+.sales-by-date-container {
+    width: 100%;
+    margin: 0;
+    background-color: white;
+    padding: 0px;
+    margin-top: 0px;
+    font-family: "Times New Roman";
+    color: black;
+}
+
+.sales-by-date-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0px;
+    font-size: 14px;
+}
+
+.sales-by-date-details-table th, .sales-by-date-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.sales-by-date-details-table th {
+    background-color: white;
+    color: black;
+    font-weight: bolder;
+}
+
+.sales-by-date-details-table thead {
+    display: table-header-group;
+    color: black;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .sales-by-date-container {
+        border: none;
+        width: 100%;
+    }
+
+    .sales-by-date-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .sales-by-date-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .sales-by-date-details-table th {
+        page-break-before: always;
+    }
+
+    .sales-by-date-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .sales-by-date-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .sales-by-date-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+.sales-rep-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.sales-rep-date-container {
+    text-align: right;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.sales-rep-container {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+}
+
+.sales-rep-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0px;
+    font-size: 14px;
+}
+
+.sales-rep-details-table th, .sales-rep-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.sales-rep-details-table th {
+    color: black;
+    font-weight: bolder;
+    font-family: "Times New Roman";
+    font-size: 14px;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .sales-rep-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+
+    .sales-rep-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .sales-rep-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .sales-rep-details-table th {
+        page-break-before: always;
+    }
+
+    .sales-rep-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .sales-rep-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .sales-rep-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+.sales-rep1-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+.sales-rep1-date-container {
+    text-align: right;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.sales-rep1-container {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 0px;
+    margin-top: 0px;
+}
+.sales-rep1-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+}
+.sales-rep1-details-table th, .sales-rep1-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+.sales-rep1-details-table th {
+    color: black;
+    font-weight: bolder;
+    font-size: 14px;
+    font-family: "Times New Roman";
+}
+.sales-rep1-unit-h1, .sales-by-business-unit-h2, .sales-rep1-h3 {
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-align: center;
+}
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+    .sales-rep1-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+}
+.item-sold-container {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+    margin-top: 0px;
+}
+.item-sold-details-table, .item-sold-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    margin-top: 20px;
+    font-size: 14px;
+}
+.item-sold-details-table th, .item-sold-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+.item-sold-details-table th {
+    color: black;
+    font-weight: bolder;
+    font-size: 14px;
+    font-family: "Times New Roman";
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+    .item-sold-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+
+    .item-sold-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .item-sold-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .item-sold-details-table th {
+        page-break-before: always;
+    }
+
+    .item-sold-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .item-sold-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .item-sold-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+.balance-sheet-container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 0px;
+
+}
+
+.balance-sheet-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 0px;
+}
+
+.balance-sheet-details-table th,
+.balance-sheet-details-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.balance-sheet-details-table th {
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+}
+
+.balance-sheet-details-table td {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: black;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+
+@media print {
+    @page {
+        margin: 0.5in;
+    }
+
+    .balance-sheet-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+
+    .balanceSheetTable {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .balanceSheetTable thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .balanceSheetTable-details-table th {
+        page-break-before: always;
+    }
+
+    .balanceSheetTable tr {
+        page-break-inside: avoid;
+
+    }
+
+    .balanceSheetTable tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .balanceSheetTable tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+.ui-button.ui-state-default.excel-button {
+    background-color: #217346;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.ui-button.ui-state-default.excel-button:hover {
+    background-color: #1e653b;
+}
+
+.fa-file-excel {
+    margin-right: 5px;
+}
+
+.cash-flow-container {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.cash-flow-details-table, .cash-flow-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Dynamic column sizing */
+    margin-top: 0px;
+    font-size: 14px;
+}
+
+.cash-flow-details-table th, .cash-flow-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduced padding for flexibility */
+    text-align: left;
+    white-space: nowrap; /* Keeps text on one line */
+}
+
+.cash-flow-details-table th {
+    background-color:black;
+    color:white;
+    font-weight: 500;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+
+    .cash-flow-container {
+        border: none;
+        width: 100%;
+    }
+
+    .cash-flow-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .cash-flow-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .cash-flow-details-table th {
+        page-break-before: always;
+    }
+
+    .cash-flow-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .cash-flow-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .cash-flow-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+
+.income-statment-container {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+
+
+.income-statment-details-table, .income-statment-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Dynamic column sizing */
+    margin-top: 0px;
+    font-size: 14px;
+}
+
+.income-statment-details-table th, .income-statment-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduced padding for flexibility */
+    text-align: center;
+    white-space: nowrap; /* Keeps text on one line */
+}
+
+.income-statment-details-table th {
+    background-color:black;
+    color:white;
+    font-weight: 500;
+}
+
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .income-statment-container {
+        border: none;
+        width: 100%;
+    }
+
+    .icomo-statment-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .icomo-statment-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .icomo-statment-details-table th {
+        page-break-before: always;
+    }
+
+    .icomo-statment-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .icomo-statment-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .icomo-statment-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+
+.income-statemnet-by-peirod-container {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+     margin-top: 0px;
+}
+
+
+
+.income-statemnet-by-peirod-details-table, .income-statemnet-by-peirod-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Dynamic column sizing */
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.income-statemnet-by-peirod-details-table th, .income-statemnet-by-peirod-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduced padding for flexibility */
+    text-align: center;
+    white-space: nowrap; /* Keeps text on one line */
+}
+
+.income-statemnet-by-peirod-details-table th {
+    background-color:black;
+    color:white;
+    font-weight: 500;
+}
+
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .income-statemnet-by-peirod-container {
+        border: none;
+        width: 100%;
+    }
+
+    .income-statemnet-by-peirod-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .income-statemnet-by-peirod-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .income-statemnet-by-peirod-details-table th {
+        page-break-before: always;
+    }
+
+    .income-statemnet-by-peirod-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .income-statemnet-by-peirod-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .income-statemnet-by-peirod-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+
+.retained-earning-container {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+   margin-top: 0px;
+}
+
+.retained-earning-details-table, .retained-earning-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Dynamic column sizing */
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.retained-earning-details-table th, .retained-earning-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduced padding for flexibility */
+    text-align: left;
+    white-space: nowrap; /* Keeps text on one line */
+}
+
+.retained-earning-details-table th {
+    background-color:black;
+    color:white;
+    font-weight: 500;
+}
+
+
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .retained-earning-container {
+        border: none;
+        width: 100%;
+    }
+
+    .retained-earning-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .retained-earning-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .retained-earning-details-table th {
+        page-break-before: always;
+    }
+
+    .retained-earning-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .retained-earning-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .retained-earning-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+
+
+.income-statment-container {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+
+
+.income-statment-details-table, .income-statment-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Dynamic column sizing */
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.income-statment-details-table th, .income-statment-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduced padding for flexibility */
+    text-align: center;
+    white-space: nowrap; /* Keeps text on one line */
+}
+
+.income-statment-details-table th {
+    background-color:black;
+    color:white;
+    font-weight: 500;
+}
+
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .income-statment-container {
+        border: none;
+        width: 100%;
+    }
+
+    .income-statment-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .income-statment-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .income-statment-details-table th {
+        page-break-before: always;
+    }
+
+    .income-statment-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .income-statment-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .income-statment-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+
+.CustomerLedger .container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 0px 0px;
+      margin-top: 0px;
+}
+
+.CustomerLedger .header {
+    text-align: left;
+}
+
+.CustomerLedger .header img {
+    width: 100px;
+    height: 100px;
+}
+
+.CustomerLedger .header h1 {
+    font-size: 20px;
+    color: #0073e6;
+    margin-top: 5px;
+}
+
+.CustomerLedger .company-info,
+.CustomerLedger .customer-info {
+    width: 45%;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 20px;
+}
+
+.CustomerLedger .customer-info {
+    text-align: right;
+}
+
+.CustomerLedger .details-table,
+.CustomerLedger .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.CustomerLedger .details-table th,
+.CustomerLedger .details-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 12px;
+}
+
+.CustomerLedger .details-table th {
+    background-color: #f0f4f8;
+    color: #333;
+    font-weight: normal;
+}
+
+.CustomerLedger .summary-table th,
+.CustomerLedger .summary-table td {
+    font-size: 13px;
+    padding: 10px;
+}
+
+.CustomerLedger .summary-table th {
+    width: 70%;
+    text-align: right;
+    color: #555;
+}
+
+.CustomerLedger .summary-table td {
+    text-align: right;
+    color: #333;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .CustomerLedger .container{
+        border: none;
+        width: 100%;
+    }
+
+    .CustomerLedger .details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .CustomerLedger .details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .CustomerLedger .details-table th {
+        page-break-before: always;
+    }
+
+    .CustomerLedger .details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .CustomerLedger .details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .CustomerLedger .details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+    .CustomerLedger .footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+    }
+
+    .CustomerLedger .page-break {
+        page-break-before: always;
+    }
+}
+
+/* General styles scoped to CustomerLedger */
+.CustomerLedger body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+}
+
+.CustomerLedger .container {
+    width: 100%;
+    max-width: 1100px; /* Adjusted for print */
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+     margin-top: 0px;
+    overflow-x: auto;
+}
+
+.CustomerLedger .table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #333; /* Border around the table */
+}
+
+.CustomerLedger .table th,
+.CustomerLedger .table td {
+    border: 1px solid #ddd; /* Inner cell borders */
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.CustomerLedger .table th {
+    background-color: #f2f2f2;
+    border: 1px solid #999; /* Darker border for headers */
+    font-weight: bold;
+}
+
+.CustomerLedger .total-row td {
+    border-top: 2px solid #333; /* Thicker top border for the totals row */
+    font-weight: bold;
+    text-align: right;
+}
+
+.CustomerLedger .no-border {
+    border: none;
+}
+
+/* Print-specific styles scoped to CustomerLedger */
+@media print {
+    @page {
+        margin: 0.3in; /* Adjust margins to ensure all content fits */
+    }
+
+
+    .CustomerLedger .container {
+        border: none;
+        width: 100%;
+    }
+
+    .CustomerLedger .details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .CustomerLedger .details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .CustomerLedger .details-table th {
+        page-break-before: always;
+    }
+
+    .CustomerLedger .details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .CustomerLedger .details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .CustomerLedger .details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+    .CustomerLedger .table {
+        max-width: 100%;
+        font-size: 10px; /* Optional: reduce font size for more content */
+    }
+}
+
+/* Scoped styles for AgedAgd */
+.AgedAgd body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+}
+
+.AgedAgd .ARAGEcontainer {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+    margin-top: 0px;
+    border-radius: 5px;
+}
+
+.AgedAgd .ARAGEheader {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.AgedAgd .ARAGEheader h1 {
+    font-size: 24px;
+    color: #0073e6;
+}
+
+.AgedAgd .ARAGEheader h2, .AgedAgd .ARAGEheader h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #555;
+}
+
+.AgedAgd .ARAGEdetails-table, .AgedAgd .ARAGEsummary-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.AgedAgd .ARAGEdetails-table th, .AgedAgd .ARAGEdetails-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.AgedAgd .ARAGEdetails-table th {
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: 500;
+}
+
+.AgedAgd .ARAGEfooter {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: #777;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .AgedAgd .ARAGEcontainer {
+        border: none;
+        width: 100%;
+    }
+
+    .AgedAgd .ARAGEdetails-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .AgedAgd .ARAGEdetails-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .AgedAgd .ARAGEdetails-table th {
+        page-break-before: always;
+    }
+
+    .AgedAgd .ARAGEdetails-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .AgedAgd .ARAGEdetails-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .AgedAgd .ARAGEdetails-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+.aged-payable-container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.aged-payable-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.aged-payable-details-table th,
+.aged-payable-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.aged-payable-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.aged-payable-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.aged-payable-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.aged-payable-details-table td {
+    text-align: center;
+}
+
+.aged-payable-details-table td:nth-child(5),
+.aged-payable-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+.aged-payable-details-table tfoot td {
+    font-weight: bold;
+    background-color: #0073e6;
+    color: #fff;
+    text-align: center;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .aged-payable-container {
+        border: none;
+        width: 100%;
+    }
+
+    .aged-payable-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .aged-payable-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .aged-payable-details-table th {
+        page-break-before: always;
+    }
+
+    .aged-payable-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .aged-payable-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .aged-payable-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+.vendor-ledgers-container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 20px;
+     border-radius: 8px;
+}
+
+.vendor-ledgers-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.vendor-ledgers-details-table th,
+.vendor-ledgers-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.vendor-ledgers-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.vendor-ledgers-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.vendor-ledgers-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.vendor-ledgers-details-table td {
+    text-align: center;
+}
+
+.vendor-ledgers-details-table td:nth-child(5),
+.vendor-ledgers-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .vendor-ledgers-container {
+        border: none;
+        width: 100%;
+    }
+    .vendor-ledgers-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .vendor-ledgers-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .vendor-ledgers-details-table th {
+        page-break-before: always;
+    }
+
+    .vendor-ledgers-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .vendor-ledgers-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .vendor-ledgers-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+.aged-payable-container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 0px;
+}
+
+.aged-payable-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.aged-payable-details-table th,
+.aged-payable-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.aged-payable-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.aged-payable-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.aged-payable-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.aged-payable-details-table td {
+    text-align: center;
+}
+
+.aged-payable-details-table td:nth-child(5),
+.aged-payable-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+.aged-payable-details-table tfoot td {
+    font-weight: bold;
+    background-color: #0073e6;
+    color: #fff;
+    text-align: center;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .aged-payable-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .aged-payable-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .aged-payable-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .aged-payable-details-table th {
+        page-break-before: always;
+    }
+
+    .aged-payable-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .aged-payable-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .aged-payable-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+.aged-receivable-container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 0px;
+
+}
+
+.aged-receivable-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.aged-receivable-details-table th,
+.aged-receivable-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.aged-receivable-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.aged-receivable-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.aged-receivable-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.aged-receivable-details-table td {
+    text-align: center;
+}
+
+.aged-receivable-details-table td:nth-child(5),
+.aged-receivable-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+.aged-receivable-details-table tfoot td {
+    font-weight: bold;
+    background-color: #0073e6;
+    color: #fff;
+    text-align: center;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .aged-receivable-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .aged-receivable-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .aged-receivable-details-table-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .aged-receivable-details-table th {
+        page-break-before: always;
+    }
+
+    .aged-receivable-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .aged-receivable-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .aged-receivable-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+
+.Chart-of-Account-container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 0px;
+
+}
+
+.Chart-of-Account-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.Chart-of-Account-details-table th,
+.Chart-of-Account-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.Chart-of-Account-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.Chart-of-Account-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.Chart-of-Account-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.Chart-of-Account-details-table td {
+    text-align: center;
+}
+
+.Chart-of-Account-details-table td:nth-child(5),
+.Chart-of-Account-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .Chart-of-Account-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .Chart-of-Account-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .Chart-of-Account-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .Chart-of-Account-details-table th {
+        page-break-before: always;
+    }
+
+    .Chart-of-Account-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .Chart-of-Account-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .Chart-of-Account-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+.Budget-name-container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 0px;
+
+}
+
+.Budget-name-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.Budget-name-details-table th,
+.Budget-name-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.Budget-name-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.Budget-name-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.Budget-name-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.Budget-name-details-table td {
+    text-align: center;
+}
+
+.Budget-name-details-table td:nth-child(5),
+.Budget-name-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .Budget-name-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .Budget-name-details-table {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .Budget-name-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .Budget-name-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .Budget-name-details-table th {
+        page-break-before: always;
+    }
+
+    .Budget-name-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .Budget-name-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .Budget-name-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+.trial-balance-container {
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    padding: 0px;
+
+    margin-top: 0px;
+}
+.trial-balance-details-table, .trial-balance-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Dynamic column sizing */
+    margin-top: 20px;
+    font-size: 14px;
+}
+.trial-balance-details-table th, .trial-balance-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduced padding for flexibility */
+    text-align: left;
+    white-space: nowrap; /* Keeps text on one line */
+}
+.trial-balance-details-table th {
+    background-color:black;
+    color:white;
+    font-weight: 500;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+    .trial-balance-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .trial-balance-details-table {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .trial-balance-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .trial-balance-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .trial-balance-details-table th {
+        page-break-before: always;
+    }
+
+    .trial-balance-details-table-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .trial-balance-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .trial-balance-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+.general-journal-container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 0px;
+
+}
+
+.general-journal-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.general-journal-details-table th,
+.general-journal-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.general-journal-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.general-journal-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.general-journal-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.general-journal-details-table td {
+    text-align: center;
+}
+
+.general-journal-details-table td:nth-child(5),
+.general-journal-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+.general-journal-details-table tfoot td {
+    font-weight: bold;
+    background-color: #0073e6;
+    color: #fff;
+    text-align: center;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .general-journal-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .general-journal-details-table {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .general-journal-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .general-journal-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .general-journal-details-table th {
+        page-break-before: always;
+    }
+
+    .general-journal-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .general-journal-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .general-journal-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+
+.Chart-of-Account-container {
+    width: 90%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 0px;
+
+}
+
+.Chart-of-Account-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.Chart-of-Account-details-table th,
+.Chart-of-Account-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.Chart-of-Account-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.Chart-of-Account-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.Chart-of-Account-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.Chart-of-Account-details-table td {
+    text-align: center;
+}
+
+.Chart-of-Account-details-table td:nth-child(5),
+.Chart-of-Account-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .Chart-of-Account-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+
+    .Chart-of-Account-details-table {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .Chart-of-Account-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .Chart-of-Account-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .Chart-of-Account-details-table th {
+        page-break-before: always;
+    }
+
+    .Chart-of-Account-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .Chart-of-Account-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .Chart-of-Account-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+
+.general-ledger-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.general-ledger-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.general-ledger-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.general-ledger-details-table td {
+    text-align: center;
+}
+
+.general-ledger-details-table td:nth-child(5),
+.general-ledger-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+.general-ledger-details-table tfoot td {
+    font-weight: bold;
+    background-color: #0073e6;
+    color: #fff;
+    text-align: center;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .general-ledger-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .general-ledger-details-table {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+    .general-ledger-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .general-ledger-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .general-ledger-details-table th {
+        page-break-before: always;
+    }
+
+    .general-ledger-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .general-ledger-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .general-ledger-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+.general-ledger-container {
+    width: 100%;
+    margin: 0px;
+    background-color: #fff;
+    padding: 0px;
+
+}
+
+.general-ledger-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.general-ledger-details-table th,
+.general-ledger-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.general-ledger-details-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.general-ledger-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.general-ledger-details-table tr:hover {
+    background-color: #f0f8ff;
+}
+
+.general-ledger-details-table td {
+    text-align: center;
+}
+
+.general-ledger-details-table td:nth-child(5),
+.general-ledger-details-table td:nth-child(6) {
+    text-align: right; /* Align numeric values to the right */
+}
+
+.general-ledger-details-table tfoot td {
+    font-weight: bold;
+    background-color: #0073e6;
+    color: #fff;
+    text-align: center;
+}
+
+@media print {
+    @page {
+        margin: 0.5in !important;
+    }
+
+    .general-ledger-container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+    }
+
+    .general-ledger-details-table {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .general-ledger-details-table thead {
+        display: table-header-group;
+        color: black;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+
+    .general-ledger-details-table th {
+        page-break-before: always;
+    }
+
+    .general-ledger-details-table tr {
+        page-break-inside: avoid;
+
+    }
+
+    .general-ledger-details-table tr td {
+        page-break-inside: avoid;
+
+    }
+
+    .general-ledger-details-table tbody {
+        page-break-after: auto;
+        color: black;
+    }
+}
+.sticky-toolbar {
+    position: sticky;
+    top: 0; /* Sticks to the top of the viewport */
+    z-index: 10; /* Ensures it stays above other elements */
+    background-color: #f9f9f9; /* Matches the background for seamless appearance */
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for visibility */
+    border-bottom: 1px solid #ddd; /* Optional: a border to separate it from the content */
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between; /* Print button on the left, Export menu on the right */
+    align-items: center; /* Vertically aligns the buttons */
+}
+
+.salesOrderReport-print-button {
+    margin-right: auto;
+}
+.salesOrderReport-print-button1 {
+    display: block;
+    margin: 0 auto;
+}
+.export-button {
+    margin-left: auto;
+}

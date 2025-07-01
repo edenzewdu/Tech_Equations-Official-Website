@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Confirmation</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon.ico']}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-16x16.png']}" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-32x32.png']}" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-96x96.png']}" sizes="96x96"/>
+        <meta name="theme-color" content="#444"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+
+        <style type="text/css">
+            body .load-bar {
+                margin-top: -20px;
+            }
+            /* below css hides growls in small screens and makes messages visible */
+            @media (max-width: 768px) {
+
+                body div.ui-growl {
+                    display: none;
+                }
+
+                body div.ui-messages {
+                    display: block;
+                }
+
+            }
+
+            /* below css hides messages in medium/big devices and makes growl visible in such devices */
+            @media (min-width: 769px) {
+                body div.ui-growl {
+                    display: block;
+                }
+
+                body div.ui-messages {
+                    display: none;
+                }
+            }
+
+            body.login-page {
+                background-color: transparent;
+            }
+
+            html {
+                background: url(#{resource[ 'images:pexels-karolina-grabowska-4491452.jpg' ]}) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+            @media (max-width: 768px) {
+                html {
+                    background-image: url(#{resource[ 'images:login-bg-mobile.jpeg' ]});
+                }
+            }
+            .abt-system{
+                float: left;
+                background: rgba(0,0,0,0.5);
+                padding: 20px;
+                color: #fff;
+
+                font-size: 18px; 
+
+                height: 200%;
+                width: 50%;
+            }
+            .login-box{
+                float: right;
+                margin-right: 300px;
+            }
+        </style>
+    </h:head>
+
+    <h:body styleClass="hold-transition login-page">
+        <p:growl sticky="true" id="growl">
+            <p:autoUpdate/>
+        </p:growl>
+        <div id="loader" class="load-bar" style="display: none">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog" draggable="false" closable="false"
+                  resizable="false" responsive="true" showHeader="false" appendTo="@(body)">
+            <p:graphicImage library="images" name="#{adminConfig.loadingImage}"/>
+        </p:dialog>
+
+        <div class="login-box">
+            <h:form>
+                <p:commandLink actionListener="#{loginView.logout()}" action="/signin">Back to login</p:commandLink>>
+            </h:form>
+            <!-- /.login-logo -->
+            <div class="box login-box-body">
+
+                <h:form>
+                    <p:card>
+                        <p><h3>Please insert confirmation code sent to your email</h3></p>
+                        <p><h3>If you didn't get any confirmation code, please contact your administrator</h3></p>
+                    </p:card><br/>
+                    <h:panelGrid columns="2" styleClass="ui-noborder">
+                        <p:outputLabel for="email">E-Mail:</p:outputLabel>
+                        <p:outputLabel id="email" value="#{loginView.email}"/>
+                        <p:outputLabel for="confirmation">Confirmation: *</p:outputLabel>
+                        <p:password id="confirmation" value="#{loginView.confirmation}"
+                                    required="true" requiredMessage="Please enter confirmation"/>
+
+                        <p:commandButton action="#{loginView.confirm}" styleClass="btn btn-success btn-block" update=":growl"  value="Confirm"/>
+
+                    </h:panelGrid>
+                </h:form>
+                <h:form><br/><br/>
+                    <p:commandButton action="#{loginView.resendConfirmation}" style="width: 120px" styleClass="btn-block btn-primary btn-sm" update=":growl"  value="Re-send confirmation"/>
+
+                </h:form>
+            </div>
+
+        </div>
+        <br />
+        <br />
+        <h:link value="Create new account" outcome="register" />
+    </h:body>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContactsViewDlg" widgetVar="ContactsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContactsTitle}">
+            <h:form id="ContactsViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contactsController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContactsLabel_id}"/>
+                        <h:outputText value="#{contactsController.selected.id}" title="#{bundle.ViewContactsTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewContactsLabel_name}"/>
+                        <h:outputText value="#{contactsController.selected.name}" title="#{bundle.ViewContactsTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewContactsLabel_email}"/>
+                        <h:outputText value="#{contactsController.selected.email}" title="#{bundle.ViewContactsTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewContactsLabel_subject}"/>
+                        <h:outputText value="#{contactsController.selected.subject}" title="#{bundle.ViewContactsTitle_subject}"/>
+                        <h:outputText value="#{bundle.ViewContactsLabel_message}"/>
+                        <h:outputText value="#{contactsController.selected.message}" title="#{bundle.ViewContactsTitle_message}"/>
+                        <h:outputText value="#{bundle.ViewContactsLabel_isRead}"/>
+                        <p:selectBooleanCheckbox value="#{contactsController.selected.isRead}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewContactsLabel_submittedAt}"/>
+                        <h:outputText value="#{contactsController.selected.submittedAt}" title="#{bundle.ViewContactsTitle_submittedAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewContactsLabel_userId}"/>
+                        <h:outputText value="#{contactsController.selected.userId}" title="#{bundle.ViewContactsTitle_userId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ContactsViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

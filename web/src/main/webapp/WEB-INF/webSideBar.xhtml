@@ -1,0 +1,62 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/mirage">
+
+
+    <div class="layout-sidebar">
+        <div class="sidebar-logo">
+            <a href="#" class="sidebar-pin" title="Toggle Menu">
+                <i class="pi pi-unlock"/>
+            </a>
+            <h:form>
+                <p:commandLink action="#{uRLBean.encryptedLink('/inventoryHome.xhtml')}">
+                    <h:panelGrid columns="2" styleClass="ui-noborder">
+                        <p:graphicImage name="images/gg.png" library="mirage-layout" width="100" height="100"/>
+                        <h5><strong>Website</strong></h5>
+                    </h:panelGrid>
+                </p:commandLink>
+            </h:form>
+        </div>
+        <div class="layout-search-container">
+            <!-- Search Form -->
+            <h:form id="searchForm" prependId="false">
+                <p:inputText id="searchInput" placeholder="Search..."
+                             styleClass="ui-inputtext" onkeyup="filterMenu()"/>
+                <p:commandButton icon="pi pi-search" styleClass="ui-button-secondary" onclick="return false;"/>
+            </h:form>
+        </div>
+        <div class="layout-menu-container">
+            <h:form id="menuform">
+                <p:panelMenu styleClass="layout-menu" statefulGlobal="true">
+
+<p:submenu label="Wesites">
+                                <p:menuitem value="Index" outcome="webHome" />
+                            </p:submenu>
+                    
+                </p:panelMenu>
+                <pm:menu>
+
+                </pm:menu>
+            </h:form>
+        </div>
+    </div>
+    <script>
+        function filterMenu() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const menuItems = document.querySelectorAll('.ui-menuitem-link');
+
+            menuItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchInput)) {
+                    item.parentElement.style.display = ''; // Show the item
+                } else {
+                    item.parentElement.style.display = 'none'; // Hide the item
+                }
+            });
+        }
+        </script>
+</ui:composition>
