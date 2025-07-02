@@ -104,15 +104,12 @@ cd Tech_Equations-Official-Website
   ```
 - Update DB credentials in `payara-resources.xml` or via Payara Admin Console.
 
-### 3. Configure Mail (Optional)
-- Configure JavaMail via Payara Admin Console or edit `mail.properties`.
-
-### 4. Build the Project
+### 3. Build the Project
 ```bash
 mvn clean package
 ```
 
-### 5. Deploy to Payara Server
+### 4. Deploy to Payara Server
 - Deploy `target/web.war`:
   - via Payara Admin Console
   - or use:
@@ -120,7 +117,7 @@ mvn clean package
     asadmin deploy target/web.war
     ```
 
-### 6. Access Locally
+### 5. Access Locally
 ```bash
 http://localhost:8080/tech-equations/
 ```
