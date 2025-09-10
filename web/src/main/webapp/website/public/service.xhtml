@@ -516,3 +516,682 @@
     <ui:include src="/website/common/footer.xhtml" />
 </footer>
 </html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Continuous Wavy Layout</title>
+    <script>
+        const container = document.querySelector('.card-container');
+        const wave = document.querySelector('.wave-container');
+        wave.style.height = container.offsetHeight + 'px';
+        function filterCards(button, category) {
+        const container = document.querySelector('.card-container');
+        const cards = container.querySelectorAll('.card');
+
+        // Remove active from all buttons
+        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+        // Add active to clicked button
+        button.classList.add('active');
+
+        // Show/hide cards based on category
+        cards.forEach(card => {
+            if (category === 'All' || card.dataset.category === category) {
+            card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #9597d3, #43b3e0);
+        }
+
+        .service-container{
+            color: white;
+            text-align: center;
+            margin-top: 10%;
+        }
+
+
+        .category-buttons {
+            display: flex;
+            gap: 2%;
+            margin: 5% 15%;
+            flex-wrap: wrap;
+        }
+
+        .category-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 9999px;
+            background: #6c63ff;
+            color: #fff;
+            width: fit-content;
+            margin: 10px 0;
+        }
+
+        .category-item:hover {
+            background-color: gold;
+        }
+
+        .category-item.active {
+            background-color: gold;
+            font-weight: bold;
+            color: #6c63ff;
+        }
+
+        .saas{
+            margin: 5% 15% 0;
+        }
+        .layout {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .two-up-arrows {
+            width: 50px;
+            height: 50px;
+            background: #6c63ff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.3rem;
+            position: relative;
+        }
+        .arrow-1{
+            top: 20px;
+            position: relative;
+        }
+        .arrow-2{
+            bottom: 10px;
+            position: relative;
+        }
+
+        .product-section {
+            background: white;
+            padding: 10% 8%;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            text-align: justify;
+            color: #00000078;
+        }
+
+        .product-title {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .product-subtitle {
+            color: rgba(0, 0, 0, 0.25);
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .toggle-plans-btn {
+            background-color: gold;
+            color: white;
+            border: none;
+            width: 100%;
+            text-align: left;
+            border-radius: 9999px;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-plans-btn:hover {
+            background-color: #6c63ff;
+        }
+
+        .card-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            width: 70%;
+        }
+
+        .card {
+            position: relative;
+            border-radius: 18px;
+            min-height: 120px;
+            padding: 20px 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            overflow: hidden; /* clip content if needed */
+        }
+
+        /* White background layer */
+        .card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 18px;
+            z-index: 0;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px 10px 10px;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #777;
+        }
+
+        .card p {
+            font-weight: 600;
+            margin: 8px 0 0;
+            font-size: 1.2rem;
+            color: #222;
+        }
+
+        .btn {
+            margin-top: 10px;
+            display: inline-block;
+            background: #6c63ff;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #564fd8;
+        }
+
+        /* Continuous wave behind all cards */
+        .wave-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .wave {
+            width: 100%;
+            height: 100%;
+            border-radius: 18px; /* rounded corners */
+            pointer-events: none;
+
+            /* Vertical repeating mask */
+            
+            mask-repeat: repeat-y;
+
+            -webkit-mask-repeat: repeat-y;
+
+            /* Horizontal left-to-right opacity gradient */
+            background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+            -webkit-mask-composite: destination-in; /* ensures mask + gradient combine */
+            mask-composite: intersect;
+        }
+
+        /**/
+
+        /* Container for the pricing section */
+        .pricing {
+            padding: 50px 20px;
+            background: linear-gradient(to bottom, #DDE6EE 0%, #DDE6EE 65%, #183D71 65%, #183D71 100%);
+            font-family: Arial, sans-serif;
+        }
+        .pricing-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .pricing-content h1 {
+            font-family: sans-serif;
+            font-weight: bold;
+            color: black;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: inline;
+
+        }
+
+        .pricing-content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: rgba(0, 0, 0, 0.25);
+            margin: 0 0 8% 0;
+        }
+
+        .pricing-next-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px; /* space between text and icon */
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+        }
+
+        /* Fix PrimeIcons alignment if needed */
+        .pricing-next-button .pi {
+            font-size: 1.2rem;
+            vertical-align: middle;
+        }
+
+        /* Grid container */
+        .grid-parent {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 3%;
+            justify-items: center;
+            justify-content: center;
+            margin-top: 10%;
+        }
+
+        /* Card styling */
+        .pricing-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 20% 10%;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Plan title */
+        .pricing-card-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            padding-left: 20px;
+            color: rgba(0, 0, 0, 0.66);
+            text-align: left;
+        }
+
+        /* Price box */
+        .price-box {
+            text-align: left;
+        }
+
+        .per-month {
+            font-size: 5px;
+            color: rgba(0, 0, 0, 0.2);
+        }
+
+        .price-value {
+            font-size: 1rem;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.98);
+            margin-top: 5px;
+            padding-left: 20px;
+            text-align: left;
+        }
+        .price-value-ETB {
+            font-size: 1rem;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.2);
+            margin-top: 5px;
+            text-align: left;
+        }
+
+        /* Choose button */
+        .button.choose-plan {
+            background-color: #6c63ff;
+            color: #fff;
+            border: none;
+            border-radius: 9999px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            width: 90%;
+            margin: 10px 10px 15px 10px;
+        }
+
+        .button.choose-plan:hover {
+            background-color: #0f2c55;
+        }
+
+        /* Features list */
+        .features-list {
+            list-style: disc;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            font-size: 0.8rem;
+            padding-left: 33px;
+            color: rgba(0, 0, 0, 0.68);
+        }
+
+        .features-list li {
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+
+
+
+        .professional-card .button.choose-plan{
+            background: #FDD105;
+            color: black;
+        }
+
+        /* Highlighted card external border */
+        .professional-card {
+            position: relative;
+            border-radius: 12px;
+            background: #fff;
+            z-index: 0;
+            box-shadow: 0 -50px 0 10px #FDD105, 10px 10px 0 0 #FDD105, -10px 10px 0 0 #FDD105, 0 10px 0 0 #FDD105;
+
+        }
+
+        /* Popular badge on top */
+        .professional-card::before {
+            content: "Popular";
+            position: absolute;
+            top: -40px; /* slightly above the card */
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FDD105;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 12px 12px 0 0;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+
+        /* Card feature styling */
+        .text {
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+
+        /* Button styling */
+        .button {
+            background-color: #183D71;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0f2c55;
+        }
+
+        /* Show More button */
+        .show-more-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .show-more-button {
+            background: none;
+            border: 2px solid #183D71;
+            color: #183D71;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+
+        .show-more-button:hover {
+            background-color: #183D71;
+            color: #fff;
+        }
+
+        .show-more-button svg {
+            fill: #183D71;
+            transition: transform 0.3s;
+        }
+
+        .show-more-button:hover svg {
+            transform: rotate(180deg);
+            fill: #fff;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 1200px) {
+            .grid-parent {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-parent {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+
+        /* Hide cards after the 8th */
+        .grid-parent > .card:nth-child(n+9) {
+            display: none;
+        }
+
+        /* Show More button initially hidden */
+        .show-more-container {
+            display: none;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* If there are more than 8 cards, show the button */
+        .grid-parent > .card:nth-child(n+9) ~ .show-more-container {
+            display: block;
+        }
+
+        /* Show More button styling */
+        .show-more-button {
+            background: none;
+            border: 2px solid #183D71;
+            color: #183D71;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+
+        .show-more-button:hover {
+            background-color: #183D71;
+            color: #fff;
+        }
+
+        .show-more-button svg {
+            fill: #183D71;
+            transition: transform 0.3s;
+        }
+
+        .show-more-button:hover svg {
+            transform: rotate(180deg);
+            fill: #fff;
+        }
+
+        /* Optional: toggle hidden cards when button is clicked (requires minimal JS) */
+        .show-more-button.active ~ .grid-parent > .card:nth-child(n+9) {
+            display: block;
+        }
+
+
+    </style>
+</h:head>
+<h:body>
+    <ui:include src="/website/common/navbar.xhtml" />
+    <div class="service-container">
+        <h2><strong>SORT BY CATEGORY</strong></h2>
+    </div>
+    <div class="category-buttons">
+        <div class="category-item active">All</div>
+        <div class="category-item">Dedicated</div>
+        <div class="category-item">Hosting</div>
+        <div class="category-item">SAAS OR ON-PREMISES</div>
+        <div class="category-item">Website and Android</div>
+        <div class="category-item">VDS</div>
+        <div class="category-item">VPS</div>
+
+    </div>
+
+        <!-- Card content -->
+        <div class="saas">
+            <div class="product-section">
+                <div class="two-up-arrows">
+                    <div class="arrow arrow-1">^</div>
+                    <div class="arrow arrow-2">^</div>
+                </div>
+                <h2 class="product-subtitle">SaaS Or On-Premises</h2>
+                <h1 class="product-title">Savvy Lite Stock</h1>
+
+                <p>
+                    Savvy Lite Stock Management System is a lightweight, user-friendly solution built for small and growing businesses to take full control of their inventory. It simplifies every aspect of stock management, including sales, purchases, and inventory tracking across multiple stores, locations, and LOTs. The system offers automatic reorder alerts, comprehensive reporting, and support for multi-branch operations, helping you reduce errors, save time, and make informed decisions. With real-time visibility and intuitive controls, Savvy Lite ensures your business stays organized, efficient, and always in command—whether you're managing a single shop or a network of branches.
+                </p>
+
+                <h:form>
+                    <h:commandButton value="SHOW MONTHLY PLANS" styleClass="toggle-plans-btn"
+                                     onclick="document.getElementById('plans-container').classList.toggle('visible'); return false;" />
+                </h:form>
+
+            </div>
+        </div>
+
+    <div class="layout">
+
+        <div class="card-container">
+
+            <!-- Continuous wave behind cards -->
+            <div class="wave-container">
+                <svg class="wave" viewBox="0 0 659 4452" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <path d="M628.5 4114C645.069 4114 658.5 4127.43 658.5 4144V4422C658.5 4438.57 645.069 4452 628.5 4452H359.048C339.224 4371.49 323.427 4250.25 335.279 4114H628.5ZM628.5 3740C645.069 3740 658.5 3753.43 658.5 3770V4048C658.5 4064.57 645.069 4078 628.5 4078H339.03C349.993 3987.81 373.518 3892.23 416.104 3798.3C424.959 3778.77 431.704 3759.34 436.577 3740H628.5ZM628.5 3366C645.069 3366 658.5 3379.43 658.5 3396V3674C658.5 3690.57 645.069 3704 628.5 3704H443.558C451.388 3646.87 443.989 3590.55 427.61 3534.92C410.827 3477.91 384.618 3421.65 355.712 3366H628.5ZM628.5 2992C645.069 2992 658.5 3005.43 658.5 3022V3300C658.5 3316.57 645.069 3330 628.5 3330H336.657C327.945 3313.78 319.126 3297.62 310.369 3281.5C265.251 3198.45 221.777 3116.64 203.165 3035.73C199.805 3021.13 197.257 3006.55 195.653 2992H628.5ZM628.5 2618C645.069 2618 658.5 2631.43 658.5 2648V2926C658.5 2942.57 645.069 2956 628.5 2956H193.694C193.891 2902.1 208.708 2848.54 245.146 2795.23C294.424 2723.12 342.311 2666.54 385.784 2618H628.5ZM628.5 2244C645.069 2244 658.5 2257.43 658.5 2274V2552C658.5 2568.57 645.069 2582 628.5 2582H418.413C457.172 2539.56 491.276 2502.6 518.214 2464.78C549.586 2420.73 571.218 2375.54 579.118 2319.21C582.342 2296.23 583.279 2271.38 581.657 2244H628.5ZM628.5 1870C645.069 1870 658.5 1883.43 658.5 1900V2178C658.5 2194.57 645.069 2208 628.5 2208H578.226C574.283 2177.46 567.5 2143.92 557.575 2106.64C534.812 2021.12 500.987 1944.72 465.177 1870H628.5ZM628.5 1496C645.069 1496 658.5 1509.43 658.5 1526V1804C658.5 1820.57 645.069 1834 628.5 1834H447.759C414.679 1766.07 381.16 1698.54 354.152 1625.81C338.836 1584.56 325.614 1541.63 315.749 1496H628.5ZM628.5 1122C645.069 1122 658.5 1135.43 658.5 1152V1430C658.5 1446.57 645.069 1460 628.5 1460H308.786C292.215 1362.95 291.285 1253.28 317.057 1122H628.5ZM628.5 748C645.069 748 658.5 761.431 658.5 778V1056C658.5 1072.57 645.069 1086 628.5 1086H324.676C332.124 1053.15 341.206 1018.98 352.08 983.362C375.912 905.294 381.47 825.972 374.277 748H628.5ZM628.5 374C645.069 374 658.5 387.431 658.5 404V682C658.5 698.569 645.069 712 628.5 712H370.056C353.011 591.895 307.384 475.998 253.73 374H628.5ZM628.5 0C645.069 0 658.5 13.4315 658.5 30V308C658.5 324.569 645.069 338 628.5 338H234.161C233.154 336.205 232.146 334.414 231.136 332.629C178.92 240.407 122.12 161.709 77.9023 104.627C55.7937 76.086 36.8313 52.9493 23.1592 36.2266C16.3245 27.8669 10.8078 21.1045 6.88281 16.0732C4.92073 13.5581 3.35078 11.4693 2.21191 9.82617C1.08654 8.20248 0.343517 6.96184 0.0830078 6.16309C-0.0875109 5.63999 0.011501 5.12818 0.313477 4.66992C0.602479 4.23154 1.07578 3.84092 1.67188 3.48438C2.86703 2.76962 4.7175 2.09779 7.14062 1.45898C9.03872 0.958627 11.3134 0.473154 13.9414 0H628.5Z"
+                          fill="url(#paint0_linear_62_1386)" fill-opacity="0.5"/>
+                    <defs>
+                        <linearGradient id="paint0_linear_62_1386" x1="329.25" y1="0" x2="329.25" y2="4452" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="white"/>
+                            <stop offset="0.217607" stop-color="#B1F8F9"/>
+                            <stop offset="0.472288" stop-color="#D1EFEE"/>
+                            <stop offset="0.809499" stop-color="#7C8ED8"/>
+                            <stop offset="1" stop-color="#CEBB52"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+
+
+            <ui:repeat value="#{servicesController.items}" var="card">
+                <div class="card">
+                    <!-- White background layer -->
+                    <div class="card-bg"></div>
+
+                    <!-- Card content -->
+                    <div class="card-content">
+                        <h3>#{card.name}</h3>
+                        <p>#{card.description}</p>
+                        <a class="btn" href="#">SHOW DETAILS</a>
+                    </div>
+                </div>
+            </ui:repeat>
+
+        </div>
+    </div>
+    <div class="pricing" id="plans-container">
+        <div class="pricing-content">
+            <h1>Choose your</h1>
+            <h1 style="color:rgba(0,0,0,0.14);"> monthly</h1>
+            <h1>plan</h1>
+            <p> Flexible and transparent pricing designed to scale with your business needs.</p>
+
+        </div>
+        <div class="container-pricing">
+            <h:form>
+                <header style="align-items: center; display: flex; justify-content: center;">
+                    <h:panelGrid columns="2" styleClass="header-panel">
+                        <h:commandButton value="#{pricingPlansController.currentFrequency}"
+                                         icon="pi pi-arrow-right"
+                                         action="#{pricingPlansController.nextFrequency}"
+                                         styleClass="ui-button-flat ui-button-plain pricing-next-button"
+                                         update="@form"
+                                         style="color: #fdd105; border: 5px solid rgb(253 209 5); border-radius: 10px; padding: 0; background-color: rgb(24 61 113);"/>
+                    </h:panelGrid>
+                </header>
+                <!-- Grid of pricing cards -->
+                <div class="grid-parent">
+                    <ui:repeat value="#{pricingPlansController.publishedPricingPlansByFrequency}" var="plan" varStatus="status">
+                        <div class="card #{plan.isHighlighted ? 'professional-card' : 'basic-card'}">
+
+                            <!-- Plan Name -->
+                            <h4 class="card-title">#{plan.name}</h4>
+
+                            <!-- Price -->
+                            <div class="price-box">
+                                <span class="price-value">#{plan.price}</span><span class="price-value-ETB">ETB</span>
+                                <span class="per-month"><h:outputLabel value="#{pricingPlansController.currentFrequency}" /></span>
+
+                            </div>
+
+                            <!-- Choose Button -->
+                            <button class="button choose-plan" type="button">Choose Plan</button>
+
+                            <!-- Features List -->
+<!--                            <ul class="features-list">-->
+<!--                                <ui:repeat value="#{fn:split(plan.features, ',')}" var="feature">-->
+<!--                                    <li>#{fn:trim(feature)}</li>-->
+<!--                                </ui:repeat>-->
+<!--                            </ul>-->
+
+                        </div>
+                    </ui:repeat>
+                </div>
+            </h:form>
+        </div>
+    </div>
+
+
+    <footer>
+        <ui:include src="/website/common/footer.xhtml" />
+    </footer>
+</h:body>
+
+</html>
+
